@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="MenuStyle.css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <img src="images/LogoT.png" alt="logo"
+                <img src="MenuImages/LogoT.png" alt="logo"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <span style="display:none; color:#d4af37; font-weight:bold; font-size:1.5rem;">ALUNA</span>
             </a>
@@ -48,7 +48,7 @@
         <!-- Section Gauche : Restaurant -->
         <div class="card" id="card-restaurant" onclick="showSection('food-section')">
             <div class="card-img"
-                style="background-image: url('/images/img1.jpg');height: 490px;width: 780px;margin-top: 100px;">
+                style="background-image: url('MenuImages/img1.jpg');height: 490px;width: 780px;margin-top: 100px;">
             </div>
             <div class="card-text">
                 <h2 class="font-cursive">Cuisine</h2>
@@ -59,7 +59,8 @@
         <!-- Section Centre : Cocktail Bar -->
         <div class="card" id="card-bar" onclick="showSection('drinks-section')">
             <div class="card-img"
-                style="background-image: url('/images/img2.jpg');height: 490px;width: 750px; margin-top: 100px;"></div>
+                style="background-image: url('MenuImages/img2.jpg');height: 490px;width: 750px; margin-top: 100px;">
+            </div>
             <div class="card-text">
                 <h2 class="font-cursive">Boissons</h2>
                 <a href="javascript:void(0)" class="btn-border">EXPLORE</a>
@@ -69,7 +70,7 @@
         <!-- Section Droite : Sallades -->
         <div class="card" id="card-sallades" onclick="showSection('dessert-section')">
             <div class="card-img"
-                style="background-image: url('/images/img3.jpg'); height: 400px;width: 700px; margin-top: 100px;">
+                style="background-image: url('MenuImages/img3.jpg'); height: 400px;width: 700px; margin-top: 100px;">
             </div>
             <div class="card-text">
                 <h2 class="font-cursive">Desserts</h2>
@@ -165,10 +166,11 @@
                     <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
                         l'élégance parisienne.</p>
                     <div class="social-links">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
                                 class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
                     </div>
 
                 </div>
@@ -208,7 +210,7 @@
             </div>
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="MenuScript.js"></script>
 </body>
 
 </html>
