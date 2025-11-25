@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - AROMES DE PARIS</title>
+    <link rel="stylesheet" href="contact.css"> 
+    <link rel="stylesheet" href="accueil.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="accueil.html">
+	        <img src="logo.png" alt="Logo AROMES DE PARIS" class="logo-img">
+	      </a>
+        
+        <ul class="nav-links">
+            <li><a href="accueil.html">Accueil</a></li>
+            <li><a href="#">Réservation</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">A propos</a></li>
+            <li><a href="contact.html" class="btn-contact">Contact</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <div class="contact-page">
+        <div class="contact-card">
+            <h1 class="neon-title">CONTACTEZ-NOUS</h1>
+            <p class="slogan-text">Arômes de Paris : Un voyage gustatif au cœur d’Agadir.</p>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Nom Complet" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Adresse Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" placeholder="Sujet de la demande">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer la Demande</button>
+            </form>
+            
+            <div class="contact-details">
+                <p>📍 Avenue Lahoucine Achengli, imm Mimosa. Agadir, Maroc</p>
+                <p>📞 Téléphone : 0634132531</p>
+                <p>📧 Email : aromesdeparis@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column contact-info">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Aromes de Paris" class="logo-img-footer">
+                </div>
+                <p>Arômes de Paris : Un voyage gustatif au cœur d’Agadir.</p>
+                <p>Email: aromesdeparis@gmail.com</p>
+                <p>Tél: 0634132531</p>
+            </div>
+
+            <div class="footer-column footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="accueil.html">Accueil</a></li>
+                    <li><a href="#">Réservation</a></li>
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">À Propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column social-links">
+                <h4>Suivez-nous</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">FACE</a>
+                    <a href="#" class="social-icon">INSTA</a>
+                    <a href="#" class="social-icon">TRIP</a>
+                </div>
+                <p class="address">📍Avenue Lahoucine Achengli, imm Mimosa. Agadir, Maroc</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Aromes de Paris. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
