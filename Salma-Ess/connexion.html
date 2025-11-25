@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant - Connexion</title>
+    <link rel="stylesheet" href="connexion.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Section gauche avec le formulaire -->
+        <div class="form-section">
+            <!-- Header -->
+            <header class="header">
+                <nav class="nav">
+                    <a href="#" class="nav-link">Accueil</a>
+                    <a href="#" class="nav-link">À propos</a>
+                    <a href="#" class="nav-link">Menu</a>
+                    <a href="#" class="nav-link">Réservation</a>
+                    <a href="#" class="nav-link">Contact</a>
+                </nav>
+            </header>
+
+            <!-- Contenu du formulaire -->
+            <div class="form-content">
+                <!-- Formulaire de connexion -->
+                <div class="form-container active-form" id="login-form">
+                    <div class="form-header">
+                        <h1 class="form-title">Se Connecter</h1>
+                        <p class="form-subtitle">Bonjour, Cher Client!</p>
+                    </div>
+                    
+                    <form class="form">
+                        <div class="input-group">
+                            <input type="email" placeholder="Votre email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Mot de passe" required>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Se Connecter</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+
+                    <div class="form-footer">
+                        <p>Vous n'avez pas de compte ?</p>
+                        <button class="switch-btn" id="switch-to-signup">Créer un compte</button>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'inscription -->
+                <div class="form-container hidden-form" id="signup-form">
+                    <div class="form-header">
+                        <h1 class="create-account-main-title">Créer un Compte</h1>
+                        <h2 class="form-title">Rejoignez notre famille!</h2>
+                    </div>
+                    
+                    <form class="form">
+                        <div class="input-group">
+                            <input type="text" placeholder="Nom complet" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Mot de passe" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Confirmer le mot de passe" required>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">S'inscrire</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+
+                    <div class="form-footer">
+                        <p>Vous avez déjà un compte ?</p>
+                        <button class="switch-btn" id="switch-to-login">Se connecter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section droite avec le logo du restaurant -->
+        <div class="logo-section">
+            <div class="logo-content">
+                <div class="restaurant-logo">
+                    <div class="logo-circle">
+                        <img src="logo_avec_bak-removebg-preview.png" alt="Arômes de Paris" class="logo-image">
+                    </div>
+                </div>
+                <h2 class="restaurant-name">Arômes de Paris</h2>
+                <p class="restaurant-slogan">Une expérience culinaire exceptionnelle</p>
+                <div class="brand-divider"></div>
+                <p class="brand-message">Savourez chaque moment de votre visite</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="connexion.js"></script>
+</body>
+</html>
