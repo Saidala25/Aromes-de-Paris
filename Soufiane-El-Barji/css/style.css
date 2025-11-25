@@ -1,0 +1,746 @@
+/* =========================================
+   1. RESET & VARIABLES
+   ========================================= */
+:root {
+    /* Colors */
+    --color-bg: #0a0a0a;
+    --color-bg-alt: #121212;
+    --color-text-main: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-gold: #d4af37;
+    --color-gold-hover: #b59020;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-green-dark: #1a472a; /* Branding Green */
+
+    /* Typography */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Montserrat', sans-serif;
+
+    /* Spacing */
+    --container-width: 1280px;
+    --section-padding: 6rem 2rem;
+    --header-height: 80px;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent scrolling while loading */
+body.loading {
+    overflow: hidden;
+}
+
+/* =========================================
+   2. UTILITIES & LAYOUT
+   ========================================= */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+.section {
+    padding: var(--section-padding);
+}
+
+.section-alt {
+    background-color: var(--color-bg-alt);
+}
+
+.text-center { text-align: center; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.15em; }
+.text-gold { color: var(--color-gold); }
+.text-gradient {
+    background: linear-gradient(90deg, #fff, var(--color-gold));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* =========================================
+   3. TYPOGRAPHY
+   ========================================= */
+h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: clamp(3rem, 5vw, 5.5rem); }
+h2 { font-size: clamp(2.5rem, 4vw, 4rem); }
+h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+blockquote {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--color-white);
+    border-left: 3px solid var(--color-gold);
+    padding-left: 2rem;
+    margin: 2rem 0;
+}
+
+/* =========================================
+   4. NAVIGATION
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1000;
+    transition: all 0.4s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    opacity: 0; /* Hidden initially for loader */
+    animation: fadeInNav 1s forwards;
+    animation-delay: 5s; /* Wait for entire loader sequence */
+}
+
+@keyframes fadeInNav {
+    to { opacity: 1; }
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    height: 70px;
+}
+
+.navbar .container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: var(--color-white);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--color-gold);
+}
+
+.btn-reserve {
+    border: 1px solid var(--color-gold);
+    padding: 0.8rem 1.5rem;
+    color: var(--color-gold) !important;
+}
+
+.btn-reserve:hover {
+    background: var(--color-gold);
+    color: var(--color-black) !important;
+}
+
+/* Mobile Menu */
+.mobile-toggle {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* =========================================
+   5. BUTTONS & UI
+   ========================================= */
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-gold);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.btn-primary:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-primary:hover {
+    border-color: var(--color-gold);
+    color: var(--color-black);
+}
+
+/* =========================================
+   6. SECTIONS & IMAGES
+   ========================================= */
+/* Hero */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.6;
+    transform: translateY(0);
+    will-change: transform;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+    40% {transform: translateY(-10px) translateX(-50%);}
+    60% {transform: translateY(-5px) translateX(-50%);}
+}
+
+/* --- IMAGE REVEAL WRAPPER FIX --- */
+.image-reveal-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 550px; /* Fixed height for consistency */
+    border-radius: 4px;
+}
+
+.image-reveal-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ESSENTIAL: This crops the image to fill the box */
+    transform: scale(1.2);
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    filter: grayscale(100%);
+}
+
+/* Alignment fixes for specific images */
+.image-reveal-wrapper img.portrait-align {
+    object-position: top center; /* Focus on face for portrait */
+}
+
+.image-reveal-wrapper img.landscape-align {
+    object-position: center center; /* Focus on center for group/landscape */
+}
+
+.image-reveal-wrapper:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 500px;
+}
+
+.menu-item {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    opacity: 0.7;
+}
+
+.menu-item:hover img {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.menu-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.menu-item:hover .menu-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: opacity 0.3s;
+}
+
+.gallery-grid img:hover {
+    opacity: 0.8;
+}
+
+/* =========================================
+   7. UPDATED TESTIMONIAL CAROUSEL
+   ========================================= */
+.testimonial-slider-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1400px; /* Wider to show side items */
+    margin: 0 auto;
+    overflow: hidden; /* Hides the off-screen items */
+    padding: 50px 0;
+}
+
+.testimonial-track {
+    display: flex;
+    align-items: center;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth slide */
+    width: 100%;
+}
+
+.testimonial-card {
+    flex: 0 0 40%; /* Each card takes 40% of view (allows 3 to show) */
+    max-width: 600px;
+    margin: 0 2%; /* Gap between cards */
+    padding: 2.5rem;
+    background: var(--color-bg-alt);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    text-align: center;
+    
+    /* Transition for the Active/Inactive state */
+    transition: all 0.7s ease;
+    opacity: 0.4; /* Default faded state (the sides) */
+    transform: scale(0.9); /* Default smaller state */
+    filter: blur(1px);
+}
+
+/* The Active Middle Card */
+.testimonial-card.active {
+    opacity: 1; /* Fully visible */
+    transform: scale(1.05); /* Slightly bigger */
+    filter: blur(0);
+    border-color: var(--color-gold);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.testimonial-card blockquote {
+    font-size: 1.3rem;
+    margin: 0 0 1.5rem 0;
+    border: none;
+    padding: 0;
+    color: var(--color-white);
+    line-height: 1.5;
+}
+
+.testimonial-card .client-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.testimonial-card .client-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-gold);
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-card .review-source {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: var(--color-gold);
+    transform: scale(1.2);
+}
+
+/* Mobile Adjustments for Carousel */
+@media (max-width: 768px) {
+    .testimonial-card {
+        flex: 0 0 85%; /* Show mostly one card on mobile */
+        margin: 0 7.5%;
+    }
+}
+
+
+/* =========================================
+   8. FOOTER
+   ========================================= */
+footer {
+    background-color: var(--color-black);
+    padding: 5rem 0 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.footer-grid ul { list-style: none; }
+.footer-grid li { margin-bottom: 0.8rem; }
+.footer-grid a { color: #888; text-decoration: none; transition: color 0.3s; }
+.footer-grid a:hover { color: var(--color-gold); }
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: white;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--color-gold);
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+
+/* =========================================
+   9. ANIMATION CLASSES
+   ========================================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* =========================================
+   10. LOADER & REVEAL ANIMATION (Updated)
+   ========================================= */
+#page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Main loader removal handled via JS/Wipe timing */
+    animation: hideLoader 0.1s forwards;
+    animation-delay: 6s; /* Cleanup after all animations */
+    pointer-events: none;
+}
+
+.loader-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10000; /* Above wipes initially */
+    animation: zoomToNav 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    animation-delay: 2.8s;
+}
+
+.loader-icon {
+    width: 200px;
+    height: 100%;
+    opacity: 0;
+    animation: iconAppear 0.8s ease forwards;
+}
+
+.loader-text-mask {
+    overflow: hidden;
+    width: 0;
+    margin-left: 0;
+    opacity: 0;
+    animation: textSlideOut 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation-delay: 0.8s;
+}
+
+.loader-text {
+    height: 200px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+/* WIPES */
+.reveal-wipe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(100%); /* Start below screen */
+    z-index: 9990;
+}
+
+.wipe-green {
+    background-color: var(--color-green-dark);
+    z-index: 9996;
+    animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
+    animation-delay: 3.5s; /* Starts after logo moves */
+}
+
+.wipe-gold {
+    background-color: var(--color-gold);
+    z-index: 9997;
+    animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
+    animation-delay: 3.7s; /* Slightly delayed after green */
+}
+
+/* KEYFRAMES */
+@keyframes iconAppear {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes textSlideOut {
+    0% { width: 0; opacity: 0; margin-left: 0; }
+    100% { width: 200px; opacity: 1; margin-left: 20px; }
+}
+
+@keyframes zoomToNav {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { 
+        /* Move roughly to top-left where navbar logo is */
+        transform: translate(-35vw, -45vh) scale(0.4); 
+        opacity: 0; /* Fade out as it arrives */
+    }
+}
+
+@keyframes slideUpCover {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0%); }
+}
+
+@keyframes slideUpReveal {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes hideLoader {
+    to { visibility: hidden; width: 0; height: 0; }
+}
+
+/* =========================================
+   11. MEDIA QUERIES
+   ========================================= */
+@media (max-width: 992px) {
+    .grid-2 { grid-template-columns: 1fr; gap: 3rem; }
+    .menu-grid { grid-template-columns: 1fr 1fr; height: auto; }
+    .menu-item { height: 350px; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 3rem; }
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .section { padding: 4rem 1.5rem; }
+    
+    /* Simplified mobile loader */
+    @keyframes zoomToNav {
+        100% { transform: scale(0.8); opacity: 0; }
+    }
+}
+
+/* =========================================
+   12. Scrollbar Styling
+   ========================================= */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-bg-alt);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-gold);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-hover);
+}
+
+/* =========================================
+   13. ADDITIONAL STYLES
+   ========================================= */
+
+.loader-strip {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    z-index: 9998;
+}
+.strip-green {
+    background-color: var(--color-green-dark);
+}
+.strip-gold {
+    background-color: var(--color-gold);
+}
+
+/* Hide strips on inner pages */
+body:not(.loading) .loader-strip {
+    display: none;
+}
+
+/* Adjust loader content for smaller screens */
+@media (max-width: 480px) {
+    .loader-icon {
+        width: 150px;
+    }
+    .loader-text {
+        height: 150px;
+    }
+}
