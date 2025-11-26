@@ -1,0 +1,446 @@
+
+
+/* Reset & base */
+*{ box-sizing:border-box;
+  margin:0;padding:0;
+}
+html,body{height:100%}
+body{
+  font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background: #b6923f;
+  color:#e8d9c0;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Sidebar */
+.sidebar{
+  position:fixed;left:0;top:0;width:110px;height:100vh;
+  background:#194238;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:22px 8px;border-right:1px solid rgba(255,255,255,0.03);
+}
+.sidebar .logo{width:100%;height:auto; display: block;  }
+.side-title{
+  writing-mode:vertical-rl;text-orientation:upright;transform:rotate(180deg);
+  color:#d9cda6;letter-spacing:4px;font-weight:600;font-size:12px;text-align:center;
+  
+}
+.socials img{width:26px;opacity:0.95;margin:8px 0}
+
+/* Topbar / nav */
+.topbar{  margin-left:110px;
+          width:calc(100% - 110px);
+          position:sticky;top:0;
+          z-index:40; 
+}
+
+/* --- Effet hover --- */
+.topbar .nav ul li a:hover {
+    color: #d4af37;
+    /* doré */
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Lien actif --- */
+.topbar .nav ul li a.active {
+    color: #d4af37;
+    border-bottom: 2px solid #d4af37;
+}
+.nav { background:#162b26;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03) }
+.nav ul{list-style:none;display:flex;gap:30px;justify-content:center;align-items:center}
+.nav a{color:#e8d9c0;text-decoration:none;font-weight:600;letter-spacing:1px;padding:6px 10px;}
+.nav a.active, .nav a:hover{color:#ffd24d ; transform: translateY(-1px);}
+/* Hero */
+.main .hero{ display:flex;
+            margin-left:110px;
+              height:520px ;
+}
+.hero-inner{flex:1;
+            padding:90px 60px;
+            background:linear-gradient(135deg,#b6923f 0%,#b6923f 100%);
+            color:#070707;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            gap:16px;
+}
+.hero-inner h1{   font-family:'Playfair Display',serif;
+                  font-size:48px;
+                  line-height:1;
+}
+.hero-inner p{  max-width:620px;
+                opacity:0.95;
+              }
+.btn{   display:inline-block;
+        background:#194238;
+        color:#b6923f;
+        padding:10px 18px;
+        border-radius:6px;
+        text-decoration:none;
+        font-weight:700;
+}
+.btn.small{   padding:6px 10px;
+              font-size:14px;
+            }
+
+/* hero side image */
+.hero-side{   width:420px;
+              overflow:hidden;
+                }
+.hero-side img{ width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+}
+
+/* Cards */
+.cards{margin-left:110px;
+      display:flex;
+      gap:20px;
+      justify-content:center;
+      padding:36px 30px;
+      background-color: #b6923f;
+      
+}
+.card{  background:#fff;
+        color:#111;
+        padding:20px;
+        border-radius:8px;
+        width:260px;
+        text-align:center;
+      
+}
+.card h3{margin-bottom:8px}
+
+/* Promo */
+.promo{ margin-left:110px;
+        padding:36px;
+        text-align:center;
+        margin-top:30px;
+        background-origin: padding-box;
+        background-color: #b6923f;
+       
+}
+.back{
+  background-color: #b6923f;
+}
+.promo h2{color:#ffd24d}
+.side-title{
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  transform: rotate(0deg); /* inverse l'ordre */
+}
+/* cards et promo*/
+.cards_promo{
+   background-image: url('/assets/cards.jpg');
+}
+
+/* Form */
+
+.form-container{margin-left:110px;
+                padding:60px;display:flex;
+                justify-content:center;
+                border: solid; 
+               
+                flex: left;
+
+
+
+}
+.booking-form{  background:#f59e0b;
+                color:#e8d9c0;
+                padding:30px;
+                border-radius:8px;
+                width:420px;
+}
+.booking-form h2{margin-bottom:18px}
+.booking-form label{  display:block;
+                      margin-bottom:10px;
+                      font-size:14px;
+                    }
+.booking-form input,.booking-form select{
+                                          width:100%;
+                                          padding:8px;
+                                          border-radius:6px;
+                                          border:1px solid black;
+                                          margin-top:6px;
+                                          background:#f59e0b;
+                                          color:#fff;
+}
+
+/* ===== FORMULAIRE LUXE RESTAURANT ===== */
+
+.booking-form{
+  background: linear-gradient(145deg, #194238, #102b24);
+  padding: 35px;
+  border-radius: 16px;
+  width: 440px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(221,198,112,0.3);
+  animation: formAppear 1s ease;
+}
+
+.booking-form h2{
+  color: #ddc670;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+}
+
+.booking-form label{
+  color: #b6923f;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display:block;
+}
+
+.booking-form input,
+.booking-form select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(182,146,63,0.3);
+  background: rgba(0,0,0,0.4);
+  color:#ddc670;
+  font-size:15px;
+  transition:0.3s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus{
+  outline:none;
+  border-color:#ddc670;
+  box-shadow:0 0 0 2px rgba(221,198,112,0.2);
+  transform: scale(1.02);
+}
+
+/* BUTTON RESERVER */
+.booking-form button{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  background: linear-gradient(135deg,#b6923f,#ddc670);
+  color:#194238;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:0.4s ease;
+}
+
+.booking-form button:hover{
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Animation */
+@keyframes formAppear{
+  from{
+    opacity:0;
+    transform: translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* Footer */
+/* ================= FOOTER RESTAURANT PRO ================= */
+
+.footer {
+  margin-left:110px;
+  background: linear-gradient(135deg, #194238, #0f2e28);
+  color: #ddc670;
+  padding: 60px 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  animation: fadeUp 1s ease forwards;
+}
+
+.footer-left, .footer-right {
+  width: 50%;
+}
+
+/* Titles */
+.footer h2 {
+  color: #b6923f;
+  margin-bottom: 15px;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+/* Texte */
+.footer p, .footer a {
+  color: #ddc670;
+  line-height: 1.7;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* Hover link */
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Hours grid */
+.hours-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Contact form in footer */
+.footer-form {
+  margin-top: 15px;
+}
+
+.footer-form input,
+.footer-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  background: #ddc670;
+  color: #194238;
+  transition: all 0.3s ease;
+}
+
+.footer-form input:focus,
+.footer-form textarea:focus {
+  outline: none;
+  transform: scale(1.02);
+}
+
+/* Button */
+.footer-form button {
+  background: #b6923f;
+  color: #194238;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.footer-form button:hover {
+  background: #ddc670;
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Bottom */
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .footer {
+    flex-direction: column;
+  }
+  .footer-left, .footer-right {
+    width: 100%;
+  }
+}
+
+/* ===== FOOTER FORM ULTRA PRO ===== */
+
+.footer form{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  position:relative;
+  animation: fadeFooter 1s ease;
+}
+
+.footer .input-group{
+  position:relative;
+}
+
+.footer .input-group i{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#194238;
+  font-size:16px;
+  opacity:0.7;
+}
+
+.footer form input{
+  width:280px;
+  padding:14px 18px 14px 42px;
+  border-radius:50px;
+  border:1px solid rgba(25,66,56,0.4);
+  background:rgba(255,255,255,0.65);
+  backdrop-filter: blur(8px);
+  color:#194238;
+  font-size:14px;
+  transition:0.4s ease;
+}
+
+.footer form input:focus{
+  outline:none;
+  box-shadow:0 0 12px rgba(182,146,63,0.6);
+  transform:scale(1.03);
+}
+
+.footer form button{
+  padding:14px 28px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#b6923f,#ddc670);
+  color:#194238;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:0.4s ease;
+}
+
+.footer form button:hover{
+  transform:translateY(-3px) scale(1.06);
+  box-shadow:0 12px 30px rgba(0,0,0,0.4);
+}
+
+/* message success */
+.success-msg{
+  display:none;
+  margin-top:15px;
+  color:#194238;
+  font-weight:600;
+  animation: fadeFooter 0.8s ease;
+}
+
+/* animation */
+@keyframes fadeFooter{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.black-bar {
+  height: 40px;
+  background: linear-gradient(135deg, #b6923f, #ddc670);
+}

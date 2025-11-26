@@ -1,0 +1,25 @@
+/* Responsive adjustments */
+@media (max-width: 980px) {
+  .sidebar{width:80px}
+  .topbar{margin-left:80px;width:calc(100% - 80px)}
+  .hero-side{width:320px}
+  .main .hero{height:auto;flex-direction:column}
+  .menu-right{display:none}
+  .menu-left{padding:40px}
+  .cards{flex-direction:column;align-items:center;padding:20px}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width: 640px) {
+  .sidebar{position:relative;width:100%;height:auto;flex-direction:row;padding:10px;justify-content:space-between}
+  .side-title{writing-mode:horizontal-tb;transform:none;margin-left:10px;font-size:13px}
+  .topbar{margin-left:0;width:100%}
+  .nav ul{gap:12px;flex-wrap:wrap;justify-content:center}
+  .hero-inner{padding:28px}
+  .hero-side{height:200px}
+  .gallery-grid{grid-template-columns:repeat(1,1fr)}
+  .menu-left{padding:24px;width:100%}
+  .two-col{flex-direction:column}
+  .menu-right img{height:300px;object-fit:cover}
+  .btn{padding:8px 12px}
+}
