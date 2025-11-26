@@ -181,7 +181,7 @@ body {
     /* Reduced scale slightly from default (was implicitly 1) or previous 1.2 to better fit content */
     transform: skewX(10deg) scale(1.15);
     transition: transform 0.8s ease, filter 0.6s ease;
-    filter: brightness(0.7);
+    filter: brightness(0.99);
     /* Sombre par défaut pour lisibilité texte */
 }
 
@@ -953,7 +953,7 @@ body {
 
 .gold-text {
     color: #d4af37;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 .footer-desc {
