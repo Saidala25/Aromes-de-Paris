@@ -1,0 +1,150 @@
+/* Reservation Page Specific Styles */
+
+/* Hero */
+.reservation-hero {
+  position: relative;
+  height: 60vh;
+  background-image: url('../assets/Sections/Reservation-Hero.jpg');
+  /* Ensure this image exists or use a placeholder */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 80px;
+  /* Navbar height */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #d4af37;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.hero-content p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #ddd;
+}
+
+/* Form Container */
+.form-container {
+  padding: 80px 20px;
+  background-color: #050505;
+  background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== FORMULAIRE LUXE RESTAURANT ===== */
+.booking-form {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 50px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.booking-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.booking-form h2 {
+  color: #d4af37;
+  text-align: center;
+  margin-bottom: 40px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.booking-form label {
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  margin-bottom: 10px;
+  display: block;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 0;
+  border: 1px solid #333;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  outline: none;
+  border-color: #d4af37;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+/* BUTTON RESERVER */
+.booking-form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #d4af37;
+  border-radius: 0;
+  background: transparent;
+  color: #d4af37;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  text-transform: uppercase;
+}
+
+.booking-form button:hover {
+  background: #d4af37;
+  color: #000;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+  transform: translateY(-3px);
+}

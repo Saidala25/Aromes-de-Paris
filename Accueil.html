@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="src/assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Arômes de Paris | Restaurant & Café</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="src/css/AccueilStyle.css">
+    <link rel="stylesheet" href="src/css/style.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="loading">
+
+    <!-- LOADING SCREEN -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <img src="src/assets/Logos/Logo-Icon.png" alt="Icon" class="loader-icon">
+            <div class="loader-text-mask">
+                <img src="src/assets/Logos/Logo-Text.png" alt="Arômes de Paris" class="loader-text">
+            </div>
+        </div>
+
+        <!-- Wipe Layers for Reveal Animation -->
+        <div class="reveal-wipe wipe-green"></div>
+        <div class="reveal-wipe wipe-gold"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="Accueil.html" class="logo">
+                <img src="src/assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="Accueil.html" class="click">Accueil</a></li>
+                <li><a href="src/apropos.html">À propos</a></li>
+                <li><a href="src/menu.html">Menu</a></li>
+                <li><a href="src/contact.html">Contact</a></li>
+                <li><a href="src/reservation.html">Réservation</a></li>
+                <li><a href="src/connexion.html" class="btn-reserve">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <img src="src/assets/Images/Backgrounds/Accueil-Background.jpg" alt="Background" class="hero-bg">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1 class="reveal">L'Élégance <span class="text-gradient">Française</span></h1>
+            <p class="reveal reveal-delay-1">Une symphonie de saveurs au cœur d'Agadir.</p>
+            <div class="reveal reveal-delay-2">
+                <a href="src/reservation.html" class="btn-primary">Réserver une table</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <i data-lucide="arrow-down" color="white" size="32"></i>
+        </div>
+    </header>
+
+    <main>
+        <!-- History Section -->
+        <section class="section">
+            <div class="container">
+                <div class="grid-2">
+                    <div class="text-content">
+                        <h4 class="text-uppercase text-gold reveal">Découverte</h4>
+                        <h2 class="reveal reveal-delay-1">Notre Histoire</h2>
+                        <p class="reveal reveal-delay-2">
+                            Plongez dans l'univers d'Arômes de Paris. Chaque plat raconte une histoire de passion et de
+                            tradition culinaire française, revisitée avec des produits locaux d'exception.
+                        </p>
+                        <a href="src/apropos.html" class="reveal reveal-delay-3"
+                            style="color: var(--color-gold); text-decoration: none; border-bottom: 1px solid;">En savoir
+                            plus</a>
+                    </div>
+                    <div class="image-reveal-wrapper reveal landscape-align">
+                        <!-- Using landscape alignment for general interior shots if needed, or default -->
+                        <img src="src/assets/Images/Sections/History-2.png" alt="Restaurant 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chef Section -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="grid-2">
+                    <!-- Added 'portrait-align' class to handle the Chef's portrait image -->
+                    <div class="image-reveal-wrapper reveal">
+                        <img src="src/assets/Images/Team/chef_Abderrahman.jpg" class="portrait-align"
+                            alt="Chef Abderrahman Garouaz">
+                    </div>
+                    <div class="text-content">
+                        <h2 class="reveal">Le Mot du Chef</h2>
+                        <blockquote class="reveal reveal-delay-1">
+                            "Chaque plat est pour moi une œuvre à part entière, où la saveur et l'esthétique se mêlent
+                            harmonieusement."
+                        </blockquote>
+                        <div class="reveal reveal-delay-2">
+                            <h4 class="text-gold">Abderrahman Garouaz</h4>
+                            <p style="font-size: 0.9rem; margin: 0;">Chef de Cuisine</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Grid -->
+        <section class="section" id="menu">
+            <div class="container section-header text-center">
+                <h2 class="reveal">Nos Spécialités</h2>
+                <p class="reveal reveal-delay-1">Une sélection de nos meilleurs plats</p>
+            </div>
+            
+            <div class="menu-grid">
+                <!-- Item 1 -->
+                <div class="menu-item reveal">
+                    <img src="src/assets/Images/Plates/Plat-1.png" alt="Plat 1">
+                </div>
+                <!-- Item 2 -->
+                <div class="menu-item reveal reveal-delay-1">
+                    <img src="src/assets/Images/Plates/Plat-2.png" alt="Plat 2">
+                </div>
+                <!-- Item 3 -->
+                <div class="menu-item reveal reveal-delay-2">
+                    <img src="src/assets/Images/Plates/Plat-5.png" alt="Plat 3">
+                </div>
+                <!-- Item 4 -->
+                <div class="menu-item reveal reveal-delay-3">
+                    <img src="src/assets/Images/Plates/Plat-6.png" alt="Plat 4">
+                </div>
+            </div>
+            
+            <div class="text-center section">
+                <a href="src/menu.html" class="btn-primary">Voir le Menu Complet</a>
+            </div>
+        </section>
+
+        <!-- Decor Gallery -->
+        <section class="section section-alt">
+            <div class="container text-center section-header">
+                <h2 class="reveal">Ambiance</h2>
+            </div>
+            <div class="container gallery-grid">
+                <div class="reveal"><img src="src/assets/Images/Galerie/Galerie-1.png" alt="Galerie-1"></div>
+                <div class="reveal reveal-delay-1"><img src="src/assets/Images/Galerie/Galerie-2.png" alt="Galerie-2">
+                </div>
+                <div class="reveal reveal-delay-2"><img src="src/assets/Images/Galerie/Galerie-3.png" alt="Galerie-3">
+                </div>
+                <div class="reveal"><img src="src/assets/Images/Galerie/Galerie-4.png" alt="Galerie-4"></div>
+                <div class="reveal reveal-delay-1"><img src="src/assets/Images/Galerie/Galerie-5.png" alt="Galerie-5">
+                </div>
+                <div class="reveal reveal-delay-2"><img src="src/assets/Images/Galerie/Galerie-6.png" alt="Galerie-6">
+                </div>
+                <div class="reveal"><img src="src/assets/Images/Galerie/Galerie-7.png" alt="Galerie-7"></div>
+                <div class="reveal reveal-delay-1"><img src="src/assets/Images/Galerie/Galerie-8.png" alt="Galerie-8">
+                </div>
+                <div class="reveal reveal-delay-2"><img src="src/assets/Images/Galerie/Galerie-9.png" alt="Galerie-9">
+                </div>
+                <div class="reveal"><img src="src/assets/Images/Galerie/Galerie-10.png" alt="Galerie-10"></div>
+                <div class="reveal reveal-delay-1"><img src="src/assets/Images/Galerie/Galerie-11.png" alt="Galerie-11">
+                </div>
+                <div class="reveal reveal-delay-2"><img src="src/assets/Images/Galerie/Galerie-12.png" alt="Galerie-12">
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section">
+            <div class="container text-center">
+                <h4 class="text-uppercase text-gold reveal">Témoignages</h4>
+                <h2 class="reveal reveal-delay-1" style="margin-bottom: 3rem;">Ils parlent de nous</h2>
+
+                <!-- New Carousel Wrapper -->
+                <div class="testimonial-slider-wrapper reveal reveal-delay-2">
+                    <div class="testimonial-track">
+                        <!-- Items injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Visual Pagination -->
+                <div class="testimonial-dots"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-luxe">
+        <div class="footer-top">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <h2 class="footer-logo">
+                        <span class="gold-text">Arômes</span><br>
+                        <span class="gold-text">de Paris</span>
+                    </h2>
+                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
+                        l'élégance parisienne.</p>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="Accueil.html">Accueil</a></li>
+                        <li><a href="src/apropos.html">À propos</a></li>
+                        <li><a href="src/menu.html">Menu</a></li>
+                        <li><a href="src/contact.html">Contact</a></li>
+                        <li><a href="src/reservation.html">Réservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Nous Trouver</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
+                        <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul>
+                        <li>Lundi - Vendredi <span>12h - 23h</span></li>
+                        <li>Samedi - Dimanche <span>10h - 00h</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="src/js/AccueilScript.js"></script>
+    <script src="src/js/MenuScript.js"></script>
+</body>
+
+</html>

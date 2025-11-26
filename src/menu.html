@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Notre Menu - Arômes de Paris</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/MenuStyle.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../Accueil.html" class="logo">
+                <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="../Accueil.html">Accueil</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="connexion.html">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Cards Section (Split Diagonal) -->
+        <div class="hero">
+            <!-- Cuisine Card -->
+            <div class="card" id="card-restaurant" onclick="showSection('food-section')">
+                <div class="card-img" style="background-image: url('assets/Images/Backgrounds/img1.jpg');"></div>
+                <div class="card-text">
+                    <h2 class="font-cursive">Cuisine</h2>
+                    <a href="javascript:void(0)" class="btn-border">EXPLORE</a>
+                </div>
+            </div>
+
+            <!-- Drinks Card -->
+            <div class="card" id="card-bar" onclick="showSection('drinks-section')">
+                <div class="card-img" style="background-image: url('assets/Images/Backgrounds/img2.jpg');"></div>
+                <div class="card-text">
+                    <h2 class="font-cursive">Boissons</h2>
+                    <a href="javascript:void(0)" class="btn-border">EXPLORE</a>
+                </div>
+            </div>
+
+            <!-- Desserts Card -->
+            <div class="card" id="card-sallades" onclick="showSection('dessert-section')">
+                <div class="card-img" style="background-image: url('assets/Images/Backgrounds/img3.jpg');"></div>
+                <div class="card-text">
+                    <h2 class="font-cursive">Desserts</h2>
+                    <a href="javascript:void(0)" class="btn-border">EXPLORE</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presentation Section -->
+        <section class="presentation-section">
+            <div class="presentation-container">
+                <div class="presentation-content">
+                    <h2 class="presentation-title">
+                        <span class="title-line">Une Expérience</span>
+                        <span class="title-highlight">Gastronomique Unique</span>
+                    </h2>
+                    <div class="presentation-divider"></div>
+                    <p class="presentation-text">
+                        Au cœur d'Agadir, Arômes de Paris vous invite à découvrir une cuisine raffinée où
+                        chaque plat raconte une histoire. Notre chef allie tradition marocaine et élégance
+                        parisienne pour créer des saveurs inoubliables.
+                    </p>
+
+                    <div class="presentation-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">★</div>
+                            <h3 class="feature-title">Cuisine Raffinée</h3>
+                            <p class="feature-desc">Des plats élaborés avec passion</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">◆</div>
+                            <h3 class="feature-title">Ambiance Luxueuse</h3>
+                            <p class="feature-desc">Un cadre élégant et chaleureux</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">♦</div>
+                            <h3 class="feature-title">Service Excellence</h3>
+                            <p class="feature-desc">Une attention à chaque détail</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Menu Sections -->
+        <div id="menu-display-area">
+
+            <!-- SECTION FOOD -->
+            <section id="food-section" class="menu-section hidden">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Notre Carte Food</h2>
+                        <div class="filters"></div>
+                    </div>
+                    <div class="menu-items"></div>
+                </div>
+            </section>
+
+            <!-- SECTION DRINKS -->
+            <section id="drinks-section" class="menu-section hidden">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Bar & Boissons</h2>
+                        <div class="filters"></div>
+                    </div>
+                    <div class="menu-items"></div>
+                </div>
+            </section>
+
+            <!-- SECTION DESSERTS -->
+            <section id="dessert-section" class="menu-section hidden">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Desserts</h2>
+                        <div class="filters"></div>
+                    </div>
+                    <div class="menu-items"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-luxe">
+        <div class="footer-top">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <h2 class="footer-logo">
+                        <span class="gold-text">Arômes</span><br>
+                        <span class="gold-text">de Paris</span>
+                    </h2>
+                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
+                        l'élégance parisienne.</p>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../Accueil.html">Accueil</a></li>
+                        <li><a href="apropos.html">À propos</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="reservation.html">Réservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Nous Trouver</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
+                        <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul>
+                        <li>Lundi - Vendredi <span>12h - 23h</span></li>
+                        <li>Samedi - Dimanche <span>10h - 00h</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Native JS -->
+    <script src="js/Script.js"></script>
+    <script src="js/MenuScript.js"></script>
+</body>
+
+</html>

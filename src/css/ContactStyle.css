@@ -1,0 +1,111 @@
+/* Contact Page Specific Styles */
+.contact-page {
+    padding: 150px 5vw 100px;
+    background-color: #050505;
+    background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 60px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.neon-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.slogan-text {
+    font-family: "Poppins", sans-serif;
+    color: #aaa;
+    margin-bottom: 50px;
+    font-weight: 300;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    padding: 15px 20px;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #d4af37;
+    outline: none;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.submit-btn {
+    background: transparent;
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    padding: 15px 40px;
+    font-family: "Oswald", sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+}
+
+.submit-btn:hover {
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.contact-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-details p {
+    color: #ccc;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+}

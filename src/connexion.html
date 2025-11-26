@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Connexion - Arômes de Paris</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ConnexionStyle.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../Accueil.html" class="logo">
+                <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="../Accueil.html">Accueil</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="connexion.html" class="btn-reserve">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="connexion-main">
+        <div class="connexion-container">
+            <!-- Section gauche avec le formulaire -->
+            <div class="form-section">
+                <!-- Contenu du formulaire -->
+                <div class="form-content">
+                    <!-- Formulaire de connexion -->
+                    <div class="form-container active-form" id="login-form">
+                        <div class="form-header">
+                            <h1 class="form-title">Se Connecter</h1>
+                            <p class="form-subtitle">Bonjour, Cher Client!</p>
+                        </div>
+
+                        <form class="form">
+                            <div class="input-group">
+                                <input type="email" placeholder="Votre email" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" placeholder="Mot de passe" required>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">Se Connecter</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                        </form>
+
+                        <div class="form-footer">
+                            <p>Vous n'avez pas de compte ?</p>
+                            <button class="switch-btn" id="switch-to-signup">Créer un compte</button>
+                        </div>
+                    </div>
+
+                    <!-- Formulaire d'inscription -->
+                    <div class="form-container hidden-form" id="signup-form">
+                        <div class="form-header">
+                            <h1 class="create-account-main-title">Créer un Compte</h1>
+                            <h2 class="form-title">Rejoignez notre famille!</h2>
+                        </div>
+
+                        <form class="form">
+                            <div class="input-group">
+                                <input type="text" placeholder="Nom complet" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" placeholder="Email" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" placeholder="Mot de passe" required>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" placeholder="Confirmer le mot de passe" required>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">S'inscrire</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                        </form>
+
+                        <div class="form-footer">
+                            <p>Vous avez déjà un compte ?</p>
+                            <button class="switch-btn" id="switch-to-login">Se connecter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section droite avec le logo du restaurant -->
+            <div class="logo-section">
+                <div class="logo-content">
+                    <div class="restaurant-logo">
+                        <div class="logo-circle">
+                            <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="logo-image"
+                                style="object-fit: contain; padding: 10px;">
+                        </div>
+                    </div>
+                    <h2 class="restaurant-name">Arômes de Paris</h2>
+                    <p class="restaurant-slogan">Une expérience culinaire exceptionnelle</p>
+                    <div class="brand-divider"></div>
+                    <p class="brand-message">Savourez chaque moment de votre visite</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-luxe">
+        <div class="footer-top">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <h2 class="footer-logo">
+                        <span class="gold-text">Arômes</span><br>
+                        <span class="gold-text">de Paris</span>
+                    </h2>
+                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
+                        l'élégance parisienne.</p>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../Accueil.html">Accueil</a></li>
+                        <li><a href="apropos.html">À propos</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="reservation.html">Réservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Nous Trouver</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
+                        <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul>
+                        <li>Lundi - Vendredi <span>12h - 23h</span></li>
+                        <li>Samedi - Dimanche <span>10h - 00h</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Native JS -->
+    <script src="js/Script.js"></script>
+    <script src="js/ConnexionScript.js"></script>
+</body>
+
+</html>

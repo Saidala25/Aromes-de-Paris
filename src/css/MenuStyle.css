@@ -1,0 +1,1117 @@
+/* =========================================
+   SECTION SPLIT DIAGONALE (HERO)
+   ========================================= */
+/* Renamed .split-container to .hero */
+.hero {
+    display: flex;
+    width: 120vw;
+    /* Plus large pour compenser l'inclinaison */
+    height: 100vh;
+    margin-left: -10vw;
+    /* Centrer le débordement */
+    overflow: hidden;
+    transform: skewX(-10deg);
+    /* L'inclinaison principale */
+    /* Pas de margin-top car la navbar est fixed */
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Les panneaux individuels */
+/* Renamed .panel to .card */
+.card {
+    position: relative;
+    flex: 1;
+    /* Tous égaux au départ */
+    height: 100%;
+    overflow: hidden;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+    border-right: 4px solid rgba(0, 0, 0, 0.5);
+    /* Séparateur sombre */
+    cursor: pointer;
+    width: auto;
+    /* Reset width from previous style */
+    border-radius: 0;
+    /* Reset border-radius */
+    box-shadow: none;
+    /* Reset box-shadow */
+}
+
+.card:last-child {
+    border-right: none;
+}
+
+/* Arrière-plan (Image) */
+/* Renamed .panel-bg to .card-img */
+.card-img {
+    position: absolute;
+    top: 0;
+    left: -10vw;
+    /* Débordement pour couvrir la rotation */
+    width: 120vw;
+    /* Suffisamment large */
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    /* Reduced scale slightly from default (was implicitly 1) or previous 1.2 to better fit content */
+    transform: skewX(10deg) scale(1.15);
+    transition: transform 0.8s ease, filter 0.6s ease;
+    filter: brightness(0.99);
+    /* Sombre par défaut pour lisibilité texte */
+}
+
+/* Specific positioning for each card to fix framing issues */
+/* Card 1: Restaurant - Center ensures the main dish is visible */
+.card:nth-child(1) .card-img {
+    background-position: center center;
+}
+
+/* Card 2: Cocktail Bar - Align bottom to show glasses clearly */
+.card:nth-child(2) .card-img {
+    background-position: center bottom;
+}
+
+/* Card 3: Sallades - Center usually works best for plates */
+.card:nth-child(3) .card-img {
+    background-position: center center;
+}
+
+/* Overlay dégradé subtil */
+.card-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+}
+
+/* Contenu (Texte + Bouton) */
+/* Renamed .panel-content to .card-text */
+.card-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: skewX(10deg) translate(-50%, -50%);
+    /* Annule l'inclinaison et centre */
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    z-index: 10;
+    opacity: 0;
+    /* Caché au départ pour animation JS */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    background: transparent;
+    /* Reset background */
+    bottom: auto;
+    /* Reset bottom */
+    display: block;
+    /* Reset display */
+}
+
+/* Typographie Spécifique */
+/* Renamed .title-handwriting to .font-cursive */
+.font-cursive {
+    font-family: "Great Vibes", cursive;
+    font-size: 4rem;
+    /* Très grand comme sur l'image */
+    color: #fff;
+    margin-bottom: 2rem;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+/* Bouton Explore */
+/* Renamed .btn-explore to .btn-border */
+.btn-border {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-border:hover {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    border-color: #fff;
+}
+
+/* -------------------------------------- */
+/* INTERACTIONS & ANIMATIONS */
+/* -------------------------------------- */
+
+/* Survol du panneau (Effet Accordéon) */
+/* Updated selectors for .card and .card-img */
+.card:hover {
+    flex: 2;
+    /* S'agrandit */
+    transform: none;
+    /* Reset transform */
+}
+
+.card:hover .card-img {
+    filter: brightness(0.9);
+    /* S'éclaircit */
+    /* Adjusted hover scale to match new base scale (1.15 -> 1.25) */
+    transform: skewX(10deg) scale(1.25);
+}
+
+/* Quand on survole le conteneur, on assombrit ceux qu'on ne survole PAS */
+/* Updated selectors for .hero and .card */
+.hero:hover .card:not(:hover) {
+    filter: brightness(0.5);
+    /* Assombrit les autres */
+}
+
+/* Show text on hover (Optional, or JS controlled) */
+.card:hover .card-text {
+    opacity: 1;
+}
+
+/* Menu Section Styles */
+.menu-section {
+    padding: 100px 5vw;
+    /* Global dark background for all sections */
+    background-color: #050505;
+    background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    min-height: 100vh;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.6s ease,
+        transform 0.6s ease;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.menu-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Utility class to hide sections */
+.hidden {
+    display: none;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+/* Updated Title Style for all sections to be premium */
+.section-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 3.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 10px;
+}
+
+.divider-gold {
+    display: none;
+}
+
+/* Unified Filter Style - Text based premium navigation for ALL sections */
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 70px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 10px 5px;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    box-shadow: none;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: transparent;
+    color: #d4af37;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.filter-btn:hover::after,
+.filter-btn.active::after {
+    width: 100%;
+}
+
+/* Grille Menu Items */
+/* Global Grid for all items */
+.menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 40px;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+/* Premium Card Style for Food & Dessert (Dark Mode) */
+.menu-item {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 35px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #d4af37, transparent);
+    opacity: 0.5;
+}
+
+.menu-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #d4af37;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Typography for Cards */
+.item-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.menu-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.6;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+.item-price {
+    font-weight: 400;
+    color: #d4af37;
+    font-size: 1.2rem;
+    font-family: "Oswald", sans-serif;
+    margin-top: auto;
+    /* Push to bottom */
+    align-self: flex-end;
+    letter-spacing: 1px;
+}
+
+/* Specific Override for Drinks */
+.menu-item.drink-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.menu-item.drink-card::before {
+    display: none;
+}
+
+.menu-item.drink-card:hover {
+    transform: scale(1.05);
+    background: transparent;
+    box-shadow: none;
+}
+
+.menu-item.drink-card .item-info h3 {
+    font-size: 1.8rem;
+    color: #d4af37;
+    margin-bottom: 5px;
+}
+
+.menu-item.drink-card .item-price {
+    align-self: center;
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.menu-item.drink-card::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #333;
+    margin: 20px auto 0;
+}
+
+/* ========================================= */
+/* STYLE SPECIFIQUE: DRINKS (IMAGE 1) */
+/* ========================================= */
+.drinks-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.drink-row {
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+    margin-bottom: 0;
+}
+
+.drink-row:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.drink-img-box {
+    flex: 1;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.drink-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.drink-row:hover .drink-img-box img {
+    transform: scale(1.1);
+}
+
+.drink-text-box {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #0a0a0a;
+}
+
+.drink-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.8rem;
+    color: #d4af37;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.drink-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 25px;
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.drink-price {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    border: 1px solid #d4af37;
+    padding: 8px 20px;
+    margin-top: 10px;
+}
+
+/* ========================================= */
+/* STYLE SPECIFIQUE: DESSERTS (IMAGE 2) */
+/* ========================================= */
+.dessert-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.dessert-card {
+    width: 280px;
+    height: 420px;
+    background-color: #000;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    padding: 10px;
+}
+
+.dessert-card:hover {
+    transform: translateY(-10px);
+    border-color: #d4af37;
+}
+
+.dessert-img-box {
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dessert-img-box img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    /* Matches the cocktail carousel look */
+}
+
+.dessert-info {
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.dessert-name {
+    font-family: "Oswald", sans-serif;
+    color: #fff;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.dessert-desc {
+    font-family: "Poppins", sans-serif;
+    color: #888;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.dessert-price {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.dessert-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+/* ========================================= */
+/* STYLE SPECIFIQUE: FOOD (IMAGE 3) */
+/* ========================================= */
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.food-plate {
+    display: flex;
+    align-items: center;
+    /* Center vertically */
+    gap: 20px;
+    position: relative;
+}
+
+/* Alternance gauche/droite pour le look "scattered" */
+.food-plate:nth-child(even) {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.food-img-circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    /* Round plates like Image 3 */
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.food-img-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-info {
+    flex: 1;
+}
+
+.food-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 2rem;
+    /* Big title like "PASTA" */
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.food-title span {
+    display: block;
+    font-size: 1rem;
+    color: #d4af37;
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+.food-price {
+    font-size: 1.5rem;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ========================================= */
+/* RESPONSIVE UPDATES */
+/* ========================================= */
+@media screen and (max-width: 900px) {
+
+    /* Adapter le split pour mobile */
+    .hero {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        margin: 0;
+        transform: none;
+        padding-top: 80px;
+    }
+
+    .card {
+        width: 100%;
+        height: 33vh;
+        border-right: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        transform: none;
+    }
+
+    .card-img {
+        width: 100%;
+        left: 0;
+        transform: none;
+    }
+
+    .card:hover .card-img {
+        transform: scale(1.1);
+    }
+
+    .card-text {
+        transform: translate(-50%, -50%);
+    }
+
+    .font-cursive {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Drinks */
+    .drink-row,
+    .drink-row:nth-child(even) {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .drink-img-box {
+        width: 100%;
+        height: 250px;
+    }
+
+    .drink-text-box {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    /* Food */
+    .food-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .food-plate,
+    .food-plate:nth-child(even) {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .food-img-circle {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Presentation Section */
+.presentation-section {
+    padding: 120px 5vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.presentation-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #d4af37, transparent);
+    opacity: 0.5;
+}
+
+.presentation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.presentation-content {
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.presentation-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.title-line {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #aaa;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.title-highlight {
+    font-family: "Playfair Display", serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 2px;
+    animation: slideInRight 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.presentation-divider {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 0 auto 40px;
+    animation: expandWidth 1s ease-out 0.4s both;
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 120px;
+    }
+}
+
+.presentation-text {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    font-weight: 300;
+    animation: fadeIn 1s ease-out 0.6s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.presentation-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.feature-item:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.feature-item:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.feature-item:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px);
+    background: rgba(212, 175, 55, 0.05);
+    border-color: #d4af37;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.feature-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.feature-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    color: #aaa;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* Responsive pour la nouvelle section */
+@media screen and (max-width: 768px) {
+    .presentation-section {
+        padding: 80px 5vw;
+    }
+}
+
+.presentation-content {
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.presentation-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.title-line {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #aaa;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.title-highlight {
+    font-family: "Playfair Display", serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 2px;
+    animation: slideInRight 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.presentation-divider {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 0 auto 40px;
+    animation: expandWidth 1s ease-out 0.4s both;
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 120px;
+    }
+}
+
+.presentation-text {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    font-weight: 300;
+    animation: fadeIn 1s ease-out 0.6s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.presentation-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.feature-item:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.feature-item:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.feature-item:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px);
+    background: rgba(212, 175, 55, 0.05);
+    border-color: #d4af37;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.feature-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.feature-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    color: #aaa;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* Responsive pour la nouvelle section */
+@media screen and (max-width: 768px) {
+    .presentation-section {
+        padding: 80px 5vw;
+    }
+
+    .title-line {
+        font-size: 1rem;
+    }
+
+    .title-highlight {
+        font-size: 2.2rem;
+    }
+
+    .presentation-text {
+        font-size: 1rem;
+        margin-bottom: 60px;
+    }
+
+    .presentation-features {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}

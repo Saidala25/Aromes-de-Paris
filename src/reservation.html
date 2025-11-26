@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Arômes de Paris | Réservation</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/ReservationStyle.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../Accueil.html" class="logo">
+                <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="../Accueil.html">Accueil</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reservation.html" class="active">Réservation</a></li>
+                <li><a href="connexion.html" class="btn-reserve">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="reservation-hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>RÉSERVATION DE TABLE</h1>
+            <p>Veuillez remplir le formulaire ci-dessous pour réserver une table dans notre restaurant.</p>
+        </div>
+    </section>
+
+    <main class="form-container">
+        <form class="booking-form" action="#" method="post">
+            <h2>Réserver une table</h2>
+
+            <label>Nom complet
+                <input type="text" name="name" required>
+            </label>
+
+            <label for="phone">Téléphone *</label>
+            <input type="tel" id="phone" name="phone" placeholder="06 00 00 00 00" required>
+
+            <label>Email
+                <input type="email" name="email" required>
+            </label>
+
+            <label>Date
+                <input type="date" name="date" required>
+            </label>
+
+            <label>Heure
+                <input type="time" name="time" required>
+            </label>
+
+            <label>Personnes
+                <select name="people">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5+</option>
+                </select>
+            </label>
+
+            <label for="table">Préférence de table</label>
+            <select id="table" name="table">
+                <option value="">Aucune préférence</option>
+                <option value="inside">À l’intérieur</option>
+                <option value="terrace">En terrasse</option>
+                <option value="window">Près de la fenêtre</option>
+            </select>
+
+            <button class="btn" type="submit">Réserver</button>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-luxe">
+        <div class="footer-top">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <h2 class="footer-logo">
+                        <span class="gold-text">Arômes</span><br>
+                        <span class="gold-text">de Paris</span>
+                    </h2>
+                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
+                        l'élégance parisienne.</p>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="../Accueil.html">Accueil</a></li>
+                        <li><a href="apropos.html">À propos</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="reservation.html">Réservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Nous Trouver</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
+                        <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
+                    </ul>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul>
+                        <li>Lundi - Vendredi <span>12h - 23h</span></li>
+                        <li>Samedi - Dimanche <span>10h - 00h</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Native JS -->
+    <script src="js/Script.js"></script>
+</body>
+
+</html>
