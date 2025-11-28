@@ -165,3 +165,36 @@ p {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
   transform: translateY(-3px);
 }
+
+/* style_aler*/
+.swal2-luxe-popup {
+    border: 2px solid #b6923f;
+    border-radius: 18px !important;
+    padding: 20px !important;
+}
+
+.swal2-luxe-title {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: #ddc670 !important;
+    font-family: "Playfair Display", serif !important;
+}
+
+.swal2-luxe-text {
+    font-size: 17px !important;
+    color: #ddc670 !important;
+    font-family: "Poppins", sans-serif !important;
+}
+
+.swal2-luxe-button {
+    background: #b6923f !important;
+    color: #194238 !important;
+    font-weight: 600 !important;
+    padding: 10px 25px !important;
+    border-radius: 14px !important;
+    transition: 0.2s ease;
+}
+
+.swal2-luxe-button:hover {
+    background: #ddc670 !important;
+}
