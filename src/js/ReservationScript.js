@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         
         Swal.fire({
-            title: "Succès !",
-            text: "Vous avez rempli la formulaire avec succès.",
+            title: "BIENVENUE !",
+            text: "Vous avez réservée votre table  avec succès.",
             
             // Logo avec dimensions réduites
             imageUrl: "assets/Logos/Aromes-LOGO-H.png",
