@@ -8,13 +8,18 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         Swal.fire({
-            title: "bienvenue !",
-            text: "Vous avez réservée votre table  avec succès.",
-            icon: "success",
+            title: "Succès !",
+            text: "Vous avez rempli la formulaire avec succès.",
+            
+            // 🔥 Ajouter ton logo
+            imageUrl: "assets/Logos/Aromes-LOGO-H.png",
+            imageWidth: 120,
+            imageHeight: 120,
+            imageAlt: "Logo",
 
+            // 🎨 Tes couleurs luxe
             background: "#194238",
             color: "#ddc670",
-            iconColor: "#ddc670",
             confirmButtonColor: "#b6923f",
 
             customClass: {
