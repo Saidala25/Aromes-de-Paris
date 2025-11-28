@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoImage = document.querySelector('.logo-image');
 
     // 2. Define your image paths here
-    const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H-Green.png'; // Logo for Login (Green side)
-    const logoForGoldBg  = 'assets/Logos/Aromes-LOGO-H.png'; // Logo for Signup (Gold side)
+    const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H-Green.png'; // Logo for Login (Gold side)
+    const logoForGoldBg  = 'assets/Logos/Aromes-LOGO-H.png'; // Logo for Signup (Green Side)
     console.log('JavaScript chargé !');
 
     // Switch vers inscription (Switch to Gold/Inverse)
