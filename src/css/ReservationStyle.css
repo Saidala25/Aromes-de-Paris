@@ -168,33 +168,62 @@ p {
 
 /* style_aler*/
 .swal2-luxe-popup {
-    border: 2px solid #b6923f;
-    border-radius: 18px !important;
-    padding: 20px !important;
+    border: 2px solid #ddc670;
+    border-radius: 12px;
+    padding: 30px !important;
 }
 
 .swal2-luxe-title {
-    font-size: 26px !important;
-    font-weight: 700 !important;
-    color: #ddc670 !important;
-    font-family: "Playfair Display", serif !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .swal2-luxe-text {
-    font-size: 17px !important;
-    color: #ddc670 !important;
-    font-family: "Poppins", sans-serif !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
+/* style de logo*/
+.swal2-luxe-logo {
+    margin: 10px auto 20px !important;
+    object-fit: contain !important;
+    filter: brightness(1.1);
+}
+
+/* Style du bouton */
 .swal2-luxe-button {
-    background: #b6923f !important;
-    color: #194238 !important;
-    font-weight: 600 !important;
-    padding: 10px 25px !important;
-    border-radius: 14px !important;
-    transition: 0.2s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 12px 40px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
 .swal2-luxe-button:hover {
-    background: #ddc670 !important;
+    background-color: #ddc670 !important;
+    color: #194238 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(221, 198, 112, 0.3);
 }
+
+/* Animation d'entrée */
+.swal2-show {
+    animation: swal2-show 0.4s ease-out;
+}
+
+@keyframes swal2-show {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
