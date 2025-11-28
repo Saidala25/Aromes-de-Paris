@@ -490,7 +490,7 @@ footer ul {
     overflow: hidden;
     /* Main loader removal handled via JS/Wipe timing */
     animation: hideLoader 0.1s forwards;
-    animation-delay: 6s; /* Cleanup after all animations */
+    animation-delay: 4.5s; /* Cleanup after all animations */
     pointer-events: none;
 }
 
@@ -550,6 +550,7 @@ footer ul {
     animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
     animation-delay: 3.7s; /* Slightly delayed after green */
 }
+
 
 /* KEYFRAMES */
 @keyframes iconAppear {
