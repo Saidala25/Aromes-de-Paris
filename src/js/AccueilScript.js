@@ -5,10 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // --- 2. REMOVE LOADING CLASS ---
+    // --- 2. LOADER CURTAIN SEQUENCE ---
+    // The CSS animations (Green/Gold wipes) take about 4.5 seconds total.
+    // We trigger the curtain lift right after they finish.
+    
+    setTimeout(() => {
+        const loader = document.getElementById('page-loader');
+        if (loader) {
+            // This adds the class that triggers the CSS transition (TranslateY -100%)
+            loader.classList.add('slide-up');
+        }
+    }, 4600); // 4.6 seconds: Start lifting the curtain
+
+    // Remove the 'loading' class (enables scrolling) after the curtain is gone
     setTimeout(() => {
         document.body.classList.remove('loading');
-    }, 5100); 
+    }, 6100); // 4.6s start + 1.5s duration = 6.1s total
 
     // --- 3. SCROLL REVEAL ---
     const revealElements = document.querySelectorAll('.reveal, .image-reveal-wrapper img');
