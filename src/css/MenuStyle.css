@@ -6,7 +6,7 @@
     display: flex;
     width: 120vw;
     /* Plus large pour compenser l'inclinaison */
-    height: 100vh;
+    height: 65vh;
     margin-left: -10vw;
     /* Centrer le débordement */
     overflow: hidden;
@@ -48,9 +48,9 @@
     top: 0;
     left: -10vw;
     /* Débordement pour couvrir la rotation */
-    width: 120vw;
+    width: 80vw;
     /* Suffisamment large */
-    height: 100%;
+    height: 150%;
     background-size: cover;
     background-position: center;
     /* Reduced scale slightly from default (was implicitly 1) or previous 1.2 to better fit content */

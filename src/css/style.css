@@ -174,7 +174,8 @@ blockquote {
     transition: color 0.3s ease;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--color-gold);
 }
 
@@ -189,7 +190,6 @@ blockquote {
     color: var(--color-black) !important;
 }
 
-/* Mobile Menu */
 .mobile-toggle {
     display: none;
     color: white;
@@ -198,6 +198,7 @@ blockquote {
     background: none;
     border: none;
 }
+
 
 /* =========================================
    5. BUTTONS & UI
@@ -264,7 +265,7 @@ blockquote {
 }
 
 .footer-top {
-    padding: 100px 0 60px;
+    padding: 50px 0 40px;
 }
 
 .footer-grid {
@@ -300,9 +301,9 @@ blockquote {
     color: #d4af37;
     font-family: "Oswald", sans-serif;
     font-size: 1.4rem;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .footer-links h4::after,
@@ -330,6 +331,11 @@ blockquote {
     padding-left: 10px;
 }
 
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
 .footer-contact ul,
 .footer-hours ul {
     color: #aaa;
@@ -346,6 +352,7 @@ blockquote {
     margin-top: 25px;
     display: flex;
     gap: 15px;
+    justify-content: center;
 }
 
 .social-icon {
@@ -370,11 +377,22 @@ blockquote {
 }
 
 .footer-bottom {
-    padding: 30px 0;
+    padding: 10px 0;
     text-align: center;
     border-top: 1px solid rgba(212, 175, 55, 0.2);
     color: #888;
-    font-size: 0.95rem;
+    font-size: 0.5rem;
+}
+
+.footer-bottom-content a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+
+
 }
 
 
@@ -389,19 +407,40 @@ blockquote {
     }
 }
 
-@media (max-width: 768px) {
-    .nav-menu {
+@media (max-width: 980px) {
+    .nav-links {
+        display: flex;
         position: fixed;
         top: 0;
-        left: -100%;
+        left: -100%; /* Hidden to the left */
         width: 100%;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.98);
+        background: rgba(10, 10, 10, 0.98); /* Dark background */
+        backdrop-filter: blur(10px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: 0.5s;
-        gap: 3rem;
+        transition: 0.5s ease-in-out;
+        z-index: 998; /* Below the toggle button */
+    }
+
+    .nav-links.active {
+        left: 0; /* Slide in */
+    }
+
+    .mobile-toggle {
+        display: block;
+        z-index: 999;
+        position: relative;
+        background: transparent;
+        border: none;
+        color: var(--color-gold);
+        cursor: pointer;
+    }
+
+    .btn-reserve {
+        margin: auto;
+        max-width: 30vh;
     }
 
     .footer-grid {
@@ -409,9 +448,9 @@ blockquote {
         text-align: center;
     }
 
-    .footer-links h4::after {
-        left: 50%;
-        transform: translateX(-50%);
+    footer h4 {
+        display: inline-flex;
+        justify-content: center;
     }
 }
 
@@ -601,6 +640,13 @@ body:not(.loading) .loader-strip {
     display: none;
 }
 
+.btn-login {
+    border: 1px solid var(--color-gold);
+    padding: 0.8rem 1.5rem;
+    color: var(--color-gold) !important;
+
+}
+
 /* Adjust loader content for smaller screens */
 @media (max-width: 480px) {
     .loader-icon {
@@ -610,3 +656,80 @@ body:not(.loading) .loader-strip {
         height: 150px;
     }
 }
+
+@media (max-width: 768px) {
+    /* 1. Make sure it's flex, not none, so we can see it */
+    .nav-links {
+        display: flex; 
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: -100%; /* Hidden off-screen */
+        width: 100%;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        z-index: 998;
+        transition: 0.5s ease-in-out;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 2. When JS adds .active, slide it in */
+    .nav-links.active {
+        left: 0;
+    }
+}
+
+/* =========================================
+   MOBILE MENU FIX (Paste at the bottom)
+   ========================================= */
+@media (max-width: 980px) {
+    /* 1. Show the toggle button */
+    .mobile-toggle {
+        display: block !important;
+        background: transparent;
+        border: none;
+        color: var(--color-gold);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1001; /* Above everything */
+        position: relative;
+    }
+
+    /* 2. Position the menu off-screen by default */
+    .nav-links {
+        display: flex !important; /* Force flex so it's not 'none' */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: -100%; /* Hidden to the left */
+        width: 100%;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(10px);
+        transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 998; /* Just behind the toggle button */
+        gap: 2rem; /* Space between links */
+    }
+
+    /* 3. The class JS adds to slide it in */
+    .nav-links.active {
+        left: 0 !important; /* Force it on screen */
+    }
+    
+    /* 4. Style the links inside mobile menu */
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links a {
+        font-size: 1.5rem; /* Larger text for mobile */
+        display: block;
+    }
+}
+
+
+

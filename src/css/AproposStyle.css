@@ -1,11 +1,38 @@
 /* Apropos Page Specific Styles */
+.hero {
+    height: 65vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.apropos-hero {
-    padding-top: 150px;
-    padding-bottom: 80px;
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 140%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.6;
+    transform: translateY(0);
+    will-change: transform;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+.hero-content {
     text-align: center;
-    background-color: #050505;
-    background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
 }
 
 .section-alt {
@@ -66,152 +93,7 @@
     background-clip: text;
 }
 
-
-/* =========================================
-   14. FOOTER STYLES (Restored)
-   ========================================= */
-.footer-luxe {
-    background: linear-gradient(135deg, #0a0a0a 0%, #111 50%, #000 100%);
-    border-top: 3px solid #d4af37;
-    position: relative;
-    overflow: hidden;
-}
-
-.footer-luxe::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #d4af37, transparent);
-    animation: shine 6s infinite;
-}
-
-.footer-top {
-    padding: 100px 0 60px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr 1fr;
-    gap: 50px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.footer-logo {
-    font-family: "Great Vibes", cursive;
-    font-size: 4.5rem;
-    line-height: 1;
-    margin-bottom: 20px;
-}
-
-.gold-text {
-    color: #d4af37;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-}
-
-.footer-desc {
-    color: #aaa;
-    line-height: 1.8;
-    font-size: 1.05rem;
-}
-
-.footer-links h4,
-.footer-contact h4,
-.footer-hours h4 {
-    color: #d4af37;
-    font-family: "Oswald", sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.footer-links h4::after,
-.footer-contact h4::after,
-.footer-hours h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: #d4af37;
-}
-
-.footer-links a {
-    color: #ccc;
-    text-decoration: none;
-    display: block;
-    margin: 12px 0;
-    transition: all 0.3s;
-}
-
-.footer-links a:hover {
-    color: #d4af37;
-    padding-left: 10px;
-}
-
-.footer-contact ul,
-.footer-hours ul {
-    color: #aaa;
-}
-
-.footer-contact i,
-.footer-hours i {
-    color: #d4af37;
-    margin-right: 12px;
-}
-
-.social-links {
-    margin-top: 25px;
-    display: flex;
-    gap: 15px;
-}
-
-.social-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid #d4af37;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #d4af37;
-    font-size: 1.3rem;
-    transition: all 0.4s ease;
-}
-
-.social-icon:hover {
-    background: #194238;
-    color: #000;
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
-}
-
-.footer-bottom {
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-    color: #888;
-    font-size: 0.95rem;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .footer-logo {
-        font-size: 3.5rem;
-    }
-}
-
+/* Responsive Adjustments for Apropos Page */
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
@@ -225,15 +107,5 @@
         align-items: center;
         transition: 0.5s;
         gap: 3rem;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .footer-links h4::after {
-        left: 50%;
-        transform: translateX(-50%);
     }
 }

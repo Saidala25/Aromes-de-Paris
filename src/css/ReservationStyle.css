@@ -1,61 +1,77 @@
 /* Reservation Page Specific Styles */
-
-/* Hero */
-.reservation-hero {
-  position: relative;
-  height: 60vh;
-  background-image: url('../assets/Sections/Reservation-Hero.jpg');
-  /* Ensure this image exists or use a placeholder */
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 80px;
-  /* Navbar height */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+h1 {
+    font-size: clamp(3rem, 5vw, 5.5rem);
+}
+
+h2 {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+/* Apropos Page Specific Styles */
+.hero {
+    height: 65vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 140%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.6;
+    transform: translateY(0);
+    will-change: transform;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
 }
 
 .hero-content {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  padding: 0 20px;
+    text-align: center;
+    max-width: 1000px;
+    position: relative;
+    z-index: 2;
 }
-
-.hero-content h1 {
-  font-family: 'Oswald', sans-serif;
-  font-size: 4rem;
-  margin-bottom: 20px;
-  color: #d4af37;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-}
-
-.hero-content p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto;
-  color: #ddd;
-}
-
 /* Form Container */
 .form-container {
-  padding: 80px 20px;
-  background-color: #050505;
-  background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-  display: flex;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ===== FORMULAIRE LUXE RESTAURANT ===== */
@@ -70,6 +86,7 @@
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
+  margin: 60px 0;
 }
 
 .booking-form::before {

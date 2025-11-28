@@ -170,65 +170,6 @@ blockquote {
     }
 }
 
-.navbar.scrolled {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    height: 70px;
-}
-
-.navbar .container {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    color: var(--color-white);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: var(--color-gold);
-}
-
-.btn-reserve {
-    border: 1px solid var(--color-gold);
-    padding: 0.8rem 1.5rem;
-    color: var(--color-gold) !important;
-}
-
-.btn-reserve:hover {
-    background: var(--color-gold);
-    color: var(--color-black) !important;
-}
-
-/* Mobile Menu */
-.mobile-toggle {
-    display: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    background: none;
-    border: none;
-}
 
 /* =========================================
    5. BUTTONS & UI
@@ -548,93 +489,8 @@ blockquote {
     }
 }
 
-
 /* =========================================
-   8. FOOTER
-   ========================================= */
-footer {
-    background-color: var(--color-black);
-    padding: 5rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
-    margin-bottom: 4rem;
-}
-
-.footer-grid ul {
-    list-style: none;
-}
-
-.footer-grid li {
-    margin-bottom: 0.8rem;
-}
-
-.footer-grid a {
-    color: #888;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-grid a:hover {
-    color: var(--color-gold);
-}
-
-.social-icons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.social-icons a {
-    color: white;
-    transition: color 0.3s;
-}
-
-.social-icons a:hover {
-    color: var(--color-gold);
-}
-
-.copyright {
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 2rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-}
-
-
-/* =========================================
-   9. ANIMATION CLASSES
-   ========================================= */
-.reveal {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.reveal-delay-1 {
-    transition-delay: 0.1s;
-}
-
-.reveal-delay-2 {
-    transition-delay: 0.2s;
-}
-
-.reveal-delay-3 {
-    transition-delay: 0.3s;
-}
-
-/* =========================================
-   10. LOADER & REVEAL ANIMATION (Updated)
+   8. LOADER & REVEAL ANIMATION (Updated)
    ========================================= */
 #page-loader {
     position: fixed;
@@ -782,7 +638,7 @@ footer {
 }
 
 /* =========================================
-   11. MEDIA QUERIES
+   9. MEDIA QUERIES
    ========================================= */
 @media (max-width: 992px) {
     .grid-2 {
@@ -805,14 +661,6 @@ footer {
         font-size: 3rem;
     }
 
-    .nav-links {
-        display: none;
-    }
-
-    .mobile-toggle {
-        display: block;
-    }
-
     .menu-grid {
         grid-template-columns: 1fr;
     }
@@ -831,7 +679,7 @@ footer {
 }
 
 /* =========================================
-   12. Scrollbar Styling
+   10. Scrollbar Styling
    ========================================= */
 ::-webkit-scrollbar {
     width: 10px;
@@ -851,7 +699,7 @@ footer {
 }
 
 /* =========================================
-   13. ADDITIONAL STYLES
+   11. ADDITIONAL STYLES
    ========================================= */
 
 .loader-strip {

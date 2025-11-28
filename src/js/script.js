@@ -34,32 +34,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. MOBILE MENU TOGGLE ---
     const mobileBtn = document.getElementById('mobile-toggle');
+    const navLinks = document.querySelector('.nav-links'); 
     const body = document.body;
-    let isMenuOpen = false;
 
-    if (mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                body.classList.add('mobile-menu-active');
+    // Check if elements exist
+    if (mobileBtn && navLinks) {
+        console.log("Mobile menu initialized"); 
+
+        mobileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log("Button Clicked!"); // Check console for this when you click
+
+            // Toggle Class
+            navLinks.classList.toggle('active'); 
+            const isOpen = navLinks.classList.contains('active');
+
+            // Toggle Icon & Scroll Lock
+            if (isOpen) {
+                body.style.overflow = 'hidden';
                 mobileBtn.innerHTML = '<i data-lucide="x"></i>';
-                lucide.createIcons();
             } else {
-                body.classList.remove('mobile-menu-active');
+                body.style.overflow = 'auto';
                 mobileBtn.innerHTML = '<i data-lucide="menu"></i>';
-                lucide.createIcons();
             }
+            
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         });
-    }
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            isMenuOpen = false;
-            body.classList.remove('mobile-menu-active');
-            if (mobileBtn) {
+        // Close when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                body.style.overflow = 'auto';
                 mobileBtn.innerHTML = '<i data-lucide="menu"></i>';
-                lucide.createIcons();
-            }
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            });
         });
-    });
+    } else {
+        console.error("Error: Mobile menu elements not found in HTML");
+    }
 });

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Native CSS -->
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/AproposStyle.css">
 
     <!-- Icons -->
@@ -40,7 +40,7 @@
                 <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
             </a>
 
-            <button class="mobile-toggle" id="mobile-toggle">
+            <button id="mobile-toggle" class="mobile-toggle">
                 <i data-lucide="menu"></i>
             </button>
 
@@ -50,23 +50,25 @@
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="reservation.html">Réservation</a></li>
-                <li><a href="connexion.html">Connexion</a></li>
+                <li><a href="connexion.html" class="btn-reserve nav-link">Connexion</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
         <!-- Intro Section -->
-        <section class="section apropos-hero">
-            <div class="container">
+        <header class="hero">
+            <img src="assets/Images/Backgrounds/Apropos-Background.jpg" alt="Background" class="hero-bg">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
                 <h1 class="reveal">À propos <span class="text-gradient">d'Arômes</span></h1>
                 <p class="reveal reveal-delay-1"
                     style="max-width: 700px; margin: 0 auto; color: #ccc; line-height: 1.6;">
                     Bienvenue chez Arômes de Paris, votre destination culinaire française au cœur d'Agadir. Fondé en
-                    2020, notre restaurant s'engage à offrir une expérience gastronomique authentique.
+                    2021, notre restaurant s'engage à offrir une expérience gastronomique authentique.
                 </p>
             </div>
-        </section>
+        </header>
 
         <!-- History Section -->
         <section class="section section-alt">
@@ -166,7 +168,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="container">
+            <div class="footer-bottom-container">
                 <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
             </div>
         </div>

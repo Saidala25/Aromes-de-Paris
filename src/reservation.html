@@ -13,9 +13,17 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Native CSS -->
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/ReservationStyle.css">
 
     <!-- Icons -->
@@ -42,24 +50,28 @@
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="reservation.html" class="active">Réservation</a></li>
-                <li><a href="connexion.html" class="btn-reserve">Connexion</a></li>
+                <li><a href="connexion.html" class="btn-reserve nav-link">Connexion</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="reservation-hero">
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <h1>RÉSERVATION DE TABLE</h1>
-            <p>Veuillez remplir le formulaire ci-dessous pour réserver une table dans notre restaurant.</p>
-        </div>
-    </section>
-
     <main class="form-container">
+        <header class="hero">
+            <img src="assets/Images/Backgrounds/Reservation-Background.jpg" alt="Background" class="hero-bg" style="width: 100%;">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="reveal">Réservation<span class="text-gradient"> De Table</span></h1>
+                <p class="reveal reveal-delay-1"
+                    style="max-width: 700px; margin: 0 auto; color: #ccc; line-height: 1.6;">
+                    Veuillez remplir le formulaire ci-dessous pour réserver une table dans notre restaurant.
+                </p>
+            </div>
+        </header>
+
         <form class="booking-form" action="#" method="post">
             <h2>Réserver une table</h2>
 
-            <label>Nom complet
+            <label>Nom complet *
                 <input type="text" name="name" required>
             </label>
 
@@ -67,19 +79,19 @@
             <input type="tel" id="phone" name="phone" placeholder="06 00 00 00 00" required>
 
             <label>Email
-                <input type="email" name="email" required>
+                <input type="email" name="email">
             </label>
 
-            <label>Date
+            <label>Date *
                 <input type="date" name="date" required>
             </label>
 
-            <label>Heure
+            <label>Heure *
                 <input type="time" name="time" required>
             </label>
 
-            <label>Personnes
-                <select name="people">
+            <label>Personnes *
+                <select name="people" required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -91,7 +103,7 @@
             <label for="table">Préférence de table</label>
             <select id="table" name="table">
                 <option value="">Aucune préférence</option>
-                <option value="inside">À l’intérieur</option>
+                <option value="inside">À l'intérieur</option>
                 <option value="terrace">En terrasse</option>
                 <option value="window">Près de la fenêtre</option>
             </select>

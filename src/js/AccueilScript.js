@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('loading');
     }, 5100); 
 
-    // --- 3. NATIVE SCROLL ANIMATIONS ---
+    // --- 3. SCROLL REVEAL ---
     const revealElements = document.querySelectorAll('.reveal, .image-reveal-wrapper img');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -19,22 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, { root: null, threshold: 0.15, rootMargin: "0px" });
+    }, { root: null, threshold: 0.15 });
     revealElements.forEach(el => revealObserver.observe(el));
 
 
-    // --- 4. PARALLAX EFFECT ---
-    const heroBg = document.querySelector('.hero-bg');
-    if (heroBg) {
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            if (scrollY < window.innerHeight) {
-                heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
-            }
-        });
-    }
-
-    // --- 5. NAVBAR SCROLL EFFECT ---
+    // --- 4. NAVBAR SCROLL ---
     const navbar = document.querySelector('.navbar');
     if(navbar) {
         window.addEventListener('scroll', () => {
@@ -42,42 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             else navbar.classList.remove('scrolled');
         });
     }
-
-    // --- 6. MOBILE MENU TOGGLE ---
-    const mobileBtn = document.getElementById('mobile-toggle');
-    const body = document.body;
-    let isMenuOpen = false;
-
-    if (mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                body.classList.add('mobile-menu-active');
-                mobileBtn.innerHTML = '<i data-lucide="x"></i>';
-                lucide.createIcons();
-            } else {
-                body.classList.remove('mobile-menu-active');
-                mobileBtn.innerHTML = '<i data-lucide="menu"></i>';
-                lucide.createIcons();
-            }
-        });
-    }
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            isMenuOpen = false;
-            body.classList.remove('mobile-menu-active');
-            if(mobileBtn) {
-                mobileBtn.innerHTML = '<i data-lucide="menu"></i>';
-                lucide.createIcons();
-            }
-        });
-    });
-
-
-    // --- 7. ADVANCED TESTIMONIAL CAROUSEL (MOCKED API) ---
     
-    // A. "API" Data - Replace these texts with your real reviews later
+    // --- 7. ADVANCED TESTIMONIAL CAROUSEL ---
     const reviewsData = [
         {
             text: "Une expérience culinaire exceptionnelle! Le cadre est magnifique et le service impeccable. Le mélange des saveurs est juste parfait.",
@@ -120,10 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dotsContainer = document.querySelector('.testimonial-dots');
     
     if (track && reviewsData.length > 0) {
-        
-        // B. Render Cards
         reviewsData.forEach((review, index) => {
-            // Card
             const card = document.createElement('div');
             card.className = 'testimonial-card';
             card.innerHTML = `
@@ -139,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             track.appendChild(card);
 
-            // Dot
             const dot = document.createElement('div');
             dot.className = 'dot';
             dot.addEventListener('click', () => {
@@ -150,66 +101,44 @@ document.addEventListener('DOMContentLoaded', () => {
             dotsContainer.appendChild(dot);
         });
 
-        // Re-init icons inside dynamic content
         lucide.createIcons();
 
-        // C. Logic variables
-        let currentIndex = 1; // Start at second item (looks better centered initially)
+        let currentIndex = 1; 
         const cards = document.querySelectorAll('.testimonial-card');
         const dots = document.querySelectorAll('.dot');
         let autoSlideInterval;
 
-        // D. Update Function
         const updateCarousel = () => {
-            // 1. Calculate Widths
-            // On desktop, card is 40% + 4% margin = 44% width effectively.
-            // On mobile, card is 85% + 15% margin = 100% width.
             const isMobile = window.innerWidth <= 768;
             const cardWidthPercent = isMobile ? 100 : 44; 
-            
-            // 2. Center Logic
-            // We want 'currentIndex' to be in the center.
-            // Center of screen = 50%. Center of card = cardWidth / 2.
-            // Offset = 50 - (cardWidth / 2).
-            // Position of card N = N * cardWidth.
-            // TranslateX = Offset - Position.
-            
             const offset = 50 - (cardWidthPercent / 2);
             const position = currentIndex * cardWidthPercent;
             const translateX = offset - position;
 
             track.style.transform = `translateX(${translateX}%)`;
 
-            // 3. Update Visual Classes
             cards.forEach((card, idx) => {
                 if (idx === currentIndex) {
                     card.classList.add('active');
                     card.style.opacity = '1';
                 } else {
                     card.classList.remove('active');
-                    card.style.opacity = '0.4'; // Slight opacity for sides
+                    card.style.opacity = '0.4'; 
                 }
             });
 
-            // 4. Update Dots
             dots.forEach((dot, idx) => {
                 dot.classList.toggle('active', idx === currentIndex);
             });
         };
 
-        // E. Next Slide Logic (Looping)
         const nextSlide = () => {
             currentIndex++;
-            if (currentIndex >= reviewsData.length) {
-                currentIndex = 0; // Loop back to start
-            }
+            if (currentIndex >= reviewsData.length) currentIndex = 0; 
             updateCarousel();
         };
 
-        // F. Timer Management
         const startTimer = () => {
-            // "Focus on the middle for 2 sec and then a slide"
-            // Total interval = 2s focus + transition time approx.
             autoSlideInterval = setInterval(nextSlide, 3000); 
         };
 
@@ -218,11 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
             startTimer();
         };
 
-        // G. Init
-        updateCarousel(); // Initial render
-        startTimer();     // Start loop
-        
-        // Handle Resize to fix centering math
+        updateCarousel(); 
+        startTimer();     
         window.addEventListener('resize', updateCarousel);
     }
 });
