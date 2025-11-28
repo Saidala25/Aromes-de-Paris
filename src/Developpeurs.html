@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/Logos/Logo-Icon.ico" type="image/x-icon">
+  <title>Notre Équipe - Restaurant Le Gourmet</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/DevStyle.css">
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("GrHJ4VT36-pMz8bsN");
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="../Accueil.html" class="logo">
+        <img src="assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris">
+      </a>
+
+      <button class="mobile-toggle" id="mobile-toggle">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="../Accueil.html">Accueil</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="reservation.html">Réservation</a></li>
+        <li><a href="connexion.html" class="btn-reserve">Connexion</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <img src="assets/Images/ensa.png" alt="Background" class="hero-bg" style="height:570px;">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1 class="reveal">Notre Equipe Tech</h1>
+      <p class="reveal reveal-delay-1" style="max-width: 700px; margin: 0 auto; color: #ccc; line-height: 1.6;">
+        L'équipe de développeurs qui façonne votre expérience culinaire à travers un design
+        soigné et une technologie performante.
+      </p>
+      <a href="#team" class="btn">Découvrir l'équipe</a>
+    </div>
+  </header>
+
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">A Propos de Nous</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon">01</div>
+          <h3>Innovation</h3>
+          <p>Nous créons des solutions digitales innovantes pour révolutionner l'expérience restaurant.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">02</div>
+          <h3>Passion</h3>
+          <p>La passion du code et de la gastronomie se rencontrent dans chaque ligne de notre travail.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">03</div>
+          <h3>Excellence</h3>
+          <p>Nous visons l'excellence dans chaque projet, du design à la performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="team">
+    <div class="container">
+      <h2 class="section-title">Notre Equipe</h2>
+      <p class="section-subtitle">Les talents derrière le code Encadré par <strong style="color: var(--color-gold);">Mr.
+          QAZDAR</strong></p>
+
+      <div class="team-grid">
+        <!-- Membres de l'équipe -->
+        <div class="card" onclick="showProfile('Fatima Zahra')">
+          <div class="card-img">F</div>
+          <div class="card-body">
+            <h3 class="card-name">Fatima Zahra EN-NESYRY</h3>
+            <span class="card-role">Étudiante en DLA</span>
+
+            <div class="card-links">
+              <a href="https://www.linkedin.com/in/fatima-zahra-en-nesyry-489bab331/" title="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <a href="https://github.com/ENNE-FATI" title="GitHub" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a href="mailto:ennesyryfatimazahra4@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card" onclick="showProfile('Soufiane')">
+          <div class="card-img">S</div>
+          <div class="card-body">
+            <h3 class="card-name">Soufiane ELBARJI</h3>
+            <span class="card-role">Étudiant en DLA</span>
+            <div class="card-links">
+              <a href="https://www.linkedin.com" title="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <a href="https://github.com" title="GitHub" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a href="mailto:example@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card" onclick="showProfile('Salma')">
+          <div class="card-img">S</div>
+          <div class="card-body">
+            <h3 class="card-name">Salma ESSALIHI</h3>
+            <span class="card-role">Étudiante en DLA</span>
+            <div class="card-links">
+              <a href="https://www.linkedin.com" title="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <a href="https://github.com" title="GitHub" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a href="mailto:example@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="showProfile('Said')">
+          <div class="card-img">L</div>
+          <div class="card-body">
+            <h3 class="card-name">Said</h3>
+            <span class="card-role">Étudiant en DLA</span>
+            <div class="card-links">
+              <a href="https://www.linkedin.com" title="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <a href="https://github.com" title="GitHub" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a href="mailto:example@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="showProfile('Ali')">
+          <div class="card-img">L</div>
+          <div class="card-body">
+            <h3 class="card-name">Ali</h3>
+            <span class="card-role">Étudiant en DLA</span>
+            <div class="card-links">
+              <a href="https://www.linkedin.com" title="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin"></i>
+              </a>
+
+              <a href="https://github.com" title="GitHub" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a href="mailto:example@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+    <div class="container">
+      <h2 class="section-title light">Nos Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-circle">
+            <span class="skill-percent">100%</span>
+          </div>
+          <h4>HTML</h4>
+        </div>
+        <div class="skill-item">
+          <div class="skill-circle">
+            <span class="skill-percent">95%</span>
+          </div>
+          <h4>JavaScript</h4>
+        </div>
+        <div class="skill-item">
+          <div class="skill-circle">
+            <span class="skill-percent">95%</span>
+          </div>
+          <h4>CSS</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Contactez-nous</h2>
+      <p class="contact-subtitle">Une question ou un projet en tête? N'hésitez pas à nous contacter!</p>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-group">
+          <input type="text" class="form-input" placeholder="Votre nom" required id="name" name="name">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" placeholder="Votre email" required id="email" name="email">
+        </div>
+        <div class="form-group">
+          <textarea class="form-input form-textarea" placeholder="Votre message" required id="message" name="message"
+            rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-submit" id="submit-btn">
+          <span id="btn-text">Envoyer le message</span>
+          <span id="btn-loading" style="display: none;">Envoi en cours...</span>
+        </button>
+      </form>
+      <div id="form-message" class="form-message"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="footer-luxe">
+    <div class="footer-top">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <h2 class="footer-logo">
+            <span class="gold-text">Arômes</span><br>
+            <span class="gold-text">de Paris</span>
+          </h2>
+          <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
+            l'élégance parisienne.</p>
+          <div class="social-links">
+            <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
+              class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+          </div>
+
+        </div>
+
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../Accueil.html">Accueil</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="reservation.html">Réservation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Nous Trouver</h4>
+          <ul>
+            <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+            <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
+            <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
+          </ul>
+        </div>
+
+        <div class="footer-hours">
+          <h4>Horaires d'ouverture</h4>
+          <ul>
+            <li>Lundi - Vendredi <span>12h - 23h</span></li>
+            <li>Samedi - Dimanche <span>10h - 00h</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="foot-container">
+        <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par <a
+            href="Developpeurs.html" class="link-dev"><strong>les étudiants de
+              l'ENSA
+              Agadir</strong></a></p>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+  <!-- JavaScript -->
+  <script>
+    // Navigation smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    function showProfile(name) {
+      alert('Profil de ' + name + ' - Page en construction');
+    }
+
+    // EmailJS Configuration
+    const SERVICE_ID = "service_wjnqhds";
+    const TEMPLATE_ID = "template_ujzunzb";
+
+    // Test EmailJS initialization
+    function testEmailJS() {
+      console.log('🔧 Testing EmailJS Configuration:');
+      console.log('Service ID:', SERVICE_ID);
+      console.log('Template ID:', TEMPLATE_ID);
+      console.log('EmailJS initialized:', typeof emailjs !== 'undefined');
+
+      if (typeof emailjs !== 'undefined') {
+        showMessage('✅ EmailJS est chargé correctement', 'info');
+        setTimeout(() => {
+          document.getElementById('form-message').style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Enhanced EmailJS Handler
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnLoading = document.getElementById('btn-loading');
+
+      // Get form data
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const messageContent = document.getElementById('message').value.trim();
+
+      const formData = {
+        // Champs obligatoires pour EmailJS
+        from_name: name,
+        from_email: email,
+        message: messageContent,
+        reply_to: email,
+
+        // Variables SPÉCIFIQUES pour votre template
+        name: name,           // {{name}} dans le template
+        email: email,         // {{email}} dans le template - NOUVEAU
+        time: new Date().toLocaleString('fr-FR'), // {{time}} dans le template  
+        message: messageContent // {{message}} dans le template
+      };
+      // Validation
+      if (!formData.from_name || !formData.from_email || !formData.message) {
+        showMessage('❌ Veuillez remplir tous les champs', 'error');
+        return;
+      }
+
+      if (!isValidEmail(formData.from_email)) {
+        showMessage('❌ Veuillez entrer un email valide', 'error');
+        return;
+      }
+
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'inline';
+
+      try {
+        console.log('🔄 Envoi du message...', formData);
+
+        const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData);
+
+        console.log('✅ Succès:', response);
+        showMessage('🎉 Votre message a été envoyé avec succès! Nous vous répondrons rapidement.', 'success');
+        document.getElementById('contact-form').reset();
+
+      } catch (error) {
+        console.error('❌ Erreur EmailJS:', error);
+
+        let errorMessage = '❌ Erreur lors de l\'envoi. ';
+
+        if (error.text) {
+          console.log('Détails de l\'erreur:', error.text);
+
+          if (error.text.includes('Invalid user id')) {
+            errorMessage += 'Clé publique EmailJS incorrecte. ';
+          } else if (error.text.includes('Service not found')) {
+            errorMessage += 'Service ID incorrect. ';
+          } else if (error.text.includes('Template not found')) {
+            errorMessage += 'Template ID incorrect. ';
+          } else if (error.text.includes('Forbidden')) {
+            errorMessage += 'Accès refusé. Vérifiez vos identifiants. ';
+          }
+        }
+
+        errorMessage += 'Vérifiez votre configuration EmailJS.';
+        showMessage(errorMessage, 'error');
+
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+      }
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function showMessage(text, type) {
+      const formMessage = document.getElementById('form-message');
+      formMessage.textContent = text;
+      formMessage.className = `form-message ${type}`;
+      formMessage.style.display = 'block';
+
+      // Auto-hide success messages after 5 seconds
+      if (type === 'success' || type === 'info') {
+        setTimeout(() => {
+          formMessage.style.display = 'none';
+        }, 5000);
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function () {
+      // Test EmailJS on load
+      setTimeout(testEmailJS, 1000);
+
+      // Add form submit handler
+      document.getElementById('contact-form').addEventListener('submit', handleSubmit);
+
+      // Add scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      // Observe elements for animation
+      document.querySelectorAll('.about-card, .card, .skill-item, .contact-form').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Mobile menu toggle
+      const mobileToggle = document.querySelector('.mobile-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+          navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+      }
+    });
+
+    // Alternative fallback function
+    function sendEmailFallback(formData) {
+      // This is a fallback that shows what data would be sent
+      console.log('Fallback - Données du formulaire:', formData);
+      showMessage('⚠️ Mode démo: Ce message serait normalement envoyé. Vérifiez votre configuration EmailJS.', 'info');
+      return Promise.resolve({ status: 200, text: 'Demo mode' });
+    }
+  </script>
+
+</body>
+
+</html>

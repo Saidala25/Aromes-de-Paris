@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter un employé - Arômes de Paris</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="Logo.png" alt="Logo">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard.html" class="menu-item">🏠 Tableau de bord</a>
+
+      <div class="menu-item active" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="submenu open" id="submenu-employees">
+        <a href="employes-liste.html">Liste des employés</a>
+        <a href="employes-ajouter.html" class="active">Ajouter un employé</a>
+      </div>
+
+      <a href="reservations.html" class="menu-item">📅 Réservations</a>
+      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+    </nav>
+
+    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+  </aside>
+
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="header">
+      <div>
+        <div class="breadcrumb">
+          <a href="dashboard.html">Tableau de bord</a> ›
+          <a href="employes-liste.html">Employés</a> ›
+          <span>Ajouter</span>
+        </div>
+        <h1>Ajouter un employé</h1>
+      </div>
+      <div class="header-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span>☀️</span>
+          <div class="toggle-switch"></div>
+          <span>🌙</span>
+        </div>
+        <div class="user">
+          <div class="avatar">JD</div>
+          <div>
+            <div class="user-name">Jean Dupont</div>
+            <div class="user-role">Administrateur</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Form Section -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Informations personnelles</h2>
+      </div>
+
+      <form id="employeeForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Prénom *</label>
+            <input type="text" id="firstName" class="form-input" required placeholder="Entrez le prénom">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nom *</label>
+            <input type="text" id="lastName" class="form-input" required placeholder="Entrez le nom">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" class="form-input" required placeholder="email@exemple.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" class="form-input" placeholder="+33 1 23 45 67 89">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="role">Poste *</label>
+            <select id="role" class="form-input" required>
+              <option value="">Sélectionnez un poste</option>
+              <option value="chef">Chef cuisinier</option>
+              <option value="sous-chef">Sous-chef</option>
+              <option value="commis">Commis de cuisine</option>
+              <option value="serveur">Serveur</option>
+              <option value="maitre">Maître d'hôtel</option>
+              <option value="barman">Barman</option>
+              <option value="plongeur">Plongeur</option>
+              <option value="gestionnaire">Gestionnaire</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department">Département *</label>
+            <select id="department" class="form-input" required>
+              <option value="">Sélectionnez un département</option>
+              <option value="cuisine">Cuisine</option>
+              <option value="salle">Service en salle</option>
+              <option value="bar">Bar</option>
+              <option value="administration">Administration</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hireDate">Date d'embauche *</label>
+            <input type="date" id="hireDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="salary">Salaire mensuel (€)</label>
+            <input type="number" id="salary" class="form-input" placeholder="2500" min="0" step="50">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Adresse</label>
+          <textarea id="address" class="form-input" rows="3" placeholder="Adresse complète"></textarea>
+        </div>
+
+        <div class="card-header" style="margin-top: 30px;">
+          <h2>Informations de contrat</h2>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contractType">Type de contrat *</label>
+            <select id="contractType" class="form-input" required>
+              <option value="">Sélectionnez un type</option>
+              <option value="cdi">CDI</option>
+              <option value="cdd">CDD</option>
+              <option value="interim">Intérim</option>
+              <option value="saisonnier">Saisonnier</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="workHours">Heures par semaine</label>
+            <select id="workHours" class="form-input">
+              <option value="35">35h</option>
+              <option value="39">39h</option>
+              <option value="40">40h</option>
+              <option value="45">45h</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes supplémentaires</label>
+          <textarea id="notes" class="form-input" rows="4" placeholder="Informations complémentaires..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="sendWelcome" checked>
+            Envoyer un email de bienvenue avec les identifiants
+          </label>
+        </div>
+
+        <div class="modal-footer" style="margin-top: 30px; padding: 0;">
+          <button type="button" class="btn btn-secondary" onclick="window.location.href='employes-liste.html'">
+            Annuler
+          </button>
+          <button type="submit" class="btn btn-primary">
+            ➕ Ajouter l'employé
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>✅ Employé ajouté avec succès</h3>
+        <button class="modal-close" onclick="closeSuccessModal()">×</button>
+      </div>
+      <div style="text-align: center; padding: 20px 0;">
+        <p style="margin-bottom: 20px;">L'employé a été ajouté avec succès au système.</p>
+        <div class="alert alert-success">
+          <strong>Identifiants générés :</strong><br>
+          Identifiant: <span id="generatedUsername"></span><br>
+          Mot de passe: <span id="generatedPassword"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeSuccessModal()">Ajouter un autre</button>
+        <button class="btn btn-primary" onclick="window.location.href='employes-liste.html'">Voir la liste</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // Set today's date as default
+    document.getElementById('hireDate').valueAsDate = new Date();
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const username = (firstName.charAt(0) + lastName).toLowerCase().replace(/\s/g, '');
+      const tempPassword = Math.random().toString(36).slice(-8);
+
+      document.getElementById('generatedUsername').textContent = username;
+      document.getElementById('generatedPassword').textContent = tempPassword;
+      document.getElementById('successModal').classList.add('active');
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.remove('active');
+      document.getElementById('employeeForm').reset();
+      document.getElementById('hireDate').valueAsDate = new Date();
+    }
+  </script>
+</body>
+
+</html>

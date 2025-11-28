@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord - Arômes de Paris</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="Logo.png" alt="Logo">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard.html" class="menu-item active">🏠 Tableau de bord</a>
+
+      <div class="menu-item" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="submenu" id="submenu-employees">
+        <a href="employes-liste.html">Liste des employés</a>
+        <a href="employes-ajouter.html">Ajouter un employé</a>
+      </div>
+
+      <a href="reservations.html" class="menu-item">📅 Réservations</a>
+      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+    </nav>
+
+    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+  </aside>
+
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="header">
+      <h1>Tableau de bord</h1>
+      <div class="header-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span>☀️</span>
+          <div class="toggle-switch"></div>
+          <span>🌙</span>
+        </div>
+        <div class="user">
+          <div class="avatar">JD</div>
+          <div>
+            <div class="user-name">Jean Dupont</div>
+            <div class="user-role">Administrateur</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div>
+          <div class="stat-label">Réservations aujourd'hui</div>
+          <div class="stat-value">24</div>
+          <div class="stat-change positive">+12% vs hier</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div>
+          <div class="stat-label">Revenus du jour</div>
+          <div class="stat-value">2,450€</div>
+          <div class="stat-change positive">+8% vs hier</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div>
+          <div class="stat-label">Employés actifs</div>
+          <div class="stat-value">12</div>
+          <div class="stat-change negative">-2 en congé</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🪑</div>
+        <div>
+          <div class="stat-label">Tables disponibles</div>
+          <div class="stat-value">8/20</div>
+          <div class="stat-change">40% occupées</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="grid-2">
+      <!-- Reservations Table -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Réservations récentes</h2>
+          <a href="reservations.html" class="btn btn-primary">Voir tout</a>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Pers.</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Marie Laurent</td>
+                <td>26 Nov 2025</td>
+                <td>19:30</td>
+                <td>4</td>
+                <td><span class="status confirmed">Confirmée</span></td>
+              </tr>
+              <tr>
+                <td>Pierre Martin</td>
+                <td>26 Nov 2025</td>
+                <td>20:00</td>
+                <td>2</td>
+                <td><span class="status pending">En attente</span></td>
+              </tr>
+              <tr>
+                <td>Sophie Dubois</td>
+                <td>26 Nov 2025</td>
+                <td>20:30</td>
+                <td>6</td>
+                <td><span class="status confirmed">Confirmée</span></td>
+              </tr>
+              <tr>
+                <td>Lucas Bernard</td>
+                <td>26 Nov 2025</td>
+                <td>21:00</td>
+                <td>3</td>
+                <td><span class="status cancelled">Annulée</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Actions rapides</h2>
+        </div>
+        <div class="actions-grid">
+          <a href="reservations.html" class="action-item">
+            <div class="action-icon">➕</div>
+            <span>Nouvelle réservation</span>
+          </a>
+          <a href="employes-ajouter.html" class="action-item">
+            <div class="action-icon">👤</div>
+            <span>Ajouter employé</span>
+          </a>
+          <a href="employes-planning.html" class="action-item">
+            <div class="action-icon">📅</div>
+            <span>Planning</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des employés - Arômes de Paris</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="Logo.png" alt="Logo">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard.html" class="menu-item">🏠 Tableau de bord</a>
+
+      <div class="menu-item active" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="submenu open" id="submenu-employees">
+        <a href="employes-liste.html" class="active">Liste des employés</a>
+        <a href="employes-ajouter.html">Ajouter un employé</a>
+      </div>
+
+      <a href="reservations.html" class="menu-item">📅 Réservations</a>
+      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+    </nav>
+
+    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+  </aside>
+
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="header">
+      <h1>Liste des employés</h1>
+      <div class="header-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span>☀️</span>
+          <div class="toggle-switch"></div>
+          <span>🌙</span>
+        </div>
+        <div class="user">
+          <div class="avatar">JD</div>
+          <div>
+            <div class="user-name">Jean Dupont</div>
+            <div class="user-role">Administrateur</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="dashboard.html">Tableau de bord</a> ›
+      <a href="#">Employés</a> ›
+      <span>Liste</span>
+    </div>
+
+    <!-- Filters -->
+    <div class="card">
+      <div class="filters">
+        <div class="search-box">
+          <input type="text" placeholder="🔍 Rechercher un employé...">
+        </div>
+        <select class="filter-select">
+          <option value="">Tous les postes</option>
+          <option value="chef">Chef cuisinier</option>
+          <option value="serveur">Serveur</option>
+          <option value="barman">Barman</option>
+          <option value="manager">Manager</option>
+        </select>
+        <select class="filter-select">
+          <option value="">Tous les statuts</option>
+          <option value="active">Actif</option>
+          <option value="conge">En congé</option>
+        </select>
+        <a href="employes-ajouter.html" class="btn btn-primary">➕ Ajouter</a>
+      </div>
+    </div>
+
+    <!-- Employee Grid -->
+    <div class="employee-grid">
+      <div class="employee-card">
+        <div class="employee-avatar">ML</div>
+        <h3>Marc Lefebvre</h3>
+        <p class="role">Chef cuisinier</p>
+        <p class="contact">marc.lefebvre@aromes.fr</p>
+        <p class="contact">06 12 34 56 78</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+
+      <div class="employee-card">
+        <div class="employee-avatar">SB</div>
+        <h3>Sophie Bernard</h3>
+        <p class="role">Serveuse</p>
+        <p class="contact">sophie.bernard@aromes.fr</p>
+        <p class="contact">06 23 45 67 89</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+
+      <div class="employee-card">
+        <div class="employee-avatar">PD</div>
+        <h3>Pierre Durand</h3>
+        <p class="role">Barman</p>
+        <p class="contact">pierre.durand@aromes.fr</p>
+        <p class="contact">06 34 56 78 90</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+
+      <div class="employee-card">
+        <div class="employee-avatar">CM</div>
+        <h3>Claire Martin</h3>
+        <p class="role">Manager</p>
+        <p class="contact">claire.martin@aromes.fr</p>
+        <p class="contact">06 45 67 89 01</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+
+      <div class="employee-card">
+        <div class="employee-avatar">LR</div>
+        <h3>Lucas Robert</h3>
+        <p class="role">Serveur</p>
+        <p class="contact">lucas.robert@aromes.fr</p>
+        <p class="contact">06 56 78 90 12</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+
+      <div class="employee-card">
+        <div class="employee-avatar">ET</div>
+        <h3>Emma Thomas</h3>
+        <p class="role">Sous-chef</p>
+        <p class="contact">emma.thomas@aromes.fr</p>
+        <p class="contact">06 67 89 01 23</p>
+        <div class="employee-actions">
+          <button class="btn btn-secondary">Voir profil</button>
+          <button class="btn-icon">✏️</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

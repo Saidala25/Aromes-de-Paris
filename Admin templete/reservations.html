@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservations - Arômes de Paris</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="Logo.png" alt="Logo">
+    </div>
+
+    <nav class="menu">
+      <a href="dashboard.html" class="menu-item">🏠 Tableau de bord</a>
+
+      <div class="menu-item" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="submenu" id="submenu-employees">
+        <a href="employes-liste.html">Liste des employés</a>
+        <a href="employes-ajouter.html">Ajouter un employé</a>
+      </div>
+
+      <a href="reservations.html" class="menu-item active">📅 Réservations</a>
+      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+    </nav>
+
+    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+  </aside>
+
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="header">
+      <h1>Réservations</h1>
+      <div class="header-right">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span>☀️</span>
+          <div class="toggle-switch"></div>
+          <span>🌙</span>
+        </div>
+        <div class="user">
+          <div class="avatar">JD</div>
+          <div>
+            <div class="user-name">Jean Dupont</div>
+            <div class="user-role">Administrateur</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="dashboard.html">Tableau de bord</a> ›
+      <span>Réservations</span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div>
+          <div class="stat-label">Aujourd'hui</div>
+          <div class="stat-value">24</div>
+          <div class="stat-change positive">+12%</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div>
+          <div class="stat-label">Confirmées</div>
+          <div class="stat-value">18</div>
+          <div class="stat-change">75%</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div>
+          <div class="stat-label">En attente</div>
+          <div class="stat-value">4</div>
+          <div class="stat-change">17%</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">❌</div>
+        <div>
+          <div class="stat-label">Annulées</div>
+          <div class="stat-value">2</div>
+          <div class="stat-change negative">8%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Table -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Toutes les réservations</h2>
+        <button class="btn btn-primary" onclick="openModal('newReservationModal')">
+          ➕ Nouvelle réservation
+        </button>
+      </div>
+
+      <div class="filters">
+        <div class="search-box">
+          <input type="text" placeholder="🔍 Rechercher un client...">
+        </div>
+        <select class="filter-select">
+          <option value="">Tous les statuts</option>
+          <option value="confirmed">Confirmées</option>
+          <option value="pending">En attente</option>
+          <option value="cancelled">Annulées</option>
+        </select>
+        <select class="filter-select">
+          <option value="">Toutes les dates</option>
+          <option value="today">Aujourd'hui</option>
+          <option value="tomorrow">Demain</option>
+          <option value="week">Cette semaine</option>
+        </select>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Téléphone</th>
+              <th>Date</th>
+              <th>Heure</th>
+              <th>Pers.</th>
+              <th>Table</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#R001</td>
+              <td>Marie Laurent</td>
+              <td>06 12 34 56 78</td>
+              <td>26 Nov 2025</td>
+              <td>19:30</td>
+              <td>4</td>
+              <td>T-05</td>
+              <td><span class="status confirmed">Confirmée</span></td>
+              <td>
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td>#R002</td>
+              <td>Pierre Martin</td>
+              <td>06 98 76 54 32</td>
+              <td>26 Nov 2025</td>
+              <td>20:00</td>
+              <td>2</td>
+              <td>T-02</td>
+              <td><span class="status pending">En attente</span></td>
+              <td>
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td>#R003</td>
+              <td>Sophie Dubois</td>
+              <td>06 55 44 33 22</td>
+              <td>26 Nov 2025</td>
+              <td>20:30</td>
+              <td>6</td>
+              <td>T-08</td>
+              <td><span class="status confirmed">Confirmée</span></td>
+              <td>
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td>#R004</td>
+              <td>Lucas Bernard</td>
+              <td>06 11 22 33 44</td>
+              <td>26 Nov 2025</td>
+              <td>21:00</td>
+              <td>3</td>
+              <td>T-03</td>
+              <td><span class="status cancelled">Annulée</span></td>
+              <td>
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td>#R005</td>
+              <td>Emma Petit</td>
+              <td>06 77 88 99 00</td>
+              <td>27 Nov 2025</td>
+              <td>12:30</td>
+              <td>2</td>
+              <td>T-01</td>
+              <td><span class="status confirmed">Confirmée</span></td>
+              <td>
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <button>«</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>»</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Nouvelle Réservation -->
+  <div class="modal-overlay" id="newReservationModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Nouvelle réservation</h3>
+        <button class="modal-close" onclick="closeModal('newReservationModal')">×</button>
+      </div>
+      <form id="reservationForm" onsubmit="submitReservation(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientName">Nom du client *</label>
+            <input type="text" id="clientName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="clientPhone">Téléphone *</label>
+            <input type="tel" id="clientPhone" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reservationDate">Date *</label>
+            <input type="date" id="reservationDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="reservationTime">Heure *</label>
+            <input type="time" id="reservationTime" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="partySize">Nombre de personnes *</label>
+            <input type="number" id="partySize" class="form-input" min="1" max="20" required>
+          </div>
+          <div class="form-group">
+            <label for="tableNumber">Table</label>
+            <select id="tableNumber" class="form-input">
+              <option value="">Sélectionner</option>
+              <option>T-01</option>
+              <option>T-02</option>
+              <option>T-03</option>
+              <option>T-05</option>
+              <option>T-08</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" class="form-input" rows="3" placeholder="Demandes spéciales..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('newReservationModal')">Annuler</button>
+          <button type="submit" class="btn btn-primary">Créer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    function submitReservation(event) {
+      event.preventDefault();
+      alert('Réservation créée avec succès!');
+      closeModal('newReservationModal');
+    }
+  </script>
+</body>
+
+</html>
