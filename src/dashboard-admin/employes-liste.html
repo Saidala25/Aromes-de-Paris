@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
   <title>Liste des employés - Arômes de Paris</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -19,23 +21,35 @@
     </div>
 
     <nav class="menu">
-      <a href="dashboard.html" class="menu-item">🏠 Tableau de bord</a>
+      <a href="dashboard.html" class="menu-item">
+        <i data-lucide="layout-dashboard"></i> Tableau de bord
+      </a>
 
-      <div class="menu-item active" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="menu-item active" onclick="toggleSubmenu('employees')">
+        <i data-lucide="users"></i> Employés
+      </div>
       <div class="submenu open" id="submenu-employees">
         <a href="employes-liste.html" class="active">Liste des employés</a>
         <a href="employes-ajouter.html">Ajouter un employé</a>
       </div>
 
-      <a href="reservations.html" class="menu-item">📅 Réservations</a>
-      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+      <a href="reservations.html" class="menu-item">
+        <i data-lucide="calendar-days"></i> Réservations
+      </a>
+      <a href="espace-personnel.html" class="menu-item">
+        <i data-lucide="user"></i> Espace Personnel
+      </a>
     </nav>
 
-    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+    <button class="btn-logout" onclick="logout()">
+      <i data-lucide="log-out"></i> Déconnexion
+    </button>
   </aside>
 
   <!-- Mobile Menu Button -->
-  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">
+    <i data-lucide="menu"></i>
+  </button>
 
   <!-- Main Content -->
   <main class="main">
@@ -43,9 +57,9 @@
       <h1>Liste des employés</h1>
       <div class="header-right">
         <div class="theme-toggle" onclick="toggleTheme()">
-          <span>☀️</span>
+          <i data-lucide="sun"></i>
           <div class="toggle-switch"></div>
-          <span>🌙</span>
+          <i data-lucide="moon"></i>
         </div>
         <div class="user">
           <div class="avatar">JD</div>
@@ -68,7 +82,8 @@
     <div class="card">
       <div class="filters">
         <div class="search-box">
-          <input type="text" placeholder="🔍 Rechercher un employé...">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Rechercher un employé...">
         </div>
         <select class="filter-select">
           <option value="">Tous les postes</option>
@@ -82,87 +97,149 @@
           <option value="active">Actif</option>
           <option value="conge">En congé</option>
         </select>
-        <a href="employes-ajouter.html" class="btn btn-primary">➕ Ajouter</a>
+        <a href="employes-ajouter.html" class="btn btn-primary">
+            <i data-lucide="plus"></i> Ajouter
+        </a>
       </div>
     </div>
 
     <!-- Employee Grid -->
-    <div class="employee-grid">
-      <div class="employee-card">
-        <div class="employee-avatar">ML</div>
-        <h3>Marc Lefebvre</h3>
-        <p class="role">Chef cuisinier</p>
-        <p class="contact">marc.lefebvre@aromes.fr</p>
-        <p class="contact">06 12 34 56 78</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
-
-      <div class="employee-card">
-        <div class="employee-avatar">SB</div>
-        <h3>Sophie Bernard</h3>
-        <p class="role">Serveuse</p>
-        <p class="contact">sophie.bernard@aromes.fr</p>
-        <p class="contact">06 23 45 67 89</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
-
-      <div class="employee-card">
-        <div class="employee-avatar">PD</div>
-        <h3>Pierre Durand</h3>
-        <p class="role">Barman</p>
-        <p class="contact">pierre.durand@aromes.fr</p>
-        <p class="contact">06 34 56 78 90</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
-
-      <div class="employee-card">
-        <div class="employee-avatar">CM</div>
-        <h3>Claire Martin</h3>
-        <p class="role">Manager</p>
-        <p class="contact">claire.martin@aromes.fr</p>
-        <p class="contact">06 45 67 89 01</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
-
-      <div class="employee-card">
-        <div class="employee-avatar">LR</div>
-        <h3>Lucas Robert</h3>
-        <p class="role">Serveur</p>
-        <p class="contact">lucas.robert@aromes.fr</p>
-        <p class="contact">06 56 78 90 12</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
-
-      <div class="employee-card">
-        <div class="employee-avatar">ET</div>
-        <h3>Emma Thomas</h3>
-        <p class="role">Sous-chef</p>
-        <p class="contact">emma.thomas@aromes.fr</p>
-        <p class="contact">06 67 89 01 23</p>
-        <div class="employee-actions">
-          <button class="btn btn-secondary">Voir profil</button>
-          <button class="btn-icon">✏️</button>
-        </div>
-      </div>
+    <div class="employee-grid" id="employeeContainer">
     </div>
+
+    <!-- Pagination Container -->
+    <div class="pagination"></div>
   </main>
 
+  <script src="employee-data.js"></script>
   <script src="main.js"></script>
+
+  <script>
+      // Configuration
+      const ITEMS_PER_PAGE = 20;
+      let currentPage = 1;
+      let currentFilter = {
+          search: "",
+          role: "",
+          status: ""
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+          setupEventListeners();
+          renderList();
+      });
+
+      function setupEventListeners() {
+          // Search Input
+          document.querySelector('.search-box input').addEventListener('input', (e) => {
+              currentFilter.search = e.target.value.toLowerCase();
+              currentPage = 1; // Reset to page 1 on search
+              renderList();
+          });
+
+          // Role Filter (Assumes first select is Role)
+          document.querySelectorAll('.filter-select')[0].addEventListener('change', (e) => {
+              currentFilter.role = e.target.value;
+              currentPage = 1;
+              renderList();
+          });
+
+          // Status Filter (Assumes second select is Status)
+          document.querySelectorAll('.filter-select')[1].addEventListener('change', (e) => {
+              currentFilter.status = e.target.value;
+              currentPage = 1;
+              renderList();
+          });
+      }
+
+      function renderList() {
+          const container = document.querySelector('.employee-grid');
+          const allEmployees = EmployeeDB.getAll();
+
+          // 1. FILTERING
+          const filtered = allEmployees.filter(emp => {
+              const matchSearch = (emp.firstName + " " + emp.lastName + emp.email).toLowerCase().includes(currentFilter.search);
+              const matchRole = currentFilter.role === "" || emp.role === currentFilter.role;
+              const matchStatus = currentFilter.status === "" || emp.status === currentFilter.status;
+              return matchSearch && matchRole && matchStatus;
+          });
+
+          // 2. PAGINATION LOGIC
+          const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+          const start = (currentPage - 1) * ITEMS_PER_PAGE;
+          const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+          // 3. RENDER CARDS
+          container.innerHTML = '';
+          
+          if (paginated.length === 0) {
+              container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Aucun employé trouvé.</div>';
+          } else {
+              paginated.forEach(emp => {
+                  const initials = (emp.firstName[0] + emp.lastName[0]).toUpperCase();
+                  
+                  // Icons for status
+                  const statusIcon = emp.status === 'active' ? 'check-circle' : 'clock';
+                  const statusText = emp.status === 'active' ? 'Actif' : 'En congé';
+
+                  container.innerHTML += `
+                  <div class="employee-card">
+                      <div class="employee-avatar">${initials}</div>
+                      <h3>${emp.firstName} ${emp.lastName}</h3>
+                      <p class="role">${emp.role}</p>
+                      <p class="contact">${emp.email}</p>
+                      <div class="status ${emp.status}" style="margin: 10px auto;">
+                          <i data-lucide="${statusIcon}"></i> ${statusText}
+                      </div>
+                      <div class="employee-actions">
+                          <a href="employe-details.html?id=${emp.id}" class="btn btn-secondary">
+                              <i data-lucide="user-cog"></i> Voir profil
+                          </a>
+                      </div>
+                  </div>
+                  `;
+              });
+          }
+
+          // 4. RENDER PAGINATION BUTTONS
+          renderPagination(totalPages);
+          
+          // 5. RE-INITIALIZE ICONS
+          if(window.lucide) lucide.createIcons();
+      }
+
+      function renderPagination(totalPages) {
+          // Find or create pagination container
+          let pageContainer = document.querySelector('.pagination');
+          if(!pageContainer) {
+              pageContainer = document.createElement('div');
+              pageContainer.className = 'pagination';
+              document.querySelector('.main').appendChild(pageContainer);
+          }
+
+          let buttonsHTML = '';
+          
+          // Previous Button
+          buttonsHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
+
+          // Number Buttons
+          for (let i = 1; i <= totalPages; i++) {
+              buttonsHTML += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+          }
+
+          // Next Button
+          buttonsHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>»</button>`;
+
+          pageContainer.innerHTML = buttonsHTML;
+      }
+
+      // Global function for buttons to call
+      window.changePage = function(newPage) {
+          if (newPage < 1) return;
+          currentPage = newPage;
+          renderList();
+      }
+  </script>
 </body>
 
 </html>

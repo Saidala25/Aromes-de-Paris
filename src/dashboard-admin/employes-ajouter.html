@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
   <title>Ajouter un employé - Arômes de Paris</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- IMPORT LUCIDE ICONS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -19,23 +20,33 @@
     </div>
 
     <nav class="menu">
-      <a href="dashboard.html" class="menu-item">🏠 Tableau de bord</a>
+      <a href="dashboard.html" class="menu-item">
+        <i data-lucide="layout-dashboard"></i> Tableau de bord
+      </a>
 
-      <div class="menu-item active" onclick="toggleSubmenu('employees')">👥 Employés ▼</div>
+      <div class="menu-item active" onclick="toggleSubmenu('employees')">
+        <i data-lucide="users"></i> Employés
+      </div>
       <div class="submenu open" id="submenu-employees">
         <a href="employes-liste.html">Liste des employés</a>
         <a href="employes-ajouter.html" class="active">Ajouter un employé</a>
       </div>
 
-      <a href="reservations.html" class="menu-item">📅 Réservations</a>
-      <a href="espace-personnel.html" class="menu-item">👤 Espace Personnel</a>
+      <a href="reservations.html" class="menu-item">
+        <i data-lucide="calendar-days"></i> Réservations
+      </a>
+      <a href="espace-personnel.html" class="menu-item">
+        <i data-lucide="user"></i> Espace Personnel
+      </a>
     </nav>
 
-    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+    <button class="btn-logout" onclick="logout()">
+      <i data-lucide="log-out"></i> Déconnexion
+    </button>
   </aside>
 
   <!-- Mobile Menu Button -->
-  <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+  <button class="mobile-menu-btn" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
 
   <!-- Main Content -->
   <main class="main">
@@ -50,9 +61,9 @@
       </div>
       <div class="header-right">
         <div class="theme-toggle" onclick="toggleTheme()">
-          <span>☀️</span>
+          <i data-lucide="sun"></i>
           <div class="toggle-switch"></div>
-          <span>🌙</span>
+          <i data-lucide="moon"></i>
         </div>
         <div class="user">
           <div class="avatar">JD</div>
@@ -179,7 +190,7 @@
             Annuler
           </button>
           <button type="submit" class="btn btn-primary">
-            ➕ Ajouter l'employé
+            <i data-lucide="plus"></i> Ajouter l'employé
           </button>
         </div>
       </form>
@@ -190,8 +201,8 @@
   <div class="modal-overlay" id="successModal">
     <div class="modal">
       <div class="modal-header">
-        <h3>✅ Employé ajouté avec succès</h3>
-        <button class="modal-close" onclick="closeSuccessModal()">×</button>
+        <h3><i data-lucide="check-circle" style="color:var(--success)"></i> Employé ajouté</h3>
+        <button class="modal-close" onclick="closeSuccessModal()"><i data-lucide="x"></i></button>
       </div>
       <div style="text-align: center; padding: 20px 0;">
         <p style="margin-bottom: 20px;">L'employé a été ajouté avec succès au système.</p>
@@ -207,30 +218,53 @@
       </div>
     </div>
   </div>
-
+  
+  <script src="employee-data.js"></script>
   <script src="main.js"></script>
   <script>
-    // Set today's date as default
-    document.getElementById('hireDate').valueAsDate = new Date();
-
+    // Le script reste le même, mais assurez-vous que main.js charge bien les icônes
     function handleSubmit(event) {
-      event.preventDefault();
-      const firstName = document.getElementById('firstName').value;
-      const lastName = document.getElementById('lastName').value;
-      const username = (firstName.charAt(0) + lastName).toLowerCase().replace(/\s/g, '');
-      const tempPassword = Math.random().toString(36).slice(-8);
+        event.preventDefault();
+        
+        // 1. Gather Data
+        const newEmployee = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            role: document.getElementById('role').value,
+            department: document.getElementById('department').value,
+            hireDate: document.getElementById('hireDate').value,
+            salary: document.getElementById('salary').value,
+            address: document.getElementById('address').value,
+            contractType: document.getElementById('contractType').value,
+            workHours: document.getElementById('workHours').value,
+            notes: document.getElementById('notes').value,
+            status: 'active' 
+        };
 
-      document.getElementById('generatedUsername').textContent = username;
-      document.getElementById('generatedPassword').textContent = tempPassword;
-      document.getElementById('successModal').classList.add('active');
+        // 2. Credentials
+        const username = (newEmployee.firstName.charAt(0) + newEmployee.lastName).toLowerCase().replace(/\s/g, '');
+        const tempPassword = Math.random().toString(36).slice(-8);
+        newEmployee.tempPassword = tempPassword; 
+        newEmployee.username = username;
+
+        // 3. Save
+        EmployeeDB.add(newEmployee);
+
+        // 4. Show Modal
+        document.getElementById('generatedUsername').textContent = username;
+        document.getElementById('generatedPassword').textContent = tempPassword;
+        document.getElementById('successModal').classList.add('active');
+        
+        // Re-render icons in the modal since it was hidden
+        lucide.createIcons();
     }
 
     function closeSuccessModal() {
-      document.getElementById('successModal').classList.remove('active');
-      document.getElementById('employeeForm').reset();
-      document.getElementById('hireDate').valueAsDate = new Date();
+        document.getElementById('successModal').classList.remove('active');
+        window.location.href = 'employes-liste.html';
     }
   </script>
 </body>
-
 </html>

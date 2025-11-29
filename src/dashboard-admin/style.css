@@ -22,6 +22,43 @@
   --border: #333;
 }
 
+/* ===== LUCIDE ICONS CONFIGURATION ===== */
+.lucide {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+  stroke-width: 2px;
+  /* This ensures the icon always takes the color of the text around it */
+  stroke: currentColor; 
+}
+
+.menu-item .lucide {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon .lucide {
+  width: 24px;
+  height: 24px;
+}
+
+.btn .lucide, .btn-icon .lucide {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+}
+
+.btn-icon .lucide {
+  margin-right: 0;
+}
+
 /* ===== RESET ===== */
 * {
   margin: 0;
@@ -48,6 +85,7 @@ body {
   top: 0;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .logo {
@@ -118,6 +156,9 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-logout:hover {
@@ -231,6 +272,8 @@ body {
   align-items: center;
   justify-content: center;
   background: rgba(182, 146, 63, 0.15);
+  color: var(--gold); /* Default Color (Gold) */
+  transition: all 0.3s ease;
 }
 
 .stat-label {
@@ -331,9 +374,12 @@ td {
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.status.confirmed {
+.status.confirmed, .status.active {
   background: rgba(39, 174, 96, 0.15);
   color: var(--success);
 }
@@ -343,7 +389,7 @@ td {
   color: var(--warning);
 }
 
-.status.cancelled {
+.status.cancelled, .status.conge {
   background: rgba(220, 53, 69, 0.15);
   color: var(--danger);
 }
@@ -388,10 +434,12 @@ td {
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
+  color: var(--text-light); /* Default icon color */
 }
 
 .btn-icon:hover {
   background: var(--border);
+  color: var(--gold);
 }
 
 /* ===== QUICK ACTIONS ===== */
@@ -552,50 +600,8 @@ td {
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
-}
-
-/* ===== PLANNING ===== */
-.planning {
-  display: grid;
-  grid-template-columns: 100px repeat(7, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.planning-header {
-  background: var(--green-dark);
-  color: #fff;
-  padding: 15px 10px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.planning-time {
-  background: var(--card-bg);
-  padding: 20px 10px;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-light);
-}
-
-.planning-cell {
-  background: var(--card-bg);
-  padding: 10px;
-  min-height: 60px;
-}
-
-.planning-event {
-  background: var(--gold);
-  color: #fff;
-  padding: 5px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  margin-bottom: 5px;
+  align-items: center;
+  width: 100%;
 }
 
 /* ===== PROFILE ===== */
@@ -890,4 +896,32 @@ td {
   .actions-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== DARK MODE FIXES ===== */
+/* This forces icons to be white in dark mode if they have hardcoded colors */
+
+/* 1. Stat Icons (Usually Gold) -> White */
+.dark-mode .stat-icon {
+  color: #fff;
+}
+
+/* 2. Secondary Buttons (Usually Gold Text) -> White Text */
+.dark-mode .btn-secondary {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* 3. Icon Buttons (Pencil/Trash) -> White */
+.dark-mode .btn-icon {
+  color: #fff;
+}
+
+/* 4. Ensure pagination buttons are readable */
+.dark-mode .pagination button {
+  color: #fff;
+  border-color: #444;
+}
+.dark-mode .pagination button:hover {
+  border-color: var(--gold);
 }

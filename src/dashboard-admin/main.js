@@ -41,7 +41,6 @@ document.addEventListener("click", (e) => {
 function logout() {
   if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
     localStorage.removeItem('currentUser');
-
     window.location.href = '../connexion.html';
   }
 }
@@ -55,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = '../connexion.html';
     return;
   }
-
   console.log('Admin connecté:', user.email);
+
 });
 
 // ===== MODAL FUNCTIONS =====
@@ -106,3 +105,10 @@ function formatDate(date) {
   const options = { day: "2-digit", month: "short", year: "numeric" }
   return new Date(date).toLocaleDateString("fr-FR", options)
 }
+
+// ===== INITIALIZE ICONS =====
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+});
