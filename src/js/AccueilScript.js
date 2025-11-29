@@ -234,9 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>${event.subtitle}</h2>
                     ${event.details.map(line => {
                         if (line.includes('DH')) return `<p class="price">${line}</p>`;
-                        return `<p>${line}</p>`;
+                        return `<p style = "color: #004d40;">${line}</p>`;
                     }).join('')}
-                    <p class="reservation">☎ Réservations : ${event.reservation}</p>
+                    <p class="reservation" style = "color: #004d40;">☎ Réservations : ${event.reservation}</p>
                 </div>
             `;
 
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createDots() {
             for (let i = 0; i < this.totalSlides; i++) {
                 const dot = document.createElement('div');
-                dot.className = 'dot';
+                dot.className = 'dot-s';
                 if (i === 0) dot.classList.add('active');
                 dot.addEventListener('click', () => {
                     this.goToRealSlide(i + 1);
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 this.dotsContainer.appendChild(dot);
             }
-            this.dots = this.dotsContainer.querySelectorAll('.dot');
+            this.dots = this.dotsContainer.querySelectorAll('.dot-s');
         }
 
         updateDots() {

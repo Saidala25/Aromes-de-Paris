@@ -845,7 +845,7 @@ body:not(.loading) .loader-strip {
 /* Contenu texte */
 .slide-content {
     flex: 1;
-    color: #004d40;
+    color: #004d40 !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -921,7 +921,7 @@ body:not(.loading) .loader-strip {
     z-index: 10;
 }
 
-.dot {
+.dot-s {
     width: 12px;
     height: 12px;
     background: #ddd;
@@ -930,7 +930,7 @@ body:not(.loading) .loader-strip {
     transition: all 0.3s;
 }
 
-.dot.active {
+.dot-s.active {
     background: #004d40;
     transform: scale(1.5);
 }
