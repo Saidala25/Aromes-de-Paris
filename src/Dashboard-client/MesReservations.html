@@ -1,336 +1,150 @@
-// Système de Réservation - Arômes de Paris
-// Fonction pour générer un ID unique pour chaque réservation
-function genererIdReservation() {
-    return 'RES-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-}
+<!DOCTYPE html>
+<html lang="fr">
 
-// Fonction pour formater la date en français
-function formaterDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(date).toLocaleDateString('fr-FR', options);
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Mes Réservations - Arômes de Paris</title>
 
-// Fonction principale pour gérer la soumission du formulaire
-function gererReservation(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    
-    // Récupération des données du formulaire selon votre structure HTML
-    const reservation = {
-        id: genererIdReservation(),
-        nomComplet: form.name.value.trim(),
-        telephone: form.phone.value.trim(),
-        email: form.email.value.trim() || 'Non renseigné',
-        date: form.date.value,
-        heure: form.time.value,
-        nombrePersonnes: form.people.value,
-        preferenceTable: form.table.value || 'Aucune préférence',
-        statut: 'en_attente',
-        dateCreation: new Date().toISOString()
-    };
-    
-    console.log(' Nouvelle réservation:', reservation);
-    
-    // Validation des données
-    if (!validerReservation(reservation)) {
-        return false;
-    }
-    
-    // Sauvegarde de la réservation
-    if (sauvegarderReservation(reservation)) {
-        afficherConfirmation(reservation);
-        form.reset();
-    }
-    
-    return false;
-}
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-// Fonction de validation
-function validerReservation(reservation) {
-    // Validation du nom complet
-    if (reservation.nomComplet.length < 3) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'Veuillez entrer un nom complet valide',
-            confirmButtonColor: '#d4af37'
-        });
-        return false;
-    }
-    
-    // Validation du téléphone (format français/marocain)
-    const telRegex = /^[0-9\s+]{10,15}$/;
-    if (!telRegex.test(reservation.telephone)) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'Veuillez entrer un numéro de téléphone valide',
-            confirmButtonColor: '#d4af37'
-        });
-        return false;
-    }
-    
-    // Validation de l'email (si renseigné)
-    if (reservation.email !== 'Non renseigné') {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(reservation.email)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Veuillez entrer un email valide',
-                confirmButtonColor: '#d4af37'
-            });
-            return false;
-        }
-    }
-    
-    // Validation de la date (ne peut pas être dans le passé)
-    const dateReservation = new Date(reservation.date);
-    const aujourdhui = new Date();
-    aujourdhui.setHours(0, 0, 0, 0);
-    
-    if (dateReservation < aujourdhui) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'La date de réservation ne peut pas être dans le passé',
-            confirmButtonColor: '#d4af37'
-        });
-        return false;
-    }
-    
-    // Validation de l'heure
-    if (!reservation.heure) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'Veuillez sélectionner une heure',
-            confirmButtonColor: '#d4af37'
-        });
-        return false;
-    }
-    
-    return true;
-}
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="Client.css">
+</head>
 
-// Fonction pour sauvegarder la réservation
-function sauvegarderReservation(reservation) {
-    try {
-        // Récupérer les réservations existantes
-        let reservations = obtenirToutesReservations();
-        
-        // Ajouter la nouvelle réservation
-        reservations.push(reservation);
-        
-        // Sauvegarder dans localStorage
-        localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-        
-        console.log(' Réservation sauvegardée avec succès');
-        console.log(' Total réservations:', reservations.length);
-        
-        // Mettre à jour le compteur de réservations actives pour le client
-        mettreAJourStatistiquesClient();
-        
-        return true;
-    } catch (error) {
-        console.error('❌ Erreur lors de la sauvegarde:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'Une erreur est survenue lors de la sauvegarde',
-            confirmButtonColor: '#d4af37'
-        });
-        return false;
-    }
-}
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
-// Fonction pour obtenir toutes les réservations
-function obtenirToutesReservations() {
-    try {
-        const data = localStorage.getItem('reservations_restaurant');
-        const reservations = data ? JSON.parse(data) : [];
-        console.log(' Réservations récupérées:', reservations.length);
-        return reservations;
-    } catch (error) {
-        console.error('❌ Erreur lors de la récupération:', error);
-        return [];
-    }
-}
+        <nav class="sidebar-nav">
+            <a href="Client.html" class="nav-item">
+                <i class="fas fa-th-large"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="Profil.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Mon Profil</span>
+            </a>
+            <a href="MesReservations.html" class="nav-item active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Mes Réservations</span>
+            </a>
+            <a href="../menu.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Menu</span>
+            </a>
+            <a href="Conseils.html" class="nav-item">
+                <i class="fas fa-lightbulb"></i>
+                <span>Conseils</span>
+            </a>
+            <a href="../contact.html" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </aside>
 
-// Fonction pour afficher la confirmation avec SweetAlert2
-function afficherConfirmation(reservation) {
-    Swal.fire({
-        title: "BIENVENUE !",
-        text: "Réservation effectuée. Veuillez attendre  la confirmation par téléphone.",
-        
-        // Logo avec dimensions réduites
-        imageUrl: "assets/Logos/Aromes-LOGO-H.png",
-        imageWidth: 150,        // Réduit de 120
-        imageHeight: 60,        // Ajusté pour garder les proportions
-        imageAlt: "Arômes de Paris",
-        
-        // Couleurs 
-        background: "#194238",
-        color: "#ddc670",
-        confirmButtonColor: "#b6923f",
-        confirmButtonText: "OK",
-        
-        customClass: {
-            popup: "swal2-luxe-popup",
-            title: "swal2-luxe-title",
-            htmlContainer: "swal2-luxe-text",
-            confirmButton: "swal2-luxe-button",
-            image: "swal2-luxe-logo"  //Classe pour le logo
-        }
-    }).then((result) => {
-        // Rediriger vers la page Mes Réservations après avoir cliqué sur OK
-        if (result.isConfirmed) {
-            // Sauvegarder le nom du client pour le dashboard
-            localStorage.setItem('userData', JSON.stringify({ nom: reservation.nomComplet }));
-            
-            // Rediriger vers Mes Réservations dans le dashboard client
-            window.location.href = 'dashboard-client/MesReservations.html';
-        }
-    });
-}
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
 
-// Fonction pour mettre à jour les statistiques du client
-function mettreAJourStatistiquesClient() {
-    const reservations = obtenirToutesReservations();
-    const reservationsActives = reservations.filter(r => r.statut === 'en_attente' || r.statut === 'confirmee');
-    
-    // Sauvegarder le nombre de réservations actives
-    localStorage.setItem('reservations_actives_count', reservationsActives.length);
-    
-    console.log(' Statistiques mises à jour:', reservationsActives.length, 'réservations actives');
-}
+            <div class="topbar-left">
+                <h1>Mes Réservations</h1>
+            </div>
 
-// Fonction pour obtenir les réservations d'un client spécifique
-function obtenirReservationsClient(nomClient) {
-    const reservations = obtenirToutesReservations();
-    return reservations.filter(r => 
-        r.nomComplet.toLowerCase().includes(nomClient.toLowerCase())
-    );
-}
+            <div class="topbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="clientName">Client</span>
+                        <span class="user-role">Membre</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-// Fonction pour obtenir une réservation par ID
-function obtenirReservationParId(id) {
-    const reservations = obtenirToutesReservations();
-    return reservations.find(res => res.id === id);
-}
+        <!-- Reservations Content -->
+        <main class="dashboard-content">
+            <div class="reservations-header">
+                <h2> Mes Réservations</h2>
+                <p>Consultez et gérez toutes vos réservations chez Arômes de Paris</p>
+            </div>
 
-// Fonction pour mettre à jour le statut d'une réservation
-function mettreAJourStatut(id, nouveauStatut) {
-    try {
-        let reservations = obtenirToutesReservations();
-        const index = reservations.findIndex(res => res.id === id);
-        
-        if (index !== -1) {
-            reservations[index].statut = nouveauStatut;
-            reservations[index].dateModification = new Date().toISOString();
-            localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-            mettreAJourStatistiquesClient();
-            return true;
-        }
-        return false;
-    } catch (error) {
-        console.error('Erreur lors de la mise à jour:', error);
-        return false;
-    }
-}
+            <!-- Info de Debug (pour tester) -->
+            <div class="debug-info" id="debugInfo" style="display: none;">
+                <h4> Informations de Debug :</h4>
+                <div id="debugContent"></div>
+            </div>
 
-// Fonction pour annuler une réservation
-function annulerReservation(id) {
-    return mettreAJourStatut(id, 'annulee');
-}
+            <!-- Statistiques Mini -->
+            <div class="stats-row" id="statsRow">
+                <div class="stat-mini-card">
+                    <i class="fas fa-clock" style="color: #ffc107;"></i>
+                    <h4 id="countEnAttente">0</h4>
+                    <p>En attente</p>
+                </div>
+                <div class="stat-mini-card">
+                    <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                    <h4 id="countConfirmee">0</h4>
+                    <p>Confirmées</p>
+                </div>
+                <div class="stat-mini-card">
+                    <i class="fas fa-times-circle" style="color: #dc3545;"></i>
+                    <h4 id="countAnnulee">0</h4>
+                    <p>Annulées</p>
+                </div>
+                <div class="stat-mini-card">
+                    <i class="fas fa-calendar-check" style="color: #d4af37;"></i>
+                    <h4 id="countTotal">0</h4>
+                    <p>Total</p>
+                </div>
+            </div>
 
-// Fonction pour supprimer une réservation
-function supprimerReservation(id) {
-    try {
-        let reservations = obtenirToutesReservations();
-        reservations = reservations.filter(res => res.id !== id);
-        localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-        mettreAJourStatistiquesClient();
-        return true;
-    } catch (error) {
-        console.error('Erreur lors de la suppression:', error);
-        return false;
-    }
-}
+            <!-- Filtres -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="toutes">
+                    <i class="fas fa-list"></i> Toutes
+                </button>
+                <button class="filter-tab" data-filter="en_attente">
+                    <i class="fas fa-clock"></i> En attente
+                </button>
+                <button class="filter-tab" data-filter="confirmee">
+                    <i class="fas fa-check-circle"></i> Confirmées
+                </button>
+                <button class="filter-tab" data-filter="annulee">
+                    <i class="fas fa-times-circle"></i> Annulées
+                </button>
+            </div>
 
-// Fonction pour obtenir les statistiques globales
-function obtenirStatistiques() {
-    const reservations = obtenirToutesReservations();
-    return {
-        total: reservations.length,
-        enAttente: reservations.filter(r => r.statut === 'en_attente').length,
-        confirmees: reservations.filter(r => r.statut === 'confirmee').length,
-        annulees: reservations.filter(r => r.statut === 'annulee').length
-    };
-}
+            <!-- Grille des réservations -->
+            <div class="reservations-grid" id="reservationsGrid">
+                <!-- Les réservations seront chargées ici par JavaScript -->
+            </div>
+        </main>
+    </div>
 
-// Fonction pour obtenir les réservations du jour
-function obtenirReservationsDuJour() {
-    const reservations = obtenirToutesReservations();
-    const aujourdhui = new Date().toISOString().split('T')[0];
-    return reservations.filter(res => res.date === aujourdhui);
-}
-
-// Initialisation au chargement de la page
-document.addEventListener('DOMContentLoaded', function() {
-    console.log(' Système de réservation Arômes de Paris initialisé');
-    
-    // Attacher le gestionnaire au formulaire de réservation
-    const formulaire = document.querySelector('.booking-form');
-    
-    if (formulaire) {
-        formulaire.addEventListener('submit', gererReservation);
-        console.log('Formulaire de réservation détecté et connecté');
-        
-        // Configurer la date minimum (aujourd'hui)
-        const champDate = formulaire.querySelector('input[name="date"]');
-        if (champDate) {
-            const aujourdhui = new Date().toISOString().split('T')[0];
-            champDate.setAttribute('min', aujourdhui);
-        }
-    }
-    
-    // Afficher les statistiques dans la console
-    const stats = obtenirStatistiques();
-    console.log(' Statistiques des réservations:', stats);
-    
-    // Mettre à jour les statistiques du dashboard si on est sur la page client
-    mettreAJourStatistiquesClient();
-});
-
-// Export des fonctions pour utilisation externe
-window.AromesParis = {
-    // Fonctions principales
-    reservations: {
-        obtenir: obtenirToutesReservations,
-        obtenirParId: obtenirReservationParId,
-        obtenirClient: obtenirReservationsClient,
-        obtenirDuJour: obtenirReservationsDuJour,
-        supprimer: supprimerReservation,
-        annuler: annulerReservation,
-        changerStatut: mettreAJourStatut
-    },
-    
-    // Statistiques
-    stats: obtenirStatistiques,
-    
-    // Utilitaires
-    utils: {
-        formaterDate: formaterDate
-    }
-};
-
-console.log(' API AromesParis.reservations disponible dans window.AromesParis');
-
-
-//scripte de Mesreservations 
- // Charger le nom du client
+    <script>
+        // Charger le nom du client
         const loadClientName = () => {
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
             const name = userData.nom || 'Client';
@@ -661,3 +475,7 @@ console.log(' API AromesParis.reservations disponible dans window.AromesParis');
             afficherReservations();
             console.log(' Page chargée avec succès');
         });
+    </script>
+</body>
+
+</html>
