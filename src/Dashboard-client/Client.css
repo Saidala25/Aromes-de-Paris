@@ -1,0 +1,23 @@
+/* ===== VARIABLES ===== */
+:root {
+    --gold: #b6923f;
+    --gold-light: #ddc670;
+    --green-dark: #194238;
+    --bg-sidebar: #1a1a1a;
+    --bg-main: #f5f5f5;
+    --text-main: #333;
+    --text-light: #666;
+    --card-bg: #fff;
+    --border: #e0e0e0;
+    --danger: #dc3545;
+    --success: #27ae60;
+    --warning: #f39c12;
+}
+
+.dark-mode {
+    --bg-main: #0d0d0d;
+    --text-main: #f5f5f5;
+    --text-light: #aaa;
+    --card-bg: #1a1a1a;
+    --border: #333;
+}
