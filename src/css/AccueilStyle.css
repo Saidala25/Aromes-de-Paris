@@ -873,7 +873,7 @@ body:not(.loading) .loader-strip {
 }
 
 .price {
-    font-size: clamp(1.4rem, 1.5vw, 1.8rem) !important;
+    font-size: clamp(1rem, 1.2vw, 1.8rem) !important;
     font-weight: 550;
     color: #b8860b;
     margin: 15px 0;

@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = new PopupSlider();
 
         // Afficher le popup après 9 secondes (ou quand tu veux)
-        setTimeout(() => slider.show(), 9000);
+        setTimeout(() => slider.show(), 6500);
 
         // Ou tu peux l'ouvrir manuellement avec : slider.show();
     });
