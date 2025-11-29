@@ -367,13 +367,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // === Lancement du popup ===
+    // === GESTION DES COOKIES POUR LE POPUP (une seule fois) ===
+    function setCookie(name, value, days = 7) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/;SameSite=Lax";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function hasSeenPopup() {
+        return getCookie('popupSeen2025') !== null;
+    }
+
+    function markPopupAsSeen() {
+        setCookie('popupSeen2025', 'true', 30); // 30 jours (tu peux mettre 7, 90, 365...)
+    }
+
+
+
+    // === Lancement du popup (UNE SEULE FOIS) ===
+    // === POPUP avec COOKIES – s’affiche toutes les 60 secondes maximum ===
     window.addEventListener('load', () => {
         const slider = new PopupSlider();
 
-        // Afficher le popup après 9 secondes (ou quand tu veux)
-        setTimeout(() => slider.show(), 6500);
+        const COOKIE_NAME = "popup_last_shown";   // nom du cookie
+        const DELAI_MINUTES = 1440;                  // 1 minute entre 2 affichages (change à 2, 5, 10… si tu veux)
 
-        // Ou tu peux l'ouvrir manuellement avec : slider.show();
+        // Fonction pour lire un cookie
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
+
+        // Fonction pour écrire un cookie (en minutes)
+        function setCookie(name, value, minutes) {
+            const date = new Date();
+            date.setTime(date.getTime() + (minutes * 60 * 1000));
+            document.cookie = name + "=" + value + "; expires=" + date.toUTCString() + "; path=/; SameSite=Lax";
+        }
+
+        // On regarde quand le popup a été affiché la dernière fois
+        const lastShown = getCookie(COOKIE_NAME);
+        const now = Date.now();
+
+        // Si jamais vu OU vu il y a plus de 1 minute → on affiche
+        if (!lastShown || (now - parseInt(lastShown) > DELAI_MINUTES * 60 * 1000)) {
+
+            setTimeout(() => {
+                slider.show();
+
+                // Dès qu’il ferme le popup → on enregistre l’heure actuelle dans le cookie
+                const oldHide = slider.hide;
+                slider.hide = function () {
+                    oldHide.call(this);
+                    setCookie(COOKIE_NAME, Date.now(), 1440); // 1440 minutes = 24h de durée de vie du cookie (peu importe)
+                };
+
+            }, 6500); // ton délai après le loader
+
+        }
+        // Sinon → il est revenu en moins de 60 secondes → rien
     });
 });
