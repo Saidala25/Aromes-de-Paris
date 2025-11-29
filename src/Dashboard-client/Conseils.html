@@ -55,6 +55,10 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
+            <a href="#" class="nav-item logout-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
         </nav>
     </aside>
 
@@ -174,6 +178,19 @@
         };
 
         loadClientName();
+
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Clear user data from localStorage
+            localStorage.removeItem('userData');
+            localStorage.removeItem('hasVisitedDashboard');
+
+            // Redirect to login page
+            window.location.href = '../connexion.html';
+        });
 
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
