@@ -4,16 +4,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const switchToSignup = document.getElementById('switch-to-signup');
     const switchToLogin = document.getElementById('switch-to-login');
     const container = document.querySelector('.connexion-container');
-    
+
     // 1. Select the logo image element
     const logoImage = document.querySelector('.logo-image');
 
-    // 2. Define your image paths here
-    const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H-Green.png'; // Logo for Login (Gold side)
-    const logoForGoldBg  = 'assets/Logos/Aromes-LOGO-H.png'; // Logo for Signup (Green Side)
+    // 2. Define your image paths here - CORRIGÉ
+    const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H.png'; // Logo JAUNE pour fond VERT (Signup)
+    const logoForGoldBg = 'assets/Logos/Aromes-LOGO-H-Green.png'; // Logo VERT pour fond JAUNE (Login)
     console.log('JavaScript chargé !');
 
-    // Switch vers inscription (Switch to Gold/Inverse)
+    // Au chargement initial, on est sur le formulaire de connexion (fond JAUNE)
+    // Donc le logo doit être VERT
+    logoImage.src = logoForGoldBg;
+
+    // Switch vers inscription (Switch to Green Background)
     switchToSignup.addEventListener('click', function (e) {
         e.preventDefault();
         console.log('Clic sur Créer un compte');
@@ -25,14 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.classList.add('inverse');
 
-        // 3. Change the logo to the Gold/Inverse version
-        // We add a small timeout so it changes while the logo is spinning (optional, looks smoother)
+        // 3. Change le logo pour la version JAUNE (car fond devient VERT)
         setTimeout(() => {
-            logoImage.src = logoForGoldBg;
-        }, 200); 
+            logoImage.src = logoForGreenBg;
+        }, 200);
     });
 
-    // Switch vers connexion (Switch back to Green)
+    // Switch vers connexion (Switch back to Gold Background)
     switchToLogin.addEventListener('click', function (e) {
         e.preventDefault();
         console.log('Clic sur Se connecter');
@@ -44,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.classList.remove('inverse');
 
-        // 4. Change the logo back to the Green/Default version
+        // 4. Change le logo pour la version VERTE (car fond redevient JAUNE)
         setTimeout(() => {
-            logoImage.src = logoForGreenBg;
+            logoImage.src = logoForGoldBg;
         }, 200);
     });
 

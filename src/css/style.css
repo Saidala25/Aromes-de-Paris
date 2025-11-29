@@ -11,7 +11,8 @@
     --color-gold-hover: #b59020;
     --color-black: #000000;
     --color-white: #ffffff;
-    --color-green-dark: #194238; /* Branding Green */
+    --color-green-dark: #194238;
+    /* Branding Green */
 
     /* Typography */
     --font-serif: 'Playfair Display', serif;
@@ -23,7 +24,9 @@
     --header-height: 80px;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -66,9 +69,19 @@ body.loading {
     background-color: var(--color-bg-alt);
 }
 
-.text-center { text-align: center; }
-.text-uppercase { text-transform: uppercase; letter-spacing: 0.15em; }
-.text-gold { color: var(--color-gold); }
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.text-gold {
+    color: var(--color-gold);
+}
+
 .text-gradient {
     background: linear-gradient(90deg, #fff, var(--color-gold));
     background-clip: text;
@@ -92,16 +105,28 @@ body.loading {
 /* =========================================
    3. TYPOGRAPHY
    ========================================= */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-serif);
     font-weight: 400;
     line-height: 1.2;
     margin-bottom: 1rem;
 }
 
-h1 { font-size: clamp(3rem, 5vw, 5.5rem); }
-h2 { font-size: clamp(2.5rem, 4vw, 4rem); }
-h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+h1 {
+    font-size: clamp(3rem, 5vw, 5.5rem);
+}
+
+h2 {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
 
 blockquote {
     font-family: var(--font-serif);
@@ -124,13 +149,16 @@ blockquote {
     height: var(--header-height);
     z-index: 1000;
     transition: all 0.4s ease;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    opacity: 0; /* Hidden initially for loader */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    /* Hidden initially for loader */
     animation: fadeInNav 1s forwards;
 }
 
 @keyframes fadeInNav {
-    to { opacity: 1; }
+    to {
+        opacity: 1;
+    }
 }
 
 .navbar.scrolled {
@@ -381,7 +409,7 @@ footer ul {
 .footer-brand div {
     display: flex;
     justify-content: left;
-    
+
 }
 
 .foot-container p {
@@ -392,6 +420,24 @@ footer ul {
     font-size: 1rem;
 }
 
+/*pour footer*/
+.link-dev {
+    color: #d4af37;
+    text-decoration: none !important;
+}
+
+.link-dev:hover {
+    color: var(--color-white);
+}
+
+.location {
+    color: #aaa;
+    text-decoration: none !important;
+}
+
+.location:hover {
+    color: var(--color-gold-hover);
+}
 
 /* Responsive */
 @media (max-width: 992px) {
@@ -409,20 +455,24 @@ footer ul {
         display: flex;
         position: fixed;
         top: 0;
-        left: -100%; /* Hidden to the left */
+        left: -100%;
+        /* Hidden to the left */
         width: 100%;
         height: 100vh;
-        background: rgba(10, 10, 10, 0.98); /* Dark background */
+        background: rgba(10, 10, 10, 0.98);
+        /* Dark background */
         backdrop-filter: blur(10px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: 0.5s ease-in-out;
-        z-index: 998; /* Below the toggle button */
+        z-index: 998;
+        /* Below the toggle button */
     }
 
     .nav-links.active {
-        left: 0; /* Slide in */
+        left: 0;
+        /* Slide in */
     }
 
     .mobile-toggle {
@@ -451,9 +501,9 @@ footer ul {
     }
 
     .footer-brand div {
-    display: flex;
-    justify-content: center;
-}
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /* =========================================
@@ -470,9 +520,17 @@ footer ul {
     transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-1 {
+    transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+    transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+    transition-delay: 0.3s;
+}
 
 /* =========================================
    8. LOADER & REVEAL ANIMATION
@@ -488,7 +546,8 @@ footer ul {
     overflow: hidden;
     /* Main loader removal handled via JS/Wipe timing */
     animation: hideLoader 0.1s forwards;
-    animation-delay: 4.5s; /* Cleanup after all animations */
+    animation-delay: 4.5s;
+    /* Cleanup after all animations */
     pointer-events: none;
 }
 
@@ -497,7 +556,8 @@ footer ul {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 10000; /* Above wipes initially */
+    z-index: 10000;
+    /* Above wipes initially */
     animation: zoomToNav 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
     animation-delay: 2.8s;
 }
@@ -531,7 +591,8 @@ footer ul {
     left: 0;
     width: 100%;
     height: 100%;
-    transform: translateY(100%); /* Start below screen */
+    transform: translateY(100%);
+    /* Start below screen */
     z-index: 9990;
 }
 
@@ -539,67 +600,120 @@ footer ul {
     background-color: var(--color-green-dark);
     z-index: 9996;
     animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
-    animation-delay: 3.5s; /* Starts after logo moves */
+    animation-delay: 3.5s;
+    /* Starts after logo moves */
 }
 
 .wipe-gold {
     background-color: var(--color-gold);
     z-index: 9997;
     animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
-    animation-delay: 3.7s; /* Slightly delayed after green */
+    animation-delay: 3.7s;
+    /* Slightly delayed after green */
 }
 
 
 /* KEYFRAMES */
 @keyframes iconAppear {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes textSlideOut {
-    0% { width: 0; opacity: 0; margin-left: 0; }
-    100% { width: 200px; opacity: 1; margin-left: 20px; }
+    0% {
+        width: 0;
+        opacity: 0;
+        margin-left: 0;
+    }
+
+    100% {
+        width: 200px;
+        opacity: 1;
+        margin-left: 20px;
+    }
 }
 
 @keyframes zoomToNav {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { 
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
         /* Move roughly to top-left where navbar logo is */
-        transform: translate(-35vw, -45vh) scale(0.4); 
-        opacity: 0; /* Fade out as it arrives */
+        transform: translate(-35vw, -45vh) scale(0.4);
+        opacity: 0;
+        /* Fade out as it arrives */
     }
 }
 
 @keyframes slideUpCover {
-    0% { transform: translateY(100%); }
-    100% { transform: translateY(0%); }
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 @keyframes slideUpReveal {
-    0% { transform: translateY(0%); }
-    100% { transform: translateY(-100%); }
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
 }
 
 @keyframes hideLoader {
-    to { visibility: hidden; width: 0; height: 0; }
+    to {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
 }
 
 /* =========================================
    9. MEDIA QUERIES
    ========================================= */
 @media (max-width: 992px) {
-    .grid-2 { grid-template-columns: 1fr; gap: 3rem; }
+    .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
 }
 
 @media (max-width: 768px) {
-    h1 { font-size: 3rem; }
-    .nav-links { display: none; }
-    .mobile-toggle { display: block; }
-    .section { padding: 4rem 1.5rem; }
-    
+    h1 {
+        font-size: 3rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .section {
+        padding: 4rem 1.5rem;
+    }
+
     /* Simplified mobile loader */
     @keyframes zoomToNav {
-        100% { transform: scale(0.8); opacity: 0; }
+        100% {
+            transform: scale(0.8);
+            opacity: 0;
+        }
     }
 }
 
@@ -609,13 +723,16 @@ footer ul {
 ::-webkit-scrollbar {
     width: 10px;
 }
+
 ::-webkit-scrollbar-track {
     background: var(--color-bg-alt);
 }
+
 ::-webkit-scrollbar-thumb {
     background: var(--color-gold);
     border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gold-hover);
 }
@@ -631,9 +748,11 @@ footer ul {
     height: 8px;
     z-index: 9998;
 }
+
 .strip-green {
     background-color: var(--color-green-dark);
 }
+
 .strip-gold {
     background-color: var(--color-gold);
 }
@@ -655,19 +774,22 @@ body:not(.loading) .loader-strip {
     .loader-icon {
         width: 150px;
     }
+
     .loader-text {
         height: 150px;
     }
 }
 
 @media (max-width: 768px) {
+
     /* 1. Make sure it's flex, not none, so we can see it */
     .nav-links {
-        display: flex; 
+        display: flex;
         flex-direction: column;
         position: fixed;
         top: 0;
-        left: -100%; /* Hidden off-screen */
+        left: -100%;
+        /* Hidden off-screen */
         width: 100%;
         height: 100vh;
         background: rgba(10, 10, 10, 0.98);
@@ -687,6 +809,7 @@ body:not(.loading) .loader-strip {
    MOBILE MENU FIX (Paste at the bottom)
    ========================================= */
 @media (max-width: 980px) {
+
     /* 1. Show the toggle button */
     .mobile-toggle {
         display: block !important;
@@ -695,44 +818,48 @@ body:not(.loading) .loader-strip {
         color: var(--color-gold);
         font-size: 1.5rem;
         cursor: pointer;
-        z-index: 1001; /* Above everything */
+        z-index: 1001;
+        /* Above everything */
         position: relative;
     }
 
     /* 2. Position the menu off-screen by default */
     .nav-links {
-        display: flex !important; /* Force flex so it's not 'none' */
+        display: flex !important;
+        /* Force flex so it's not 'none' */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: fixed;
         top: 0;
-        left: -100%; /* Hidden to the left */
+        left: -100%;
+        /* Hidden to the left */
         width: 100%;
         height: 100vh;
         background: rgba(10, 10, 10, 0.98);
         backdrop-filter: blur(10px);
         transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        z-index: 998; /* Just behind the toggle button */
-        gap: 2rem; /* Space between links */
+        z-index: 998;
+        /* Just behind the toggle button */
+        gap: 2rem;
+        /* Space between links */
     }
 
     /* 3. The class JS adds to slide it in */
     .nav-links.active {
-        left: 0 !important; /* Force it on screen */
+        left: 0 !important;
+        /* Force it on screen */
     }
-    
+
     /* 4. Style the links inside mobile menu */
     .nav-links li {
         width: 100%;
         text-align: center;
     }
-    
+
     .nav-links a {
-        font-size: 1.5rem; /* Larger text for mobile */
+        font-size: 1.5rem;
+        /* Larger text for mobile */
         display: block;
     }
 }
-
-
-

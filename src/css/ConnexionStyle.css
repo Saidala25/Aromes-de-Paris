@@ -1,7 +1,8 @@
 /* Connexion Page Specific Styles */
 
 .connexion-main {
-    background: #121212;;
+    background: #121212;
+    ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +15,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Arial", sans-serif;
 }
 
 .connexion-container {
