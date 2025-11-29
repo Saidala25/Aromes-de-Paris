@@ -40,10 +40,24 @@ document.addEventListener("click", (e) => {
 // ===== LOGOUT =====
 function logout() {
   if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-    alert("Déconnexion réussie")
-    // window.location.href = 'login.html';
+    localStorage.removeItem('currentUser');
+
+    window.location.href = '../connexion.html';
   }
 }
+
+// Vérifier que l'admin est connecté au chargement de la page
+document.addEventListener('DOMContentLoaded', function () {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+
+  if (!user || user.role !== 'admin') {
+    alert('Accès non autorisé');
+    window.location.href = '../connexion.html';
+    return;
+  }
+
+  console.log('Admin connecté:', user.email);
+});
 
 // ===== MODAL FUNCTIONS =====
 function openModal(modalId) {
