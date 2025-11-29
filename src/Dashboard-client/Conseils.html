@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Conseils - Arômes de Paris</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="Client.css">
+    <link rel="stylesheet" href="Conseils.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="Client.html" class="nav-item">
+                <i class="fas fa-th-large"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="Profil.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Mon Profil</span>
+            </a>
+            <a href="../reservation.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Réservations</span>
+            </a>
+            <a href="../menu.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Menu</span>
+            </a>
+            <a href="Conseils.html" class="nav-item active">
+                <i class="fas fa-lightbulb"></i>
+                <span>Conseils</span>
+            </a>
+            <a href="../contact.html" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="topbar-left">
+                <h1>Conseils & Astuces</h1>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="clientName">Client</span>
+                        <span class="user-role">Membre</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content">
+            <div class="welcome-section">
+                <h2>Optimisez votre expérience</h2>
+                <p>Découvrez nos meilleurs conseils pour profiter pleinement d'Arômes de Paris</p>
+            </div>
+
+            <div class="conseils-grid">
+                <!-- Conseil 1 -->
+                <div class="conseil-card">
+                    <div class="conseil-icon gold">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Réservation Anticipée</h3>
+                    <p>Pour garantir votre table préférée, nous vous recommandons de réserver au moins 48h à l'avance,
+                        surtout pour les services du soir.</p>
+                    <div class="conseil-tip">
+                        <i class="fas fa-star"></i>
+                        <span>Astuce : Les mardis soirs sont plus calmes</span>
+                    </div>
+                </div>
+
+                <!-- Conseil 2 -->
+                <div class="conseil-card">
+                    <div class="conseil-icon green">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Options Végétariennes</h3>
+                    <p>Notre menu change selon les saisons. N'hésitez pas à demander nos options végétariennes du jour à
+                        votre serveur.</p>
+                    <div class="conseil-tip">
+                        <i class="fas fa-carrot"></i>
+                        <span>Astuce : Le menu découverte végétal est un délice</span>
+                    </div>
+                </div>
+
+                <!-- Conseil 3 -->
+                <div class="conseil-card">
+                    <div class="conseil-icon blue">
+                        <i class="fas fa-wine-glass-alt"></i>
+                    </div>
+                    <h3>Accords Mets & Vins</h3>
+                    <p>Laissez notre sommelier vous guider. Un bon accord peut sublimer votre plat et transformer votre
+                        expérience.</p>
+                    <div class="conseil-tip">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Astuce : Demandez la sélection du mois</span>
+                    </div>
+                </div>
+
+                <!-- Conseil 4 -->
+                <div class="conseil-card">
+                    <div class="conseil-icon purple">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Programme Fidélité</h3>
+                    <p>Cumulez des points à chaque visite. 1€ dépensé = 1 point. Échangez vos points contre des desserts
+                        ou des réductions.</p>
+                    <div class="conseil-tip">
+                        <i class="fas fa-trophy"></i>
+                        <span>Astuce : Doublez vos points le jour de votre anniversaire</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Une question spécifique ?</h2>
+                <p>Notre équipe est à votre disposition pour répondre à toutes vos interrogations.</p>
+                <div class="cta-buttons">
+                    <a href="../contact.html" class="btn-primary">
+                        <i class="fas fa-envelope"></i> Nous contacter
+                    </a>
+                    <a href="../menu.html" class="btn-secondary">
+                        <i class="fas fa-book-open"></i> Voir le menu
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load client name
+        const loadClientName = () => {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const name = userData.nom || 'Client';
+
+            document.getElementById('clientName').textContent = name;
+        };
+
+        loadClientName();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>

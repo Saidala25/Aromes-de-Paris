@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Mon Profil - Arômes de Paris</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="Client.css">
+    <link rel="stylesheet" href="Profil.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="Client.html" class="nav-item">
+                <i class="fas fa-th-large"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="Profil.html" class="nav-item active">
+                <i class="fas fa-user"></i>
+                <span>Mon Profil</span>
+            </a>
+            <a href="../reservation.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Réservations</span>
+            </a>
+            <a href="../menu.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Menu</span>
+            </a>
+            <a href="Conseils.html" class="nav-item">
+                <i class="fas fa-lightbulb"></i>
+                <span>Conseils</span>
+            </a>
+            <a href="../contact.html" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="topbar-left">
+                <h1>Mon Profil</h1>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="clientName">Client</span>
+                        <span class="user-role">Membre</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content">
+            <div class="profile-container">
+                <!-- Avatar Section -->
+                <div class="profile-avatar-section">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-circle">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <button class="change-avatar-btn" title="Changer la photo">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2 id="displayName">Client</h2>
+                    <p class="member-since">Membre depuis 2024</p>
+                </div>
+
+                <!-- Personal Info Form -->
+                <div class="profile-form-section">
+                    <h3><i class="fas fa-user-circle"></i> Informations Personnelles</h3>
+                    <form class="profile-form" id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom complet</label>
+                                <input type="text" id="nom" name="nom" placeholder="Votre nom">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="votre@email.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+33 6 00 00 00 00">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Adresse</label>
+                                <input type="text" id="address" name="address" placeholder="Votre adresse">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                            <button type="button" class="btn-cancel">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Password Section -->
+                <div class="password-section">
+                    <h3><i class="fas fa-lock"></i> Sécurité</h3>
+                    <form class="profile-form" id="passwordForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentPassword">Mot de passe actuel</label>
+                                <input type="password" id="currentPassword" name="currentPassword">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPassword">Nouveau mot de passe</label>
+                                <input type="password" id="newPassword" name="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmer le mot de passe</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">
+                                <i class="fas fa-key"></i> Modifier le mot de passe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load client name and data
+        const loadClientData = () => {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const name = userData.nom || 'Client';
+            const email = userData.email || '';
+            const phone = userData.phone || '';
+            const address = userData.address || '';
+
+            document.getElementById('clientName').textContent = name;
+            document.getElementById('displayName').textContent = name;
+
+            // Fill form
+            document.getElementById('nom').value = name;
+            document.getElementById('email').value = email;
+            document.getElementById('phone').value = phone;
+            document.getElementById('address').value = address;
+        };
+
+        loadClientData();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Form Submission (Mock)
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Update local storage
+            const currentData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const newData = { ...currentData, ...data };
+            localStorage.setItem('userData', JSON.stringify(newData));
+
+            // Update display
+            loadClientData();
+            alert('Profil mis à jour avec succès !');
+        });
+
+        document.getElementById('passwordForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Mot de passe mis à jour !');
+        });
+    </script>
+</body>
+
+</html>

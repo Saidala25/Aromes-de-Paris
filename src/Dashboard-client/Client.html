@@ -1,14 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="../assets/Logos/Logo-Icon.ico" type="image/x-icon">
+    <title>Tableau de Bord - Arômes de Paris</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Native CSS -->
+    <link rel="stylesheet" href="Client.css">
 </head>
 
 <body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
+        <nav class="sidebar-nav">
+            <a href="Client.html" class="nav-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="Profil.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Mon Profil</span>
+            </a>
+            <a href="../reservation.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Réservations</span>
+            </a>
+            <a href="../menu.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Menu</span>
+            </a>
+            <a href="Conseils.html" class="nav-item">
+                <i class="fas fa-lightbulb"></i>
+                <span>Conseils</span>
+            </a>
+            <a href="../contact.html" class="nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="topbar-left">
+                <h1>Tableau de bord</h1>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="clientName">Client</span>
+                        <span class="user-role">Membre</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content">
+            <div class="welcome-section">
+                <h2>Bienvenue, <span id="clientNameWelcome">Client</span> ! 👋</h2>
+                <p>Voici un aperçu de votre espace personnel</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>0</h3>
+                        <p>Réservations actives</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon gold">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>0</h3>
+                        <p>Points fidélité</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Offres disponibles</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>0</h3>
+                        <p>Plats favoris</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section-header">
+                <h3>Actions rapides</h3>
+            </div>
+
+            <div class="actions-grid">
+                <a href="../reservation.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Nouvelle réservation</h4>
+                        <p>Réservez votre table en quelques clics</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+
+                <a href="Profil.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Modifier mon profil</h4>
+                        <p>Mettez à jour vos informations</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+
+                <a href="../menu.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Découvrir le menu</h4>
+                        <p>Explorez nos spécialités culinaires</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+
+                <a href="Conseils.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Conseils & Astuces</h4>
+                        <p>Optimisez votre expérience</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+
+                <a href="../contact.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Assistance</h4>
+                        <p>Contactez notre équipe</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+
+                <a href="../../Accueil.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Retour au site</h4>
+                        <p>Visitez notre page d'accueil</p>
+                    </div>
+                    <i class="fas fa-arrow-right action-arrow"></i>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Welcome Popup -->
+    <div class="welcome-popup-overlay" id="welcomePopup">
+        <div class="welcome-popup">
+            <button class="popup-close" id="closePopup">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="popup-content">
+                <div class="popup-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2>Bienvenue chez <span class="text-gold">Arômes de Paris</span></h2>
+                <p>Nous sommes ravis de vous accueillir dans votre espace personnel. Découvrez nos services exclusifs et
+                    profitez d'une expérience culinaire exceptionnelle.</p>
+                <div class="popup-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Réservations simplifiées</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Offres exclusives</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Service personnalisé</span>
+                    </div>
+                </div>
+                <button class="popup-btn" id="startExploring">Commencer l'exploration</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load client name
+        const loadClientName = () => {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const name = userData.nom || 'Client';
+
+            document.getElementById('clientName').textContent = name;
+            document.getElementById('clientNameWelcome').textContent = name;
+        };
+
+        loadClientName();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Welcome Popup
+        const welcomePopup = document.getElementById('welcomePopup');
+        const closePopup = document.getElementById('closePopup');
+        const startExploring = document.getElementById('startExploring');
+        const hasVisited = localStorage.getItem('hasVisitedDashboard');
+
+        window.addEventListener('load', () => {
+            if (!hasVisited) {
+                setTimeout(() => {
+                    welcomePopup.classList.add('active');
+                }, 500);
+            }
+        });
+
+        const closePopupHandler = () => {
+            welcomePopup.classList.remove('active');
+            localStorage.setItem('hasVisitedDashboard', 'true');
+        };
+
+        closePopup.addEventListener('click', closePopupHandler);
+        startExploring.addEventListener('click', closePopupHandler);
+        welcomePopup.addEventListener('click', (e) => {
+            if (e.target === welcomePopup) closePopupHandler();
+        });
+    </script>
 </body>
 
 </html>
