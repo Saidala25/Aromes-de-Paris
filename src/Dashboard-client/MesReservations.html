@@ -18,6 +18,50 @@
 
     <!-- Native CSS -->
     <link rel="stylesheet" href="Client.css">
+    
+    <style>
+        /* Style pour le bouton de déconnexion */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logout-btn {
+            color: #dc3545 !important;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 53, 69, 0.1) !important;
+            color: #ff4757 !important;
+        }
+
+        .logout-btn i {
+            color: #dc3545;
+            font-size: 18px;
+        }
+
+        .logout-btn span {
+            font-weight: 500;
+        }
+
+        /* S'assurer que la sidebar utilise flexbox */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -56,6 +100,14 @@
                 <span>Contact</span>
             </a>
         </nav>
+
+        <!-- Bouton Déconnexion -->
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item logout-btn" onclick="deconnexion(event)">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
+        </div>
     </aside>
 
     <!-- Main Content -->
@@ -138,6 +190,40 @@
     </div>
 
     <script>
+        // Fonction de déconnexion
+        function deconnexion(event) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'Déconnexion',
+                text: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Oui, me déconnecter',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nettoyer les données de session
+                    localStorage.removeItem('userData');
+                    localStorage.removeItem('isLoggedIn');
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'À bientôt !',
+                        text: 'Vous avez été déconnecté avec succès.',
+                        confirmButtonColor: '#d4af37',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        // Rediriger vers la page d'accueil
+                        window.location.href = '../index.html';
+                    });
+                }
+            });
+        }
+
         // Charger le nom du client
         const loadClientName = () => {
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
