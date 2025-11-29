@@ -90,12 +90,6 @@
                 <p>Consultez et gérez toutes vos réservations chez Arômes de Paris</p>
             </div>
 
-            <!-- Info de Debug (pour tester) -->
-            <div class="debug-info" id="debugInfo" style="display: none;">
-                <h4> Informations de Debug :</h4>
-                <div id="debugContent"></div>
-            </div>
-
             <!-- Statistiques Mini -->
             <div class="stats-row" id="statsRow">
                 <div class="stat-mini-card">
@@ -174,30 +168,18 @@
             const clientName = loadClientName();
             const reservations = obtenirReservations();
             
-            console.log(' Nom du client:', clientName);
-            console.log(' Total réservations dans le système:', reservations.length);
-            console.log(' Toutes les réservations:', reservations);
-
-            // Afficher les infos de debug
-            const debugDiv = document.getElementById('debugInfo');
-            const debugContent = document.getElementById('debugContent');
-            debugDiv.style.display = 'block';
-            debugContent.innerHTML = `
-                <p><strong>Nom du client:</strong> ${clientName}</p>
-                <p><strong>Total réservations:</strong> ${reservations.length}</p>
-                <p><strong>Réservations:</strong></p>
-                <pre>${JSON.stringify(reservations, null, 2)}</pre>
-            `;
+            console.log('👤 Nom du client:', clientName);
+            console.log('📊 Total réservations dans le système:', reservations.length);
             
             // AFFICHE TOUTES LES RÉSERVATIONS (pour tester)
-            console.log(' Affichage de toutes les réservations');
+            console.log('✅ Affichage de toutes les réservations');
             return reservations;
             
             // DÉCOMMENTEZ CES LIGNES quand vous voulez filtrer par client
             // const reservationsFiltrees = reservations.filter(r => 
             //     r.nomComplet.toLowerCase().includes(clientName.toLowerCase())
             // );
-            // console.log(' Réservations du client:', reservationsFiltrees.length);
+            // console.log('🔍 Réservations du client:', reservationsFiltrees.length);
             // return reservationsFiltrees;
         }
 
@@ -473,7 +455,7 @@
             console.log('🚀 Initialisation de la page Mes Réservations');
             loadClientName();
             afficherReservations();
-            console.log(' Page chargée avec succès');
+            console.log('✅ Page chargée avec succès');
         });
     </script>
 </body>
