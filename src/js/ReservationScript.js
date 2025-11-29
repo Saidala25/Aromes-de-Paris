@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         Swal.fire({
             title: "BIENVENUE !",
-            text: "Vous avez réservée votre table  avec succès.",
+            text: "Réservation effectuée. Veuillez attendre  la confirmation par téléphone.",
             
             // Logo avec dimensions réduites
             imageUrl: "assets/Logos/Aromes-LOGO-H.png",
