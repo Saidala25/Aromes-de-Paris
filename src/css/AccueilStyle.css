@@ -718,3 +718,259 @@ body:not(.loading) .loader-strip {
         height: 150px;
     }
 }
+
+
+/* ## STYLE CSS POPUP (version améliorée)😁 ## */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-container {
+    background: white;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    max-height: 95vh;
+}
+
+.close-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 77, 64, 0.9);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    font-size: 32px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: white;
+    color: #004d40;
+    transform: scale(1.15);
+}
+
+/* Carrousel */
+.carousel {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 45px;
+    box-sizing: border-box;
+    background: white;
+    gap: 40px;
+}
+
+/* Image */
+.slide-img {
+    flex: 1;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    aspect-ratio: 1 / 1;
+}
+
+.slide-img:hover {
+    transform: scale(1.03);
+}
+
+.slide-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.instagram-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Contenu texte */
+.slide-content {
+    flex: 1;
+    color: #004d40;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slide-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 5rem);
+    font-weight: 900;
+    margin: 0 0 15px 0;
+    line-height: 1;
+    color: #004d40;
+}
+
+.slide-content h2 {
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    margin: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.slide-content p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+.price {
+    font-size: clamp(1.4rem, 1.5vw, 1.8rem) !important;
+    font-weight: 550;
+    color: #b8860b;
+    margin: 15px 0;
+}
+
+.reservation {
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem) !important;
+    font-weight: 500;
+}
+
+/* Flèches & dots inchangés mais responsive */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 77, 64, 0.9);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 28px;
+    z-index: 10;
+    transition: all 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background: #004d40;
+    transform: translateY(-50%) scale(1.15);
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+.dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 13px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #004d40;
+    transform: scale(1.5);
+}
+
+/* RESPONSIVE */
+@media (max-width: 868px) {
+    .slide {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+        gap: 20px;
+    }
+
+    .slide-img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .carousel {
+        height: auto;
+        min-height: 80vh;
+    }
+    .price {
+    font-size: clamp(1rem, 1.1vw, 1.2rem) !important;
+    margin: 15px 0;
+    }
+
+    .reservation {
+        font-size: clamp(1rem, 1.1vw, 1.5rem) !important;
+        font-weight: 500;
+    }
+    .dots {
+    bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .close-btn { top: 10px; right: 10px; width: 44px; height: 44px; font-size: 28px; }
+    .prev, .next { width: 44px; height: 44px; font-size: 22px; }
+    .prev { left: 8px; } .next { right: 8px; }
+}

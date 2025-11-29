@@ -744,3 +744,266 @@ body:not(.loading) .loader-strip {
         height: 150px;
     }
 }
+
+
+/* Style popup */
+
+/* Overlay + Popup */
+.popup-overlay {
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(0, 0, 0, 0.6);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+opacity: 0;
+visibility: hidden;
+transition: all 0.4s ease;
+}
+
+.popup-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+
+.popup-container {
+background: white;
+width: 90%;
+max-width: 900px;
+border-radius: 20px;
+overflow: hidden;
+position: relative;
+box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* BOUTON FERMER : maintenant en dehors du cadre blanc, sur le fond vert */
+.close-btn {
+position: fixed;
+top: 30px;
+right: 30px;
+background: rgba(0, 77, 64, 0.8);
+color: white !important;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+border: none;
+font-size: 28px;
+font-weight: 300;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 10000;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn:hover {
+background: #fff;
+color: #004d40 !important;
+transform: scale(1.1);
+}
+
+/* Carrousel */
+.carousel {
+position: relative;
+height: 550px;
+overflow: hidden;
+}
+
+.slides {
+display: flex;
+width: 100%;
+height: 100%;
+transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+min-width: 100%;
+height: 100%;
+display: flex;
+flex-direction: row;
+padding: 40px;
+box-sizing: border-box;
+box-shadow: 2 2 black;
+background: white;
+}
+
+/* ==================== IMAGE CLIQUABLE + BADGE INSTAGRAM ==================== */
+.slide-img {
+flex: 1;
+min-height: 280px;
+max-height: 480px;
+height: 100%;
+border-radius: 14px;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+background: #f0f0f0;
+position: relative;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+.slide-img:hover { transform: scale(1.025); }
+.slide-img img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+display: block;
+}
+.slide-img::after {
+content: "Voir sur Instagram";
+position: absolute;
+bottom: 16px;
+right: 16px;
+background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+color: white;
+font-family: 'Montserrat', sans-serif;
+font-size: 13px;
+font-weight: 600;
+padding: 9px 16px;
+border-radius: 30px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+z-index: 5;
+pointer-events: none;
+}
+@media (max-width: 768px) {
+.slide-img { min-height: 260px; max-height: 360px; }
+.slide-img::after { font-size: 12px; padding: 7px 12px; bottom: 12px; right: 12px; }
+}
+
+/* ==================== CONTENU TEXTE ==================== */
+.slide-content {
+flex: 1;
+padding-left: 50px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+color: #004d40;
+}
+.slide-content h1 {
+font-family: 'Playfair Display', serif;
+font-size: 5rem;
+font-weight: 900;
+margin: 0 0 15px 0;
+line-height: 1;
+color: #004d40;
+}
+.slide-content h2 { font-size: 1.8rem; font-weight: 500; margin: 0 0 25px 0; }
+.slide-content p { font-size: 1.25rem; line-height: 1.7; margin: 10px 0; }
+.price { font-size: 1.6rem; font-weight: 700; margin: 25px 0; color: #b8860b; }
+.reservation { font-size: 1.35rem; font-weight: 600; }
+
+/* ==================== FLÈCHES (rien n’a été supprimé !) ==================== */
+.prev, .next {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(0, 77, 64, 0.8);
+color: white;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 26px;
+z-index: 10;
+transition: all 0.3s;
+}
+.prev:hover, .next:hover { background: #004d40; transform: translateY(-50%) scale(1.1); }
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* ==================== POINTS (dots) ==================== */
+.dots {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 12px;
+z-index: 10;
+}
+.dot {
+width: 12px;
+height: 12px;
+background: #bbb;
+border-radius: 50%;
+cursor: pointer;
+transition: all 0.3s;
+}
+.dot.active {
+background: #004d40;
+transform: scale(1.4);
+}
+
+/* ====================== RESPONSIVE MOBILE ====================== */
+@media (max-width: 768px) {
+  .popup-container{
+    height:85%;
+  }
+  .carousel {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 10px;
+  }
+
+  .slide {
+    flex-direction: column;
+    padding: 10px 20px;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .slide-img {
+    width: 100%;
+    height: 300px;
+    max-height: 360px;
+  }
+
+  .slide-content {
+    padding-left: 0;
+    padding: 0 10px;
+  }
+
+  .slide-content h1 {
+    font-size: 3.6rem !important;
+    line-height: 1;
+  }
+  .slide-content h2 { font-size: 1.5rem; }
+  .slide-content p { font-size: 1.15rem; }
+  .price { font-size: 1.5rem; margin: 20px 0; }
+  .reservation { font-size: 1.2rem; }
+
+  .prev, .next {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  .close-btn {
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+  }
+
+  .slide-img::after {
+    font-size: 12px;
+    padding: 7px 14px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-content h1 { font-size: 3rem !important; }
+  .slide-img { height: 280px; }
+  .carousel { padding-bottom: 60px; }
+}
