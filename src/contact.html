@@ -16,12 +16,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
-
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 
     <!-- Native CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -59,30 +58,37 @@
     <div class="contact-page">
         <div class="contact-card">
             <h1 class="neon-title">CONTACTEZ-NOUS</h1>
-            <p class="slogan-text">Arômes de Paris : Un voyage gustatif au cœur d’Agadir.</p>
+            <p class="slogan-text">Arômes de Paris : Un voyage gustatif au cœur d'Agadir.</p>
 
-            <form class="contact-form">
+            <!-- Message de statut simple -->
+            <div id="formMessage" style="display: none; padding: 15px; margin: 20px 0; text-align: center; background: rgba(212, 175, 55, 0.1); color: #d4af37; border: 1px solid #d4af37; border-radius: 5px;"></div>
+
+            <!-- Formulaire avec champ téléphone -->
+            <form id="contactForm" class="contact-form">
                 <div class="form-group">
-                    <input type="text" id="name" name="name" placeholder="Nom Complet" required>
+                    <input type="text" id="name" name="name" placeholder="Nom Complet *" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" name="email" placeholder="Adresse Email" required>
+                    <input type="email" id="email" name="email" placeholder="Adresse Email *" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Numéro de Téléphone *" required>
                 </div>
                 <div class="form-group">
                     <input type="text" id="subject" name="subject" placeholder="Sujet de la demande">
                 </div>
                 <div class="form-group">
-                    <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
+                    <textarea id="message" name="message" rows="5" placeholder="Votre message... *" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Envoyer la Demande</button>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span id="btnText">Envoyer la Demande</span>
+                </button>
             </form>
 
             <div class="contact-details">
-                <p><i class="fas fa-map-marker-alt" style="color: #d4af37; margin-right: 10px;"></i> Avenue Lahoucine
-                    Achengli, imm Mimosa. Agadir, Maroc</p>
+                <p><i class="fas fa-map-marker-alt" style="color: #d4af37; margin-right: 10px;"></i> Avenue Lahoucine Achengli, imm Mimosa. Agadir, Maroc</p>
                 <p><i class="fas fa-phone" style="color: #d4af37; margin-right: 10px;"></i> 06 34 13 25 31</p>
-                <p><i class="fas fa-envelope" style="color: #d4af37; margin-right: 10px;"></i> aromesdeparis@gmail.com
-                </p>
+                <p><i class="fas fa-envelope" style="color: #d4af37; margin-right: 10px;"></i> aromesdeparis@gmail.com</p>
             </div>
         </div>
     </div>
@@ -96,16 +102,12 @@
                         <span class="gold-text">Arômes</span><br>
                         <span class="gold-text">de Paris</span>
                     </h2>
-                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre
-                        l'élégance parisienne.</p>
+                    <p class="footer-desc">Une expérience culinaire unique où la tradition marocaine rencontre l'élégance parisienne.</p>
                     <div class="social-links">
-                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr"
-                            class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i
-                                class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/p/Ar%C3%B4mes-de-Paris-100067833978879/?locale=fr_FR&amp;_rdc=1&amp;_rdr" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aromes_de_paris/" class="social-icon"><i class="fab fa-instagram"></i></a>
                         <a href="https://wa.me/212634132531" class="social-icon"><i class="fab fa-whatsapp"></i></a>
                     </div>
-
                 </div>
 
                 <div class="footer-links">
@@ -122,13 +124,8 @@
                 <div class="footer-contact">
                     <h4>Nous Trouver</h4>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/zV9D82cDTqhN88eP6"
-                                class="location">Avenue
-                                Lahoucine Achengli, imm Mimosa Nº, Agadir
-                                80000</a></li>
-                        <li><i class="fas fa-map-marker-alt"></i><a href="https://maps.app.goo.gl/Vj4xL2yGbTqLzGpZ9"
-                                class="location">Boulevard du 20
-                                Aout, Agadir 80000</a> </li>
+                        <li><i class="fas fa-map-marker-alt"></i> Avenue Lahoucine Achengli, imm Mimosa Nº, Agadir 80000</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Boulevard du 20 Aout, Agadir 80000</li>
                         <li><i class="fas fa-phone"></i> +212 6 34 13 25 31</li>
                     </ul>
                 </div>
@@ -145,16 +142,17 @@
 
         <div class="footer-bottom">
             <div class="foot-container">
-                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par <a
-                        href="Developpeurs.html" class="link-dev"><span style="font-weight: bold;">les étudiants de l'ENSA Agadir</span></a></p>
+                <p>&copy; 2025 <span class="gold-text">Arômes de Paris</span> - Réalisé avec passion par les étudiants de l'ENSA Agadir</p>
             </div>
         </div>
     </footer>
 
+    <!-- SCRIPT EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/contact-email.js"></script>
 
     <!-- Native JS -->
     <script src="js/script.js"></script>
     <script src="js/ContactScript.js"></script>
 </body>
-
 </html>
