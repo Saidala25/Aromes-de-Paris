@@ -128,6 +128,13 @@ h3 {
     margin-bottom: 0.5rem;
 }
 
+p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
 blockquote {
     font-family: var(--font-serif);
     font-size: 1.8rem;
@@ -533,155 +540,6 @@ footer ul {
 }
 
 /* =========================================
-   8. LOADER & REVEAL ANIMATION
-   ========================================= */
-#page-loader {
-    position: fixed;
-    inset: 0;
-    background: var(--color-bg);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    /* Main loader removal handled via JS/Wipe timing */
-    animation: hideLoader 0.1s forwards;
-    animation-delay: 4.5s;
-    /* Cleanup after all animations */
-    pointer-events: none;
-}
-
-.loader-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 10000;
-    /* Above wipes initially */
-    animation: zoomToNav 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-    animation-delay: 2.8s;
-}
-
-.loader-icon {
-    width: 200px;
-    height: 100%;
-    opacity: 0;
-    animation: iconAppear 0.8s ease forwards;
-}
-
-.loader-text-mask {
-    overflow: hidden;
-    width: 0;
-    margin-left: 0;
-    opacity: 0;
-    animation: textSlideOut 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-    animation-delay: 0.8s;
-}
-
-.loader-text {
-    height: 200px;
-    width: 100%;
-    white-space: nowrap;
-}
-
-/* WIPES */
-.reveal-wipe {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: translateY(100%);
-    /* Start below screen */
-    z-index: 9990;
-}
-
-.wipe-green {
-    background-color: var(--color-green-dark);
-    z-index: 9996;
-    animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
-    animation-delay: 3.5s;
-    /* Starts after logo moves */
-}
-
-.wipe-gold {
-    background-color: var(--color-gold);
-    z-index: 9997;
-    animation: slideUpCover 0.8s cubic-bezier(0.83, 0, 0.17, 1) forwards;
-    animation-delay: 3.7s;
-    /* Slightly delayed after green */
-}
-
-
-/* KEYFRAMES */
-@keyframes iconAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes textSlideOut {
-    0% {
-        width: 0;
-        opacity: 0;
-        margin-left: 0;
-    }
-
-    100% {
-        width: 200px;
-        opacity: 1;
-        margin-left: 20px;
-    }
-}
-
-@keyframes zoomToNav {
-    0% {
-        transform: translate(0, 0) scale(1);
-    }
-
-    100% {
-        /* Move roughly to top-left where navbar logo is */
-        transform: translate(-35vw, -45vh) scale(0.4);
-        opacity: 0;
-        /* Fade out as it arrives */
-    }
-}
-
-@keyframes slideUpCover {
-    0% {
-        transform: translateY(100%);
-    }
-
-    100% {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes slideUpReveal {
-    0% {
-        transform: translateY(0%);
-    }
-
-    100% {
-        transform: translateY(-100%);
-    }
-}
-
-@keyframes hideLoader {
-    to {
-        visibility: hidden;
-        width: 0;
-        height: 0;
-    }
-}
-
-/* =========================================
    9. MEDIA QUERIES
    ========================================= */
 @media (max-width: 992px) {
@@ -735,31 +593,6 @@ footer ul {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gold-hover);
-}
-
-/* =========================================
-   11. ADDITIONAL STYLES
-   ========================================= */
-.loader-strip {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    z-index: 9998;
-}
-
-.strip-green {
-    background-color: var(--color-green-dark);
-}
-
-.strip-gold {
-    background-color: var(--color-gold);
-}
-
-/* Hide strips on inner pages */
-body:not(.loading) .loader-strip {
-    display: none;
 }
 
 .btn-login {

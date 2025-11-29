@@ -73,4 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error("Error: Mobile menu elements not found in HTML");
     }
+
+    // 
+    window.onload = function() {
+        window.scrollTo(0, 0);
+    };
 });
