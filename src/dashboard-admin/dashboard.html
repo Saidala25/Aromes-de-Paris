@@ -77,8 +77,8 @@
         <div class="stat-icon"><i data-lucide="calendar"></i></div>
         <div>
           <div class="stat-label">Réservations aujourd'hui</div>
-          <div class="stat-value">24</div>
-          <div class="stat-change positive">+12% vs hier</div>
+          <div class="stat-value" id="dash-stat-today">0</div>
+          <div class="stat-change" id="dash-stat-today-change"></div>
         </div>
       </div>
       <div class="stat-card">
@@ -93,16 +93,16 @@
         <div class="stat-icon"><i data-lucide="users"></i></div>
         <div>
           <div class="stat-label">Employés actifs</div>
-          <div class="stat-value">12</div>
-          <div class="stat-change negative">-2 en congé</div>
+          <div class="stat-value" id="dash-stat-employees">0</div>
+          <div class="stat-change" id="dash-stat-employees-change">Calcul...</div>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon"><i data-lucide="armchair"></i></div>
         <div>
           <div class="stat-label">Tables disponibles</div>
-          <div class="stat-value">8/20</div>
-          <div class="stat-change">40% occupées</div>
+          <div class="stat-value" id="dash-stat-tables">20/20</div>
+          <div class="stat-change" id="dash-stat-occupancy">0% occupées</div>
         </div>
       </div>
     </div>
@@ -127,34 +127,7 @@
               </tr>
             </thead>
             <tbody id="recentReservationsBody">
-              <tr>
-                <td>Marie Laurent</td>
-                <td>26 Nov 2025</td>
-                <td>19:30</td>
-                <td>4</td>
-                <td><span class="status confirmed"><i data-lucide="check-circle"></i> Confirmée</span></td>
-              </tr>
-              <tr>
-                <td>Pierre Martin</td>
-                <td>26 Nov 2025</td>
-                <td>20:00</td>
-                <td>2</td>
-                <td><span class="status pending"><i data-lucide="clock"></i> En attente</span></td>
-              </tr>
-              <tr>
-                <td>Sophie Dubois</td>
-                <td>26 Nov 2025</td>
-                <td>20:30</td>
-                <td>6</td>
-                <td><span class="status confirmed"><i data-lucide="check-circle"></i> Confirmée</span></td>
-              </tr>
-              <tr>
-                <td>Lucas Bernard</td>
-                <td>26 Nov 2025</td>
-                <td>21:00</td>
-                <td>3</td>
-                <td><span class="status cancelled"><i data-lucide="x-circle"></i> Annulée</span></td>
-              </tr>
+              <!-- Populated by JS -->
             </tbody>
           </table>
         </div>
@@ -174,15 +147,13 @@
             <div class="action-icon"><i data-lucide="user-plus"></i></div>
             <span>Ajouter employé</span>
           </a>
-          <!--<a href="#" class="action-item">
-            <div class="action-icon"><i data-lucide="calendar"></i></div>
-            <span>Planning</span>
-          </a> -->
         </div>
       </div>
     </div>
   </main>
 
+  <!-- Scripts -->
+  <script src="employee-data.js"></script>
   <script src="reservations-admin-only.js"></script>
   <script src="main.js"></script>
 </body>
