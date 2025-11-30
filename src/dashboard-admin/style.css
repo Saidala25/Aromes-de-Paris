@@ -311,6 +311,7 @@ body {
   border: 1px solid var(--border);
   padding: 25px;
   margin-bottom: 20px;
+  width: auto;
 }
 
 .card-header {
@@ -931,6 +932,7 @@ td {
   .employee-grid,
   .profile-stats {
     grid-template-columns: 1fr !important;
+    gap: 20px;
   }
 
   /* Keep actions grid side-by-side on mobile for better use of space */
@@ -940,8 +942,32 @@ td {
 
   /* ===== TABLE FIXES ===== */
   /* Prevent table headers from squashing */
-  th {
+  table {
+    min-width: 600px;
+    /* Force horizontal scroll */
+  }
+
+  /* Fix for grid overflow - CRITICAL for dashboard */
+  .card {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+  }
+
+  th,
+  td {
+    padding: 8px;
     white-space: nowrap;
+  }
+
+  th {
+    font-size: 11px;
   }
 
   /* ===== PROFILE & TABS ===== */
@@ -962,6 +988,14 @@ td {
     white-space: nowrap;
     padding-bottom: 5px;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Stack actions on very small screens */
+  .actions-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
