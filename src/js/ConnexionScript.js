@@ -194,21 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
         utilisateurs.push(nouvelUtilisateur);
         sauvegarderUtilisateurs(utilisateurs);
 
-        alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
+        // Connecter automatiquement l'utilisateur
+        definirUtilisateurCourant(nouvelUtilisateur);
 
-        // Basculer automatiquement vers le formulaire de connexion
-        setTimeout(() => {
-            signupForm.classList.remove('active-form');
-            signupForm.classList.add('hidden-form');
-            loginForm.classList.remove('hidden-form');
-            loginForm.classList.add('active-form');
-            container.classList.remove('inverse');
-            logoImage.src = logoForGoldBg;
+        alert('Inscription réussie! Bienvenue ' + fullName + ' !');
 
-            // Pré-remplir l'email dans le formulaire de connexion
-            document.querySelector('#login-form input[type="email"]').value = email;
-            document.querySelector('#login-form input[type="password"]').value = '';
-        }, 1000);
+        // Rediriger vers le dashboard client
+        redirigerVersClient();
     });
 
     // GESTION CONNEXION
