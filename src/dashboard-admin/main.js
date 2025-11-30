@@ -45,18 +45,47 @@ function logout() {
   }
 }
 
-// Vérifier que l'admin est connecté au chargement de la page
+// ===== AUTHENTICATION CHECK & HEADER UPDATE =====
 document.addEventListener('DOMContentLoaded', function () {
+  // 1. Check Auth
   const user = JSON.parse(localStorage.getItem('currentUser'));
 
   if (!user || user.role !== 'admin') {
-    alert('Accès non autorisé');
-    window.location.href = '../connexion.html';
-    return;
+    // Optional: Add a check to avoid redirecting loop on login page if included there
+    if (!window.location.href.includes('connexion.html')) {
+        alert('Accès non autorisé');
+        window.location.href = '../connexion.html';
+        return;
+    }
+  } else {
+      console.log('Admin connecté:', user.email);
   }
-  console.log('Admin connecté:', user.email);
 
+  // 2. Update Header Name/Avatar Globally
+  updateAdminHeader();
 });
+
+// ===== HEADER UPDATE FUNCTION =====
+function updateAdminHeader() {
+    // Try to get updated Admin Data first, then fall back to Session
+    const savedAdmin = JSON.parse(localStorage.getItem('adminData') || '{}');
+    const session = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    // Logic: adminData > currentUser > Default "Jean Dupont"
+    const firstName = savedAdmin.firstName || session.firstName || 'Jean';
+    const lastName = savedAdmin.lastName || session.lastName || 'Dupont';
+    
+    const fullName = `${firstName} ${lastName}`;
+    const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+
+    // Select elements using classes (works on ALL pages)
+    const nameElements = document.querySelectorAll('.user-name');
+    const avatarElements = document.querySelectorAll('.user .avatar');
+
+    // Update all matching elements found on the page
+    nameElements.forEach(el => el.textContent = fullName);
+    avatarElements.forEach(el => el.textContent = initials);
+}
 
 // ===== MODAL FUNCTIONS =====
 function openModal(modalId) {

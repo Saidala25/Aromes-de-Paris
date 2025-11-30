@@ -17,6 +17,7 @@
 
     <!-- Native CSS -->
     <link rel="stylesheet" href="Client.css">
+    <link rel="stylesheet" href="Profil.css">
 </head>
 
 <body>
@@ -54,13 +55,14 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Déconnexion</span>
-                </a>
-            </div>
         </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
+        </div>
     </aside>
 
     <!-- Main Content -->
@@ -91,7 +93,7 @@
         <!-- Dashboard Content -->
         <main class="dashboard-content">
             <div class="welcome-section">
-                <h2>Bienvenue, <span id="clientNameWelcome">Client</span> ! 👋</h2>
+                <h2>Bienvenue, <span id="clientNameWelcome">Client</span> !</h2>
                 <p>Voici un aperçu de votre espace personnel</p>
             </div>
 
@@ -246,73 +248,86 @@
     </div>
 
     <script>
-        // ===== LOGOUT =====
+        // ===== 1. LOGOUT FUNCTION =====
         function logout() {
             if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                 localStorage.removeItem('currentUser');
+                // localStorage.removeItem('userData'); // Optional
                 window.location.href = '../connexion.html';
             }
         }
-        // Load client name
-        const loadClientName = () => {
-            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-            const name = userData.nom || 'Client';
 
-            document.getElementById('clientName').textContent = name;
-            document.getElementById('clientNameWelcome').textContent = name;
+        // ===== 2. LOAD CLIENT NAME =====
+        const loadClientName = () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+            // Check Login first, then Profile data, then default
+            const name = currentUser.fullName || userData.nom || 'Client';
+
+            const nameEl = document.getElementById('clientName');
+            const welcomeEl = document.getElementById('clientNameWelcome');
+
+            if(nameEl) nameEl.textContent = name;
+            if(welcomeEl) welcomeEl.textContent = name;
         };
 
-        loadClientName();
+        // ===== 3. INITIALIZATION & MENU =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadClientName();
 
-        // Logout functionality
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+            // --- MENU TOGGLE LOGIC ---
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
 
-            // Clear user data from localStorage
-            localStorage.removeItem('userData');
-            localStorage.removeItem('hasVisitedDashboard');
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents immediate closing if clicking body
+                    sidebar.classList.add('active');
+                });
+            }
 
-            // Redirect to login page
-            window.location.href = '../connexion.html';
-        });
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                });
+            }
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
+            // Optional: Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('active') && 
+                    !sidebar.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
 
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
+            // --- WELCOME POPUP LOGIC ---
+            const welcomePopup = document.getElementById('welcomePopup');
+            const closePopup = document.getElementById('closePopup');
+            const startExploring = document.getElementById('startExploring');
+            const hasVisited = localStorage.getItem('hasVisitedDashboard');
 
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
-
-        // Welcome Popup
-        const welcomePopup = document.getElementById('welcomePopup');
-        const closePopup = document.getElementById('closePopup');
-        const startExploring = document.getElementById('startExploring');
-        const hasVisited = localStorage.getItem('hasVisitedDashboard');
-
-        window.addEventListener('load', () => {
-            if (!hasVisited) {
+            if (welcomePopup && !hasVisited) {
                 setTimeout(() => {
                     welcomePopup.classList.add('active');
                 }, 500);
             }
-        });
 
-        const closePopupHandler = () => {
-            welcomePopup.classList.remove('active');
-            localStorage.setItem('hasVisitedDashboard', 'true');
-        };
+            const closePopupHandler = () => {
+                if(welcomePopup) welcomePopup.classList.remove('active');
+                localStorage.setItem('hasVisitedDashboard', 'true');
+            };
 
-        closePopup.addEventListener('click', closePopupHandler);
-        startExploring.addEventListener('click', closePopupHandler);
-        welcomePopup.addEventListener('click', (e) => {
-            if (e.target === welcomePopup) closePopupHandler();
+            if(closePopup) closePopup.addEventListener('click', closePopupHandler);
+            if(startExploring) startExploring.addEventListener('click', closePopupHandler);
+            if(welcomePopup) {
+                welcomePopup.addEventListener('click', (e) => {
+                    if (e.target === welcomePopup) closePopupHandler();
+                });
+            }
         });
     </script>
 </body>

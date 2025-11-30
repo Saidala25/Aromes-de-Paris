@@ -134,7 +134,7 @@ function sauvegarderReservation(reservation) {
 
         return true;
     } catch (error) {
-        console.error('❌ Erreur lors de la sauvegarde:', error);
+        console.error('Erreur lors de la sauvegarde:', error);
         Swal.fire({
             icon: 'error',
             title: 'Erreur',
@@ -153,7 +153,7 @@ function obtenirToutesReservations() {
         console.log(' Réservations récupérées:', reservations.length);
         return reservations;
     } catch (error) {
-        console.error('❌ Erreur lors de la récupération:', error);
+        console.error('Erreur lors de la récupération:', error);
         return [];
     }
 }
@@ -379,7 +379,7 @@ function obtenirReservations() {
         const data = localStorage.getItem('reservations_restaurant');
         return data ? JSON.parse(data) : [];
     } catch (error) {
-        console.error('❌ Erreur:', error);
+        console.error('Erreur:', error);
         return [];
     }
 }
@@ -499,7 +499,7 @@ function creerCarteReservation(reservation) {
 
 // Afficher les réservations
 function afficherReservations(filtre = 'toutes') {
-    console.log('🎨 Affichage des réservations avec filtre:', filtre);
+    console.log('Affichage des réservations avec filtre:', filtre);
     const reservations = obtenirReservationsClient();
     const grid = document.getElementById('reservationsGrid');
 
@@ -511,7 +511,7 @@ function afficherReservations(filtre = 'toutes') {
     // Trier par date décroissante
     reservationsFiltrees.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    console.log('📊 Réservations à afficher:', reservationsFiltrees.length);
+    console.log('Réservations à afficher:', reservationsFiltrees.length);
 
     if (reservationsFiltrees.length === 0) {
         grid.innerHTML = `
@@ -526,7 +526,7 @@ function afficherReservations(filtre = 'toutes') {
                 `;
     } else {
         grid.innerHTML = reservationsFiltrees.map(r => creerCarteReservation(r)).join('');
-        console.log('✅ Réservations affichées avec succès');
+        console.log('Réservations affichées avec succès');
     }
 
     afficherStatistiques(reservations);
@@ -552,39 +552,39 @@ function voirDetails(id) {
                     <div style="text-align: left; padding: 20px;">
                         <table style="width: 100%; font-size: 14px;">
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🆔 Numéro :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Numéro :</td>
                                 <td style="padding: 10px;">${reservation.id}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">👤 Nom :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Nom :</td>
                                 <td style="padding: 10px;">${reservation.nomComplet}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📅 Date :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Date :</td>
                                 <td style="padding: 10px;">${formaterDate(reservation.date)}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🕐 Heure :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Heure :</td>
                                 <td style="padding: 10px;">${reservation.heure}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">👥 Personnes :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Personnes :</td>
                                 <td style="padding: 10px;">${reservation.nombrePersonnes}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🪑 Table :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Table :</td>
                                 <td style="padding: 10px;">${preferenceTexte[reservation.preferenceTable]}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📱 Téléphone :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Téléphone :</td>
                                 <td style="padding: 10px;">${reservation.telephone}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📧 Email :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Email :</td>
                                 <td style="padding: 10px;">${reservation.email}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📊 Statut :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Statut :</td>
                                 <td style="padding: 10px;"><strong>${reservation.statut.replace('_', ' ').toUpperCase()}</strong></td>
                             </tr>
                         </table>
@@ -685,7 +685,7 @@ sidebarToggle.addEventListener('click', () => {
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Initialisation de la page Mes Réservations');
+    console.log('Initialisation de la page Mes Réservations');
     loadClientName();
     afficherReservations();
     console.log(' Page chargée avec succès');

@@ -85,8 +85,7 @@ const EmployeeDB = {
 // Seed data for testing if empty
 if (!localStorage.getItem(STORAGE_KEY)) {
     const seeds = [
-        { id: 1, firstName: "Marc", lastName: "Lefebvre", role: "chef", email: "marc@aromes.fr", status: "active", hireDate: "2023-01-01" },
-        { id: 2, firstName: "Sophie", lastName: "Bernard", role: "serveur", email: "sophie@aromes.fr", status: "active", hireDate: "2023-02-15" }
+        { id: 1, firstName: "Abderrahman", lastName: "Garouaz", role: "chef", email: "abderrahman@aromes.ma", status: "active", hireDate: "2021-01-01" },
     ];
     localStorage.setItem(STORAGE_KEY, encryptData(seeds));
 }

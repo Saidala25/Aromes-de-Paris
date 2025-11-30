@@ -1,7 +1,7 @@
 // Initialisation d'EmailJS
 (function () {
     emailjs.init("OaV2YxkwiZPyCz64x");
-    console.log("✅ EmailJS initialisé");
+    console.log("EmailJS initialisé");
 })();
 
 // Fonction simple pour afficher les messages
@@ -115,13 +115,13 @@ ${message}
         // Envoi via EmailJS
         emailjs.send('service_kl4u19p', 'template_8hc0jas', templateParams)
             .then(function (response) {
-                console.log('✅ Email envoyé avec succès');
+                console.log('Email envoyé avec succès');
                 console.log('Réponse EmailJS:', response);
                 showMessage('Merci pour votre message ! Nous vous contacterons par téléphone dans les plus brefs délais.');
                 contactForm.reset();
             })
             .catch(function (error) {
-                console.error('❌ Erreur EmailJS:', error);
+                console.error('Erreur EmailJS:', error);
                 showMessage('Erreur lors de l\'envoi du message. Veuillez réessayer.', true);
             })
             .finally(function () {

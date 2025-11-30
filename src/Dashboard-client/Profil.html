@@ -15,6 +15,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Native CSS -->
     <link rel="stylesheet" href="Client.css">
     <link rel="stylesheet" href="Profil.css">
@@ -39,7 +41,7 @@
                 <i class="fas fa-user"></i>
                 <span>Mon Profil</span>
             </a>
-            <a href="../reservation.html" class="nav-item">
+            <a href="MesReservations.html" class="nav-item">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Réservations</span>
             </a>
@@ -55,13 +57,14 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Déconnexion</span>
-                </a>
-            </div>
         </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
+        </div>
     </aside>
 
     <!-- Main Content -->
@@ -171,80 +174,184 @@
     </div>
 
     <script>
-        // ===== LOGOUT =====
-        function logout() {
-            if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-                localStorage.removeItem('currentUser');
-                window.location.href = '../connexion.html';
-            }
+    // ===== 1. LOGOUT FUNCTION =====
+    function logout() {
+        if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+            localStorage.removeItem('currentUser');
+            // Optional: Clear userData to force fresh load next time
+            // localStorage.removeItem('userData'); 
+            window.location.href = '../connexion.html';
         }
-        // Load client name and data
-        const loadClientData = () => {
-            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-            const name = userData.nom || 'Client';
-            const email = userData.email || '';
-            const phone = userData.phone || '';
-            const address = userData.address || '';
+    }
 
-            document.getElementById('clientName').textContent = name;
-            document.getElementById('displayName').textContent = name;
+    // ===== 2. LOAD CLIENT DATA =====
+    const loadClientData = () => {
+        // Get data from Session (Primary) and Profile Storage (Secondary)
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
 
-            // Fill form
-            document.getElementById('nom').value = name;
-            document.getElementById('email').value = email;
-            document.getElementById('phone').value = phone;
-            document.getElementById('address').value = address;
+        // Determine values to display (Session takes priority for core info)
+        const name = currentUser.fullName || userData.nom || 'Client';
+        const email = currentUser.email || userData.email || '';
+        
+        // Address/Phone might only exist in userData initially
+        const phone = userData.phone || currentUser.phone || '';
+        const address = userData.address || currentUser.address || '';
+
+        // Update UI Elements
+        const navNameElement = document.getElementById('clientName');
+        const displayNameElement = document.getElementById('displayName');
+        const memberSinceElement = document.querySelector('.member-since');
+
+        if (navNameElement) navNameElement.textContent = name;
+        if (displayNameElement) displayNameElement.textContent = name;
+        
+        // Show join date if available
+        if (memberSinceElement && currentUser.dateCreation) {
+            const date = new Date(currentUser.dateCreation);
+            memberSinceElement.textContent = 'Membre depuis ' + date.getFullYear();
+        }
+
+        // Pre-fill Form Fields
+        const inputs = {
+            'nom': name,
+            'email': email,
+            'phone': phone,
+            'address': address
         };
 
+        for (const [id, value] of Object.entries(inputs)) {
+            const el = document.getElementById(id);
+            if (el) el.value = value;
+        }
+    };
+
+    // ===== 3. SAVE PROFILE CHANGES =====
+    document.getElementById('profileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // 1. Get Form Data
+        const formData = new FormData(e.target);
+        const newName = formData.get('nom');
+        const newEmail = formData.get('email');
+        const newPhone = formData.get('phone');
+        const newAddress = formData.get('address');
+
+        // 2. Get Current Data
+        let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+        if (!currentUser.email) {
+            alert("Erreur: Vous n'êtes pas connecté correctement.");
+            return;
+        }
+
+        // 3. Update Main Database (users array)
+        const userIndex = users.findIndex(u => u.email === currentUser.email);
+        
+        if (userIndex !== -1) {
+            users[userIndex].fullName = newName;
+            users[userIndex].email = newEmail;
+            users[userIndex].phone = newPhone;   // Add phone to DB
+            users[userIndex].address = newAddress; // Add address to DB
+            
+            // Save DB
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // 4. Update Active Session (currentUser)
+        currentUser.fullName = newName;
+        currentUser.email = newEmail;
+        currentUser.phone = newPhone;
+        currentUser.address = newAddress;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        // 5. Update Profile Storage (userData) - Kept for compatibility
+        userData.nom = newName;
+        userData.email = newEmail;
+        userData.phone = newPhone;
+        userData.address = newAddress;
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        // 6. Refresh UI
         loadClientData();
+        alert('Profil mis à jour avec succès !');
+    });
 
-        // Logout functionality
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+    // ===== 4. CHANGE PASSWORD =====
+    document.getElementById('passwordForm').addEventListener('submit', (e) => {
+        e.preventDefault();
 
-            // Clear user data from localStorage
-            localStorage.removeItem('userData');
-            localStorage.removeItem('hasVisitedDashboard');
+        const currentPassInput = document.getElementById('currentPassword').value;
+        const newPassInput = document.getElementById('newPassword').value;
+        const confirmPassInput = document.getElementById('confirmPassword').value;
 
-            // Redirect to login page
-            window.location.href = '../connexion.html';
-        });
+        // 1. Get Data
+        let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        if (!currentUser.email) {
+            alert("Erreur de session. Veuillez vous reconnecter.");
+            return;
+        }
+
+        // 2. Validate Inputs
+        if (newPassInput !== confirmPassInput) {
+            alert("Le nouveau mot de passe et la confirmation ne correspondent pas.");
+            return;
+        }
+
+        if (newPassInput.length < 4) {
+            alert("Le mot de passe doit contenir au moins 4 caractères.");
+            return;
+        }
+
+        // 3. Check Old Password
+        // Note: In a real app, we check the hash. Here we check plain text or saved value.
+        // We look up the REAL user in the DB to be sure.
+        const dbUser = users.find(u => u.email === currentUser.email);
+        
+        if (!dbUser) {
+            alert("Utilisateur introuvable dans la base.");
+            return;
+        }
+
+        if (dbUser.password !== currentPassInput) {
+            alert("Mot de passe actuel incorrect !");
+            return;
+        }
+
+        // 4. Update Password in DB
+        dbUser.password = newPassInput;
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // 5. Update Password in Session
+        currentUser.password = newPassInput;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        // 6. Clear Form & Success
+        e.target.reset();
+        alert('Mot de passe modifié avec succès !');
+    });
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', () => {
+        loadClientData();
 
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
-
-        // Form Submission (Mock)
-        document.getElementById('profileForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-
-            // Update local storage
-            const currentData = JSON.parse(localStorage.getItem('userData') || '{}');
-            const newData = { ...currentData, ...data };
-            localStorage.setItem('userData', JSON.stringify(newData));
-
-            // Update display
-            loadClientData();
-            alert('Profil mis à jour avec succès !');
-        });
-
-        document.getElementById('passwordForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Mot de passe mis à jour !');
-        });
-    </script>
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('active'));
+        }
+        if(sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => sidebar.classList.remove('active'));
+        }
+    });
+</script>
 </body>
 
 </html>

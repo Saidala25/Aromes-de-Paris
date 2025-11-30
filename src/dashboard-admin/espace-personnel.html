@@ -55,33 +55,32 @@
           <i data-lucide="moon"></i>
         </div>
         <div class="user">
-          <div class="avatar">JD</div>
+          <div class="avatar" id="topAvatar">AD</div>
           <div>
-            <div class="user-name">Jean Dupont</div>
+            <div class="user-name" id="topName">Administrateur</div>
             <div class="user-role">Administrateur</div>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Profile Header -->
     <div class="card">
       <div class="profile-header">
-        <div class="profile-avatar">JD</div>
+        <div class="profile-avatar" id="profileAvatar">AD</div>
         <div class="profile-info">
-          <h2>Jean Dupont</h2>
-          <div class="role">Administrateur</div>
+          <h2 id="profileNameDisplay">Administrateur</h2>
+          <div class="role">Super Admin</div>
           <div class="profile-stats">
             <div class="profile-stat">
-              <div class="value">3</div>
-              <div class="label">Années</div>
+              <div class="value" id="stat-years">1</div>
+              <div class="label">Année</div>
             </div>
             <div class="profile-stat">
-              <div class="value">15</div>
-              <div class="label">Jours congés</div>
+              <div class="value">∞</div>
+              <div class="label">Accès Total</div>
             </div>
             <div class="profile-stat">
-              <div class="value">98%</div>
+              <div class="value">100%</div>
               <div class="label">Présence</div>
             </div>
           </div>
@@ -89,41 +88,37 @@
       </div>
     </div>
 
-    <!-- Tabs Navigation -->
     <div class="card">
       <div class="tabs">
         <button class="tab active" onclick="switchTab('informations')">Informations</button>
-        <button class="tab" onclick="switchTab('emploi')">Emploi</button>
         <button class="tab" onclick="switchTab('securite')">Sécurité</button>
-        <button class="tab" onclick="switchTab('conges')">Congés</button>
       </div>
 
-      <!-- Informations Tab -->
       <div id="tab-informations" class="tab-content active">
         <form onsubmit="updatePersonalInfo(event)">
           <div class="form-row">
             <div class="form-group">
               <label>Prénom</label>
-              <input type="text" class="form-input" value="Jean" required>
+              <input type="text" id="admin-firstname" class="form-input" required>
             </div>
             <div class="form-group">
               <label>Nom</label>
-              <input type="text" class="form-input" value="Dupont" required>
+              <input type="text" id="admin-lastname" class="form-input" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-input" value="j.dupont@aromesdeparis.fr" required>
+              <input type="email" id="admin-email" class="form-input" required>
             </div>
             <div class="form-group">
               <label>Téléphone</label>
-              <input type="tel" class="form-input" value="+33 1 45 67 89 00">
+              <input type="tel" id="admin-phone" class="form-input">
             </div>
           </div>
           <div class="form-group">
             <label>Adresse</label>
-            <textarea class="form-input" rows="3">123 Avenue des Champs-Élysées, 75008 Paris</textarea>
+            <textarea id="admin-address" class="form-input" rows="3"></textarea>
           </div>
           <div class="modal-footer" style="margin-top: 30px; padding: 0;">
             <button type="submit" class="btn btn-primary"><i data-lucide="save"></i> Enregistrer</button>
@@ -131,31 +126,20 @@
         </form>
       </div>
 
-      <!-- Emploi Tab (Read Only) -->
-      <div id="tab-emploi" class="tab-content">
-        <!-- Content remains same, just structure -->
-        <div class="form-row">
-            <div class="form-group"><label>Poste</label><input type="text" class="form-input" value="Administrateur" readonly></div>
-            <div class="form-group"><label>Département</label><input type="text" class="form-input" value="Direction" readonly></div>
-        </div>
-        <!-- ... -->
-      </div>
-
-      <!-- Sécurité Tab -->
       <div id="tab-securite" class="tab-content">
         <form onsubmit="updateSecurity(event)">
           <div class="form-group">
-            <label>Motif de passe actuel</label>
-            <input type="password" class="form-input" required>
+            <label>Mot de passe actuel</label>
+            <input type="password" id="pwd-current" class="form-input" required>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>Nouveau mot de passe</label>
-              <input type="password" class="form-input" required minlength="8">
+              <input type="password" id="pwd-new" class="form-input" required minlength="4">
             </div>
             <div class="form-group">
               <label>Confirmer</label>
-              <input type="password" class="form-input" required>
+              <input type="password" id="pwd-confirm" class="form-input" required>
             </div>
           </div>
           <div class="alert alert-warning">
@@ -166,97 +150,127 @@
           </div>
         </form>
       </div>
-
-      <!-- Congés Tab -->
-      <div id="tab-conges" class="tab-content">
-        <div class="card-header" style="margin-bottom: 20px;">
-          <h3>Solde de congés</h3>
-        </div>
-        <div class="stats" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 30px;">
-          <div class="stat-card">
-            <div class="stat-icon"><i data-lucide="check-circle"></i></div>
-            <div>
-              <div class="stat-label">Acquis</div>
-              <div class="stat-value">25</div>
-            </div>
-          </div>
-          <div class="stat-card">
-             <div class="stat-icon"><i data-lucide="minus-circle"></i></div>
-            <div>
-              <div class="stat-label">Pris</div>
-              <div class="stat-value">10</div>
-            </div>
-          </div>
-          <div class="stat-card">
-             <div class="stat-icon"><i data-lucide="calendar"></i></div>
-            <div>
-              <div class="stat-label">Restant</div>
-              <div class="stat-value">15</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card-header" style="margin-bottom: 20px;">
-          <h3>Demandes récentes</h3>
-          <button class="btn btn-primary" onclick="openModal('leaveRequestModal')">
-            <i data-lucide="plus"></i> Nouvelle demande
-          </button>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr><th>Période</th><th>Type</th><th>Statut</th><th>Jours</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>15-22 Déc 2024</td>
-                <td>Congés payés</td>
-                <td><span class="status confirmed"><i data-lucide="check"></i> Approuvé</span></td>
-                <td>7</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
   </main>
 
-  <!-- Leave Modal -->
-  <div class="modal-overlay" id="leaveRequestModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Nouvelle demande</h3>
-        <button class="modal-close" onclick="closeModal('leaveRequestModal')"><i data-lucide="x"></i></button>
-      </div>
-      <form onsubmit="submitLeaveRequest(event)">
-        <!-- Form fields... -->
-        <div class="form-row">
-            <div class="form-group"><label>Type</label><select class="form-input"><option>Congés payés</option></select></div>
-            <div class="form-group"><label>Jours</label><input type="number" class="form-input"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('leaveRequestModal')">Annuler</button>
-          <button type="submit" class="btn btn-primary">Soumettre</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <script src="main.js"></script>
   <script>
-    // Tab switching logic
+    // --- 1. CONFIGURATION & LOAD ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAdminData();
+      if(window.lucide) lucide.createIcons();
+    });
+
+    function getAdminData() {
+      // Priority: 1. Current Session, 2. Persistent Admin Data, 3. Default
+      const session = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const savedAdmin = JSON.parse(localStorage.getItem('adminData') || '{}');
+      
+      // Defaults if it's the first time
+      return {
+        firstName: savedAdmin.firstName || session.firstName || 'Jean',
+        lastName: savedAdmin.lastName || session.lastName || 'Dupont',
+        email: savedAdmin.email || session.email || 'adminRestaurant@gmail.com',
+        phone: savedAdmin.phone || '+212 6 00 00 00 00',
+        address: savedAdmin.address || 'Agadir, Maroc',
+        password: savedAdmin.password || '1234' // Default from ConnexionScript
+      };
+    }
+
+    function loadAdminData() {
+      const data = getAdminData();
+
+      // Update Form Inputs
+      document.getElementById('admin-firstname').value = data.firstName;
+      document.getElementById('admin-lastname').value = data.lastName;
+      document.getElementById('admin-email').value = data.email;
+      document.getElementById('admin-phone').value = data.phone;
+      document.getElementById('admin-address').value = data.address;
+
+      // Update UI Header Elements
+      const fullName = `${data.firstName} ${data.lastName}`;
+      const initials = (data.firstName[0] + data.lastName[0]).toUpperCase();
+
+      document.getElementById('topName').textContent = fullName;
+      document.getElementById('profileNameDisplay').textContent = fullName;
+      
+      document.getElementById('topAvatar').textContent = initials;
+      document.getElementById('profileAvatar').textContent = initials;
+    }
+
+    // --- 2. UPDATE PERSONAL INFO ---
+    function updatePersonalInfo(e) {
+      e.preventDefault();
+
+      // Get values from form
+      const updatedData = getAdminData(); // Start with existing
+      updatedData.firstName = document.getElementById('admin-firstname').value;
+      updatedData.lastName = document.getElementById('admin-lastname').value;
+      updatedData.email = document.getElementById('admin-email').value;
+      updatedData.phone = document.getElementById('admin-phone').value;
+      updatedData.address = document.getElementById('admin-address').value;
+
+      // Save to Persistent Storage (so it remembers next time)
+      localStorage.setItem('adminData', JSON.stringify(updatedData));
+
+      // Update Current Session (so it reflects immediately)
+      const currentSession = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      currentSession.fullName = `${updatedData.firstName} ${updatedData.lastName}`;
+      currentSession.firstName = updatedData.firstName;
+      currentSession.lastName = updatedData.lastName;
+      currentSession.email = updatedData.email;
+      localStorage.setItem('currentUser', JSON.stringify(currentSession));
+
+      // Refresh UI
+      loadAdminData();
+      alert("Informations mises à jour avec succès !");
+    }
+
+    // --- 3. UPDATE SECURITY ---
+    function updateSecurity(e) {
+      e.preventDefault();
+
+      const currentInput = document.getElementById('pwd-current').value;
+      const newPass = document.getElementById('pwd-new').value;
+      const confirmPass = document.getElementById('pwd-confirm').value;
+
+      const adminData = getAdminData();
+
+      // Validation
+      if (currentInput !== adminData.password) {
+        alert("Erreur: Le mot de passe actuel est incorrect.");
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        alert("Erreur: Les nouveaux mots de passe ne correspondent pas.");
+        return;
+      }
+
+      if (newPass.length < 4) {
+        alert("Erreur: Le mot de passe doit contenir au moins 4 caractères.");
+        return;
+      }
+
+      // Save New Password
+      adminData.password = newPass;
+      localStorage.setItem('adminData', JSON.stringify(adminData));
+
+      alert("Mot de passe modifié avec succès. Veuillez vous reconnecter.");
+      
+      // Logout logic
+      localStorage.removeItem('currentUser');
+      window.location.href = '../connexion.html';
+    }
+
+    // --- 4. TABS LOGIC ---
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
       document.getElementById('tab-' + tabName).classList.add('active');
       event.target.classList.add('active');
-      lucide.createIcons(); // Refresh icons in new tab
+      if(window.lucide) lucide.createIcons(); 
     }
-    // ... other logic functions ...
-    function updatePersonalInfo(e) { e.preventDefault(); alert("Enregistré"); }
-    function updateSecurity(e) { e.preventDefault(); alert("Mot de passe changé"); }
-    function submitLeaveRequest(e) { e.preventDefault(); alert("Envoyé"); closeModal('leaveRequestModal'); }
   </script>
 </body>
 </html>

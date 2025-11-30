@@ -18,50 +18,7 @@
 
     <!-- Native CSS -->
     <link rel="stylesheet" href="Client.css">
-
-    <style>
-        /* Style pour le bouton de déconnexion */
-        .sidebar-footer {
-            margin-top: auto;
-            padding: 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .logout-btn {
-            color: #dc3545 !important;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-
-        .logout-btn:hover {
-            background: rgba(220, 53, 69, 0.1) !important;
-            color: #ff4757 !important;
-        }
-
-        .logout-btn i {
-            color: #dc3545;
-            font-size: 18px;
-        }
-
-        .logout-btn span {
-            font-weight: 500;
-        }
-
-        /* S'assurer que la sidebar utilise flexbox */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="Profil.css">
 </head>
 
 <body>
@@ -199,11 +156,37 @@
         }
         // Charger le nom du client
         const loadClientName = () => {
-            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-            const name = userData.nom || 'Client';
-            document.getElementById('clientName').textContent = name;
-            return name;
+            // 1. Get the currently logged-in user (The Session)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+            // 2. Get the saved profile data (The Details)
+            let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+            // 3. SECURITY CHECK: If the profile data belongs to a different email, ignore it!
+            if (currentUser && userData.email && currentUser.email !== userData.email) {
+                console.log("Cleaning up stale user data...");
+                localStorage.removeItem('userData');
+                userData = {}; // Reset local variable
+            }
+
+            // 4. Determine the name to display
+            // Priority: currentUser (Login Name) -> userData (Profile Name) -> Default
+            let nameToDisplay = 'Client';
+
+            if (currentUser && currentUser.fullName) {
+                nameToDisplay = currentUser.fullName;
+            } else if (userData.nom) {
+                nameToDisplay = userData.nom;
+            }
+
+            // 5. Update the HTML
+            const nameElement = document.getElementById('clientName');
+            const welcomeElement = document.getElementById('clientNameWelcome');
+
+            if (nameElement) nameElement.textContent = nameToDisplay;
+            if (welcomeElement) welcomeElement.textContent = nameToDisplay;
         };
+
 
         // Formater la date en français
         function formaterDate(date) {
@@ -217,29 +200,46 @@
                 const data = localStorage.getItem('reservations_restaurant');
                 return data ? JSON.parse(data) : [];
             } catch (error) {
-                console.error('❌ Erreur:', error);
+                console.error('Erreur:', error);
                 return [];
             }
         }
 
         // Obtenir les réservations du client connecté
         function obtenirReservationsClient() {
-            const clientName = loadClientName();
+            // Get the current user's info to compare
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const clientName = loadClientName(); // Gets the name displayed on dash
+            
+            // Get ALL reservations
             const reservations = obtenirReservations();
 
-            console.log('👤 Nom du client:', clientName);
-            console.log('📊 Total réservations dans le système:', reservations.length);
+            console.log('👤 Client connecté:', clientName);
+            if(currentUser) console.log('Email client:', currentUser.email);
 
-            // AFFICHE TOUTES LES RÉSERVATIONS (pour tester)
-            console.log('✅ Affichage de toutes les réservations');
-            return reservations;
+            // --- FILTERING LOGIC ---
+            const reservationsFiltrees = reservations.filter(r => {
+                // Condition 1: Match by Email (Best & Most Accurate)
+                if (currentUser && currentUser.email && r.email && r.email !== 'Non renseigné') {
+                    if (r.email.toLowerCase() === currentUser.email.toLowerCase()) {
+                        return true;
+                    }
+                }
 
-            // DÉCOMMENTEZ CES LIGNES quand vous voulez filtrer par client
-            // const reservationsFiltrees = reservations.filter(r => 
-            //     r.nomComplet.toLowerCase().includes(clientName.toLowerCase())
-            // );
-            // console.log('🔍 Réservations du client:', reservationsFiltrees.length);
-            // return reservationsFiltrees;
+                // Condition 2: Match by Name (Fallback)
+                // We check if the reservation name contains the client name OR vice versa
+                if (clientName && r.nomComplet) {
+                    const resName = r.nomComplet.toLowerCase();
+                    const currentName = clientName.toLowerCase();
+                    return resName.includes(currentName) || currentName.includes(resName);
+                }
+
+                return false;
+            });
+
+            console.log(`Réservations trouvées: ${reservationsFiltrees.length} (sur ${reservations.length} total)`);
+            
+            return reservationsFiltrees;
         }
 
         // Afficher les statistiques
@@ -325,7 +325,7 @@
 
         // Afficher les réservations
         function afficherReservations(filtre = 'toutes') {
-            console.log('🎨 Affichage des réservations avec filtre:', filtre);
+            console.log('Affichage des réservations avec filtre:', filtre);
             const reservations = obtenirReservationsClient();
             const grid = document.getElementById('reservationsGrid');
 
@@ -337,7 +337,7 @@
             // Trier par date décroissante
             reservationsFiltrees.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            console.log('📊 Réservations à afficher:', reservationsFiltrees.length);
+            console.log('Réservations à afficher:', reservationsFiltrees.length);
 
             if (reservationsFiltrees.length === 0) {
                 grid.innerHTML = `
@@ -352,7 +352,7 @@
                 `;
             } else {
                 grid.innerHTML = reservationsFiltrees.map(r => creerCarteReservation(r)).join('');
-                console.log('✅ Réservations affichées avec succès');
+                console.log('Réservations affichées avec succès');
             }
 
             afficherStatistiques(reservations);
@@ -378,39 +378,39 @@
                     <div style="text-align: left; padding: 20px;">
                         <table style="width: 100%; font-size: 14px;">
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🆔 Numéro :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Numéro :</td>
                                 <td style="padding: 10px;">${reservation.id}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">👤 Nom :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Nom :</td>
                                 <td style="padding: 10px;">${reservation.nomComplet}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📅 Date :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Date :</td>
                                 <td style="padding: 10px;">${formaterDate(reservation.date)}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🕐 Heure :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Heure :</td>
                                 <td style="padding: 10px;">${reservation.heure}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">👥 Personnes :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Personnes :</td>
                                 <td style="padding: 10px;">${reservation.nombrePersonnes}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">🪑 Table :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Table :</td>
                                 <td style="padding: 10px;">${preferenceTexte[reservation.preferenceTable]}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📱 Téléphone :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Téléphone :</td>
                                 <td style="padding: 10px;">${reservation.telephone}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📧 Email :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Email :</td>
                                 <td style="padding: 10px;">${reservation.email}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">📊 Statut :</td>
+                                <td style="padding: 10px; color: #666; font-weight: 600;">Statut :</td>
                                 <td style="padding: 10px;"><strong>${reservation.statut.replace('_', ' ').toUpperCase()}</strong></td>
                             </tr>
                         </table>
@@ -511,10 +511,10 @@
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Initialisation de la page Mes Réservations');
+            console.log('Initialisation de la page Mes Réservations');
             loadClientName();
             afficherReservations();
-            console.log('✅ Page chargée avec succès');
+            console.log('Page chargée avec succès');
         });
     </script>
 </body>

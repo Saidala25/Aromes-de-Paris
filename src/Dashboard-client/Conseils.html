@@ -39,7 +39,7 @@
                 <i class="fas fa-user"></i>
                 <span>Mon Profil</span>
             </a>
-            <a href="../reservation.html" class="nav-item">
+            <a href="MesReservations.html" class="nav-item">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Réservations</span>
             </a>
@@ -55,13 +55,14 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Déconnexion</span>
-                </a>
-            </div>
         </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
+        </div>
     </aside>
 
     <!-- Main Content -->
@@ -171,47 +172,57 @@
     </div>
 
     <script>
-        // ===== LOGOUT =====
+        // ===== 1. LOGOUT FUNCTION =====
         function logout() {
             if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                 localStorage.removeItem('currentUser');
                 window.location.href = '../connexion.html';
             }
         }
-        // Load client name
-        const loadClientName = () => {
-            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-            const name = userData.nom || 'Client';
 
-            document.getElementById('clientName').textContent = name;
+        // ===== 2. LOAD CLIENT NAME =====
+        const loadClientName = () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+            // Priority: Login Session -> Profile Data -> Default
+            const name = currentUser.fullName || userData.nom || 'Client';
+
+            const nameEl = document.getElementById('clientName');
+            if(nameEl) nameEl.textContent = name;
         };
 
-        loadClientName();
+        // ===== 3. INITIALIZATION & MENU =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadClientName();
 
-        // Logout functionality
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+            // --- MENU TOGGLE LOGIC ---
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
 
-            // Clear user data from localStorage
-            localStorage.removeItem('userData');
-            localStorage.removeItem('hasVisitedDashboard');
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebar.classList.add('active');
+                });
+            }
 
-            // Redirect to login page
-            window.location.href = '../connexion.html';
-        });
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                });
+            }
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.remove('active');
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && 
+                    sidebar && sidebar.classList.contains('active') && 
+                    !sidebar.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>

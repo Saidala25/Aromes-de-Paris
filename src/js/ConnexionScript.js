@@ -54,15 +54,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Validation formulaire connexion
+    //
     document.querySelector('#login-form .form').addEventListener('submit', function (e) {
         e.preventDefault();
+
         const email = this.querySelector('input[type="email"]').value;
         const password = this.querySelector('input[type="password"]').value;
 
-        if (email && password) {
-            alert('Connexion réussie !');
-        } else {
-            alert('Veuillez remplir tous les champs');
+        // ... (Admin check logic remains here) ...
+
+        // Vérifier les clients
+        const utilisateurs = obtenirUtilisateurs();
+        const utilisateur = utilisateurs.find(u => u.email === email && u.password === password);
+
+        if (utilisateur) {
+            // --- ADD THIS LINE HERE ---
+            // Clear old profile data to prevent "Ghost" users
+            localStorage.removeItem('userData'); 
+            // --------------------------
+
+            // Mettre à jour la date de connexion
+            utilisateur.derniereConnexion = new Date().toISOString();
+            sauvegarderUtilisateurs(utilisateurs);
+            definirUtilisateurCourant(utilisateur);
+
+            redirigerVersClient();
         }
     });
 

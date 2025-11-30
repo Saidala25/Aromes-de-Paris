@@ -15,13 +15,13 @@
 
     // Test EmailJS initialization
     function testEmailJS() {
-      console.log('🔧 Testing EmailJS Configuration:');
+      console.log('Testing EmailJS Configuration:');
       console.log('Service ID:', SERVICE_ID);
       console.log('Template ID:', TEMPLATE_ID);
       console.log('EmailJS initialized:', typeof emailjs !== 'undefined');
 
       if (typeof emailjs !== 'undefined') {
-        showMessage('✅ EmailJS est chargé correctement', 'info');
+        showMessage('EmailJS est chargé correctement', 'info');
         setTimeout(() => {
           document.getElementById('form-message').style.display = 'none';
         }, 3000);
@@ -56,12 +56,12 @@
       };
       // Validation
       if (!formData.from_name || !formData.from_email || !formData.message) {
-        showMessage('❌ Veuillez remplir tous les champs', 'error');
+        showMessage('Veuillez remplir tous les champs', 'error');
         return;
       }
 
       if (!isValidEmail(formData.from_email)) {
-        showMessage('❌ Veuillez entrer un email valide', 'error');
+        showMessage('Veuillez entrer un email valide', 'error');
         return;
       }
 
@@ -71,18 +71,18 @@
       btnLoading.style.display = 'inline';
 
       try {
-        console.log('🔄 Envoi du message...', formData);
+        console.log('Envoi du message...', formData);
 
         const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData);
 
-        console.log('✅ Succès:', response);
-        showMessage('🎉 Votre message a été envoyé avec succès! Nous vous répondrons rapidement.', 'success');
+        console.log('Succès:', response);
+        showMessage('Votre message a été envoyé avec succès! Nous vous répondrons rapidement.', 'success');
         document.getElementById('contact-form').reset();
 
       } catch (error) {
-        console.error('❌ Erreur EmailJS:', error);
+        console.error('Erreur EmailJS:', error);
 
-        let errorMessage = '❌ Erreur lors de l\'envoi. ';
+        let errorMessage = 'Erreur lors de l\'envoi. ';
 
         if (error.text) {
           console.log('Détails de l\'erreur:', error.text);
@@ -165,6 +165,6 @@
     function sendEmailFallback(formData) {
       // This is a fallback that shows what data would be sent
       console.log('Fallback - Données du formulaire:', formData);
-      showMessage('⚠️ Mode démo: Ce message serait normalement envoyé. Vérifiez votre configuration EmailJS.', 'info');
+      showMessage('Mode démo: Ce message serait normalement envoyé. Vérifiez votre configuration EmailJS.', 'info');
       return Promise.resolve({ status: 200, text: 'Demo mode' });
     }

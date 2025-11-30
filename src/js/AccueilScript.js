@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // This adds the class that triggers the CSS transition (TranslateY -100%)
             loader.classList.add('slide-up');
         }
-    }, 4600); // 4.6 seconds: Start lifting the curtain
+    }, 3900); // 4.6 seconds: Start lifting the curtain
 
     // Remove the 'loading' class (enables scrolling) after the curtain is gone
     setTimeout(() => {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: "BUFFET",
                     subtitle: "Votre rendez-vous du dimanche à Agadir !",
                     details: [
-                        "📍 Boulevard du 20 Août, Agadir",
+                        "Boulevard du 20 Août, Agadir",
                         "Chaque dimanche à partir de 15h",
                         "Adultes : 200 DH | Enfants : 100 DH | -5 ans : Gratuit"
                     ],
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: "BUFFET",
                     subtitle: "Bienvenue Dimanche à Agadir",
                     details: [
-                        "📍 Boulevard du 20 Août, Agadir",
+                        "Boulevard du 20 Août, Agadir",
                         "250 DH par personne, enfant gratuit"
                     ],
                     reservation: "+212 6 21 58 89 38"
