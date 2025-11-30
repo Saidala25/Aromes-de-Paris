@@ -29,7 +29,7 @@
   vertical-align: text-bottom;
   stroke-width: 2px;
   /* This ensures the icon always takes the color of the text around it */
-  stroke: currentColor; 
+  stroke: currentColor;
 }
 
 .menu-item .lucide {
@@ -49,7 +49,8 @@
   height: 24px;
 }
 
-.btn .lucide, .btn-icon .lucide {
+.btn .lucide,
+.btn-icon .lucide {
   margin-right: 6px;
   width: 16px;
   height: 16px;
@@ -272,7 +273,8 @@ body {
   align-items: center;
   justify-content: center;
   background: rgba(182, 146, 63, 0.15);
-  color: var(--gold); /* Default Color (Gold) */
+  color: var(--gold);
+  /* Default Color (Gold) */
   transition: all 0.3s ease;
 }
 
@@ -297,6 +299,7 @@ body {
 .stat-change.positive {
   color: var(--success);
 }
+
 .stat-change.negative {
   color: var(--danger);
 }
@@ -379,7 +382,8 @@ td {
   gap: 5px;
 }
 
-.status.confirmed, .status.active {
+.status.confirmed,
+.status.active {
   background: rgba(39, 174, 96, 0.15);
   color: var(--success);
 }
@@ -389,7 +393,8 @@ td {
   color: var(--warning);
 }
 
-.status.cancelled, .status.conge {
+.status.cancelled,
+.status.conge {
   background: rgba(220, 53, 69, 0.15);
   color: var(--danger);
 }
@@ -434,7 +439,8 @@ td {
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
-  color: var(--text-light); /* Default icon color */
+  color: var(--text-light);
+  /* Default icon color */
 }
 
 .btn-icon:hover {
@@ -865,36 +871,97 @@ td {
 }
 
 @media (max-width: 768px) {
+
+  /* ===== NAVIGATION & LAYOUT ===== */
   .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: none;
   }
 
   .sidebar.open {
     transform: translateX(0);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
   }
 
   .main {
     margin-left: 0;
     padding: 20px;
-    padding-top: 70px;
+    padding-top: 80px;
+    width: 100%;
   }
 
   .mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
+  /* ===== HEADER & CONTROLS ===== */
   .header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 15px;
   }
 
-  .stats {
-    grid-template-columns: 1fr;
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
   }
 
+  /* ===== FORMS & FILTERS ===== */
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: 100%;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  /* ===== DYNAMIC GRID COLLAPSING ===== */
+  /* Forces all known grid layouts to single column on mobile */
+  .stats,
+  .grid-2,
+  .form-row,
+  .employee-grid,
+  .profile-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Keep actions grid side-by-side on mobile for better use of space */
   .actions-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ===== TABLE FIXES ===== */
+  /* Prevent table headers from squashing */
+  th {
+    white-space: nowrap;
+  }
+
+  /* ===== PROFILE & TABS ===== */
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .profile-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -922,6 +989,78 @@ td {
   color: #fff;
   border-color: #444;
 }
+
 .dark-mode .pagination button:hover {
   border-color: var(--gold);
+}
+
+/* ===== MODAL STYLES ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+.dark-mode .modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modal-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--dark);
+}
+
+.dark-mode .modal-header h3 {
+  color: var(--gold);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

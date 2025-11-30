@@ -9,10 +9,6 @@
       });
     });
 
-    function showProfile(name) {
-      alert('Profil de ' + name + ' - Page en construction');
-    }
-
     // EmailJS Configuration
     const SERVICE_ID = "service_wjnqhds";
     const TEMPLATE_ID = "template_ujzunzb";

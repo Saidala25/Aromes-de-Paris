@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // === Actions (seulement pour la page complète) ===
-    window.confirmRes = function(id) {
+    window.confirmRes = function (id) {
         if (confirm("Confirmer cette réservation ?")) {
             const all = getAll();
             const res = all.find(r => r.id === id);
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    window.cancelRes = function(id) {
+    window.cancelRes = function (id) {
         if (confirm("Annuler cette réservation ?")) {
             const all = getAll();
             const res = all.find(r => r.id === id);
@@ -34,12 +34,105 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    window.deleteRes = function(id) {
+    window.deleteRes = function (id) {
         if (confirm("Supprimer définitivement ?")) {
             save(getAll().filter(r => r.id !== id));
             refreshBothTables();
         }
     };
+
+    // === Nouvelle Réservation ===
+    window.handleNewReservation = function (event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        const newRes = {
+            id: "R" + Date.now().toString().slice(-6),
+            nomComplet: formData.get("client"),
+            date: formData.get("date"),
+            heure: formData.get("heure"),
+            nombrePersonnes: parseInt(formData.get("personnes")),
+            statut: "en_attente" // Par défaut
+        };
+
+        const all = getAll();
+        all.push(newRes);
+        save(all);
+
+        // Fermer le modal et rafraîchir
+        if (window.closeModal) closeModal('newReservationModal');
+        form.reset();
+        refreshBothTables();
+        alert("Réservation ajoutée avec succès !");
+    };
+
+    function updateReservationStats(reservations) {
+        const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+        // --- 1. Common Calculations ---
+        const todayCount = reservations.filter(r => r.date === todayStr).length;
+        const confirmedCount = reservations.filter(r => r.statut === "confirmee").length;
+        const pendingCount = reservations.filter(r => r.statut === "en_attente").length;
+        const cancelledCount = reservations.filter(r => r.statut === "annulee").length;
+
+        // --- 2. Update reservations.html ---
+        const rToday = document.getElementById("stat-today-count");
+        if (rToday) rToday.textContent = todayCount;
+
+        const rConfirmed = document.getElementById("stat-confirmed-count");
+        if (rConfirmed) rConfirmed.textContent = confirmedCount;
+
+        const rPending = document.getElementById("stat-pending-count");
+        if (rPending) rPending.textContent = pendingCount;
+
+        const rCancelled = document.getElementById("stat-cancelled-count");
+        if (rCancelled) rCancelled.textContent = cancelledCount;
+
+        // --- 3. Update dashboard.html ---
+        const dToday = document.getElementById("dash-stat-today");
+        if (dToday) dToday.textContent = todayCount;
+
+        // Tables Available
+        const TOTAL_TABLES = 20;
+        // Count confirmed reservations for TODAY specifically for table occupancy
+        const todayConfirmed = reservations.filter(r => r.date === todayStr && r.statut === "confirmee").length;
+        const tablesFree = Math.max(0, TOTAL_TABLES - todayConfirmed);
+        const occupancyRate = Math.round((todayConfirmed / TOTAL_TABLES) * 100);
+
+        const dTables = document.getElementById("dash-stat-tables");
+        if (dTables) {
+            dTables.textContent = `${tablesFree}/${TOTAL_TABLES}`;
+            // Color coding
+            dTables.style.color = tablesFree === 0 ? '#e74c3c' : tablesFree <= 5 ? '#f39c12' : '#2ecc71';
+        }
+
+        const dOccupancy = document.getElementById("dash-stat-occupancy");
+        if (dOccupancy) dOccupancy.textContent = `${occupancyRate}% occupées`;
+    }
+
+    function updateEmployeeStats() {
+        // Check if EmployeeDB is available (from employee-data.js)
+        if (typeof EmployeeDB !== 'undefined') {
+            const employees = EmployeeDB.getAll();
+            const activeCount = employees.filter(e => e.status === 'active').length;
+            const onLeaveCount = employees.filter(e => e.status === 'conge').length;
+
+            const dEmployees = document.getElementById("dash-stat-employees");
+            if (dEmployees) dEmployees.textContent = activeCount;
+
+            const dEmployeesChange = document.getElementById("dash-stat-employees-change");
+            if (dEmployeesChange) {
+                if (onLeaveCount > 0) {
+                    dEmployeesChange.textContent = `-${onLeaveCount} en congé`;
+                    dEmployeesChange.className = "stat-change negative";
+                } else {
+                    dEmployeesChange.textContent = "Tous présents";
+                    dEmployeesChange.className = "stat-change positive";
+                }
+            }
+        }
+    }
 
     function refreshBothTables() {
         const recentTbody = document.getElementById("recentReservationsBody");
@@ -47,6 +140,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const reservations = getAll()
             .sort((a, b) => new Date(b.date + " " + b.heure) - new Date(a.date + " " + a.heure));
+
+        // Update Stats for BOTH pages
+        updateReservationStats(reservations);
+        updateEmployeeStats();
 
         // === DASHBOARD : seulement le statut, PAS de boutons ===
         if (recentTbody) {
@@ -58,15 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 recent.forEach(r => {
                     const statusClass = r.statut === "confirmee" ? "confirmed" :
-                                      r.statut === "en_attente" ? "pending" : "cancelled";
+                        r.statut === "en_attente" ? "pending" : "cancelled";
                     const statusText = r.statut === "confirmee" ? "Confirmée" :
-                                     r.statut === "en_attente" ? "En attente" : "Annulée";
+                        r.statut === "en_attente" ? "En attente" : "Annulée";
 
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${r.nomComplet}</td>
                         <td>${formatDate(r.date)}</td>
-                        <td>${r.heure.slice(0,5)}</td>
+                        <td>${r.heure.slice(0, 5)}</td>
                         <td>${r.nombrePersonnes}</td>
                         <td><span class="status ${statusClass}">${statusText}</span></td>
                     `;
@@ -88,16 +185,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>#${r.id.slice(-6)}</td>
                         <td>${r.nomComplet}</td>
                         <td>${formatDate(r.date)}</td>
-                        <td>${r.heure.slice(0,5)}</td>
+                        <td>${r.heure.slice(0, 5)}</td>
                         <td>${r.nombrePersonnes}</td>
                     `;
 
                     // --- STATUT ---
                     const statutCell = document.createElement("td");
                     const statusText = r.statut === "confirmee" ? "Confirmée" :
-                                    r.statut === "en_attente" ? "En attente" : "Annulée";
+                        r.statut === "en_attente" ? "En attente" : "Annulée";
                     const statusClass = r.statut === "confirmee" ? "confirmed" :
-                                    r.statut === "en_attente" ? "pending" : "cancelled";
+                        r.statut === "en_attente" ? "pending" : "cancelled";
                     statutCell.innerHTML = `<span class="status ${statusClass}">${statusText}</span>`;
                     row.appendChild(statutCell);
 
@@ -129,52 +226,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     refreshBothTables();
-    setInterval(refreshBothTables, 10000);
-
-
-    // AJOUTE ÇA À LA TOUTE FIN DE TON FICHIER (avant le dernier }); )
-// ===== MÉTHODE ULTRA SIMPLE QUI MARCHE À TOUS LES COUPS =====
-    const TOTAL_TABLES = 20; // ← Change ici si tu as 18, 25, etc.
-
-    function updateTablesMaintenant() {
-        const aujourdhui = new Date().toISOString().slice(0,10); // 2025-11-30
-        const toutes = getAll();
-
-        const reservees = toutes.filter(r => r.date === aujourdhui && r.statut === "confirmee").length;
-        const libres = TOTAL_TABLES - reservees;
-        const pourcentage = Math.round((reservees / TOTAL_TABLES) * 100);
-
-        // On cible DIRECTEMENT les éléments avec le texte exact (aucune erreur possible)
-        document.querySelectorAll('.stat-value').forEach(el => {
-            if (el.textContent.includes('/20') || el.textContent.includes('/')) { // c'est bien notre bloc tables
-                el.textContent = `${libres}/${TOTAL_TABLES}`;
-
-                // Couleur du gros chiffre
-                el.style.color = libres === 0 ? '#e74c3c' :
-                                libres <= 5 ? '#f39c12' : '#2ecc71';
-            }
-        });
-
-        document.querySelectorAll('.stat-change').forEach(el => {
-            if (el.textContent.includes('%')) { // c'est bien le pourcentage
-                el.textContent = `${pourcentage}% occupées`;
-            }
-        });
-    }
-
-    // On force la mise à jour à chaque refresh + toutes les 5 secondes
-    const ancienRefresh = refreshBothTables;
-    refreshBothTables = function() {
-        ancienRefresh();
-        updateTablesMaintenant();
-    };
-
-    // Première mise à jour immédiate
-    updateTablesMaintenant();
-    setInterval(updateTablesMaintenant, 5000); // au cas où
+    setInterval(refreshBothTables, 5000);
 });
-
-
-
-
-
