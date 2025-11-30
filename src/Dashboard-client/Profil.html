@@ -55,10 +55,12 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
-            <a href="#" class="nav-item logout-item" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Déconnexion</span>
-            </a>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
         </nav>
     </aside>
 
@@ -169,6 +171,13 @@
     </div>
 
     <script>
+        // ===== LOGOUT =====
+        function logout() {
+            if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = '../connexion.html';
+            }
+        }
         // Load client name and data
         const loadClientData = () => {
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');

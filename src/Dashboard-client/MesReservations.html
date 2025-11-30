@@ -18,7 +18,7 @@
 
     <!-- Native CSS -->
     <link rel="stylesheet" href="Client.css">
-    
+
     <style>
         /* Style pour le bouton de déconnexion */
         .sidebar-footer {
@@ -103,7 +103,7 @@
 
         <!-- Bouton Déconnexion -->
         <div class="sidebar-footer">
-            <a href="#" class="nav-item logout-btn" onclick="deconnexion(event)">
+            <a href="#" class="nav-item logout-btn" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Déconnexion</span>
             </a>
@@ -191,39 +191,12 @@
 
     <script>
         // Fonction de déconnexion
-        function deconnexion(event) {
-            event.preventDefault();
-            
-            Swal.fire({
-                title: 'Déconnexion',
-                text: 'Êtes-vous sûr de vouloir vous déconnecter ?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Oui, me déconnecter',
-                cancelButtonText: 'Annuler'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Nettoyer les données de session
-                    localStorage.removeItem('userData');
-                    localStorage.removeItem('isLoggedIn');
-                    
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'À bientôt !',
-                        text: 'Vous avez été déconnecté avec succès.',
-                        confirmButtonColor: '#d4af37',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        // Rediriger vers la page d'accueil
-                        window.location.href = '../index.html';
-                    });
-                }
-            });
+        function logout() {
+            if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = '../connexion.html';
+            }
         }
-
         // Charger le nom du client
         const loadClientName = () => {
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -253,14 +226,14 @@
         function obtenirReservationsClient() {
             const clientName = loadClientName();
             const reservations = obtenirReservations();
-            
+
             console.log('👤 Nom du client:', clientName);
             console.log('📊 Total réservations dans le système:', reservations.length);
-            
+
             // AFFICHE TOUTES LES RÉSERVATIONS (pour tester)
             console.log('✅ Affichage de toutes les réservations');
             return reservations;
-            
+
             // DÉCOMMENTEZ CES LIGNES quand vous voulez filtrer par client
             // const reservationsFiltrees = reservations.filter(r => 
             //     r.nomComplet.toLowerCase().includes(clientName.toLowerCase())
@@ -464,19 +437,19 @@
                 if (result.isConfirmed) {
                     let reservations = obtenirReservations();
                     const index = reservations.findIndex(r => r.id === id);
-                    
+
                     if (index !== -1) {
                         reservations[index].statut = 'annulee';
                         reservations[index].dateModification = new Date().toISOString();
                         localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-                        
+
                         Swal.fire({
                             icon: 'success',
                             title: 'Réservation annulée',
                             text: 'Votre réservation a été annulée avec succès.',
                             confirmButtonColor: '#d4af37'
                         });
-                        
+
                         afficherReservations(filtreActuel);
                     }
                 }
@@ -499,14 +472,14 @@
                     let reservations = obtenirReservations();
                     reservations = reservations.filter(r => r.id !== id);
                     localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-                    
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Supprimée',
                         text: 'La réservation a été supprimée.',
                         confirmButtonColor: '#d4af37'
                     });
-                    
+
                     afficherReservations(filtreActuel);
                 }
             });
@@ -515,7 +488,7 @@
         // Gestion des filtres
         let filtreActuel = 'toutes';
         document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
+            tab.addEventListener('click', function () {
                 document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
                 filtreActuel = this.dataset.filter;

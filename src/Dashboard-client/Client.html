@@ -38,7 +38,7 @@
                 <i class="fas fa-user"></i>
                 <span>Mon Profil</span>
             </a>
-             <a href="MesReservations.html" class="nav-item">
+            <a href="MesReservations.html" class="nav-item">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Réservations</span>
             </a>
@@ -54,10 +54,12 @@
                 <i class="fas fa-envelope"></i>
                 <span>Contact</span>
             </a>
-            <a href="#" class="nav-item logout-item" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Déconnexion</span>
-            </a>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
         </nav>
     </aside>
 
@@ -142,7 +144,7 @@
             </div>
 
             <div class="actions-grid">
-                <a href="../reservation.html" class="action-card">
+                <a href="../reservation.html" class="action-card" class="btn-primary">
                     <div class="action-icon">
                         <i class="fas fa-calendar-plus"></i>
                     </div>
@@ -244,7 +246,14 @@
     </div>
 
     <script>
-       // Load client name
+        // ===== LOGOUT =====
+        function logout() {
+            if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = '../connexion.html';
+            }
+        }
+        // Load client name
         const loadClientName = () => {
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
             const name = userData.nom || 'Client';
