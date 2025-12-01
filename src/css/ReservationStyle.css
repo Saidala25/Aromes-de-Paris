@@ -196,3 +196,12 @@
     }
 }
 
+@media (max-width: 768px) {
+  .booking-form {
+    padding: 20px;
+  }
+
+  .booking-form h2 {
+    font-size: 2rem;
+  }
+}
