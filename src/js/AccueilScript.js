@@ -47,39 +47,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 7. ADVANCED TESTIMONIAL CAROUSEL ---
     const reviewsData = [
         {
-            text: "Une expérience culinaire exceptionnelle! Le cadre est magnifique et le service impeccable. Le mélange des saveurs est juste parfait.",
-            author: "Marie Dubois",
-            role: "Cliente Fidèle",
-            location: "Agadir Bay",
-            img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150"
-        },
-        {
-            text: "Les saveurs authentiques de la France en plein cœur d'Agadir. Le petit déjeuner est un must absolu pour bien commencer la journée.",
-            author: "Jean Pierre",
-            role: "Visiteur",
-            location: "Centre Ville",
-            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150"
-        },
-        {
-            text: "L'ambiance est cosy et raffinée. J'ai adoré les pâtisseries qui me rappellent mon voyage à Paris. Bravo au chef !",
-            author: "Sophie Martin",
+            text: "Les meilleurs plats et mocktails que j'aie jamais mangés ! La nourriture est d'une fraîcheur exceptionnelle et absolument délicieuse ! Tout est parfait. J'y retournerai sans hésiter. Le service est également excellent : le personnel est accueillant et chaleureux !",
+            author: "Roumayssa El Yahyaoui",
             role: "Local Guide",
             location: "Agadir Bay",
-            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150"
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjWWeBdeT8DCEGmnzbYjhf1F-aqkNvy1g-mlIHWkg4gF2ATWB117=w72-h72-p-rp-mo-br100"
         },
         {
-            text: "Service au top et plats délicieux. C'est devenu notre cantine du dimanche midi. Je recommande vivement.",
-            author: "Ahmed Bennani",
+            text: "Honnêtement, c'est l'un des meilleurs restaurants où j'ai mangé, et même au Maroc. La cuisine était exceptionnelle, notamment le poisson, d'une fraîcheur et d'une préparation remarquables. Le personnel était aux petits soins, toujours prêt à rendre service avec gentillesse. Une adresse incontournable lors d'un séjour à Agadir !",
+            author: "Filip Valkov",
+            role: "Visiteur",
+            location: "Centre Ville",
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjXvZCDbpsex4sfRLe8jzqyaz_ltgeuVgKouYN9GWE8-NDyHkF7a=w72-h72-p-rp-mo-br100"
+        },
+        {
+            text: "Ma première expérience ici a été absolument incroyable. La décoration était très contemporaine et élégante. Le service était impeccable, très attentionné, et la cuisine divine. Je recommande vivement cet endroit et j'y retournerai sans hésiter.",
+            author: "Shah Ali",
+            role: "Local Guide",
+            location: "Agadir Bay",
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjUx9P0lDHM5hvHLt1ilf_bUCiI56Yfx9CUKcO7gttSsFqCnLGQ=w72-h72-p-rp-mo-ba4-br100"
+        },
+        {
+            text: "Ce restaurant est mon préféré depuis la première fois. La nourriture est excellente, les serveurs sont très sympathiques et attentionnés, je ne saurais trop vous recommander celui-ci.",
+            author: "Francesca Spennato",
             role: "Habitué",
             location: "Centre Ville",
-            img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150"
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjUZGDfnYx6-dg0PN55n9BAwlsjufRCpyNMdQFtFjh1644JmeGcE=w72-h72-p-rp-mo-ba3-br100"
         },
         {
-            text: "Un endroit magique pour un dîner en amoureux. La lumière, la musique, tout est fait pour passer un bon moment.",
-            author: "Laura & Thomas",
-            role: "Touristes",
+            text: "Fabulous experience all together. First time in Agadir and we were searching for a good value for money place to eat. Everything about this place is amazing. We will start with the taste: just fabulous. The service by Ilyas, our server, was amazing. Very friendly and great menu suggestions. If you are in Agadir, this place is your best choice for taste/value for money. Well done to the team at Arômes de Paris. We will come back.",
+            author: "Stefan Fetica",
+            role: "Visiteur",
             location: "Agadir Bay",
-            img: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=150"
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjXYv69V5af8408cNCeuB96THox_NDEBRB8KAkQzuUbQ5v-MF7Uh=w72-h72-p-rp-mo-ba2-br100"
+        },
+        {
+            text: "Excellent place to have meals or coffee. Impeccable service. Warm atmosphere. Refined French design. I love it and highly recommend it.",
+            author: "HASSAN GOUZROU",
+            role: "Local Guide",
+            location: "Agadir Bay",
+            img: "https://lh3.googleusercontent.com/a-/ALV-UjUcQ5oEJ-l6Dsd1Yt_gBKqofsSxzEs4Vmzpi2KKer_p2_AZaN0=w72-h72-p-rp-mo-ba4-br100"
         }
     ];
 

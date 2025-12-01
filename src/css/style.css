@@ -116,7 +116,7 @@ h4 {
 }
 
 h1 {
-    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-size: clamp(2rem, 8vw, 5rem);
 }
 
 h2 {
@@ -550,10 +550,6 @@ footer ul {
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 3rem;
-    }
-
     .nav-links {
         display: none;
     }

@@ -24,7 +24,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo">
+            <a href="/index.html"><img src="../assets/Logos/Aromes-LOGO-H.png" alt="Arômes de Paris" class="sidebar-logo"></a>
             <button class="sidebar-toggle" id="sidebarToggle">
                 <i class="fas fa-times"></i>
             </button>
@@ -58,7 +58,7 @@
         </nav>
 
         <div class="sidebar-footer">
-            <a href="#" class="nav-item logout-btn" onclick="logout()">
+            <a href="#" class="nav-item logout-item" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Déconnexion</span>
             </a>
@@ -79,9 +79,11 @@
 
             <div class="topbar-right">
                 <div class="user-info">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <a href="Profil.html"  style="text-decoration: none; color: #0a0a0a;">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
                     <div class="user-details">
                         <span class="user-name" id="clientName">Client</span>
                         <span class="user-role">Membre</span>
