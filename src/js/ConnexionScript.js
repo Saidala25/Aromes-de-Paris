@@ -92,8 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Les mots de passe ne correspondent pas');
             return;
         }
-
-        alert('Inscription réussie !');
     });
 });
 
