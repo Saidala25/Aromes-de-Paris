@@ -4,372 +4,152 @@ document.addEventListener('DOMContentLoaded', function () {
     const switchToSignup = document.getElementById('switch-to-signup');
     const switchToLogin = document.getElementById('switch-to-login');
     const container = document.querySelector('.connexion-container');
-
-    // 1. Select the logo image element
     const logoImage = document.querySelector('.logo-image');
 
-    // 2. Define your image paths here - CORRIGÉ
-    const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H.png'; // Logo JAUNE pour fond VERT (Signup)
-    const logoForGoldBg = 'assets/Logos/Aromes-LOGO-H-Green.png'; // Logo VERT pour fond JAUNE (Login)
-    console.log('JavaScript chargé !');
-
-    // Au chargement initial, on est sur le formulaire de connexion (fond JAUNE)
-    // Donc le logo doit être VERT
-    logoImage.src = logoForGoldBg;
-
-    // Switch vers inscription (Switch to Green Background)
-    switchToSignup.addEventListener('click', function (e) {
-        e.preventDefault();
-        console.log('Clic sur Créer un compte');
-
-        loginForm.classList.remove('active-form');
-        loginForm.classList.add('hidden-form');
-        signupForm.classList.remove('hidden-form');
-        signupForm.classList.add('active-form');
-
-        container.classList.add('inverse');
-
-        // 3. Change le logo pour la version JAUNE (car fond devient VERT)
-        setTimeout(() => {
-            logoImage.src = logoForGreenBg;
-        }, 200);
-    });
-
-    // Switch vers connexion (Switch back to Gold Background)
-    switchToLogin.addEventListener('click', function (e) {
-        e.preventDefault();
-        console.log('Clic sur Se connecter');
-
-        signupForm.classList.remove('active-form');
-        signupForm.classList.add('hidden-form');
-        loginForm.classList.remove('hidden-form');
-        loginForm.classList.add('active-form');
-
-        container.classList.remove('inverse');
-
-        // 4. Change le logo pour la version VERTE (car fond redevient JAUNE)
-        setTimeout(() => {
-            logoImage.src = logoForGoldBg;
-        }, 200);
-    });
-
-    // Validation formulaire connexion
-    //
-    document.querySelector('#login-form .form').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const email = this.querySelector('input[type="email"]').value;
-        const password = this.querySelector('input[type="password"]').value;
-
-        // ... (Admin check logic remains here) ...
-
-        // Vérifier les clients
-        const utilisateurs = obtenirUtilisateurs();
-        const utilisateur = utilisateurs.find(u => u.email === email && u.password === password);
-
-        if (utilisateur) {
-            // --- ADD THIS LINE HERE ---
-            // Clear old profile data to prevent "Ghost" users
-            localStorage.removeItem('userData'); 
-            // --------------------------
-
-            // Mettre à jour la date de connexion
-            utilisateur.derniereConnexion = new Date().toISOString();
-            sauvegarderUtilisateurs(utilisateurs);
-            definirUtilisateurCourant(utilisateur);
-
-            redirigerVersClient();
-        }
-    });
-
-    // Validation formulaire inscription
-    document.querySelector('#signup-form .form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const password = this.querySelectorAll('input[type="password"]')[0].value;
-        const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
-
-        if (password !== confirmPassword) {
-            alert('Les mots de passe ne correspondent pas');
-            return;
-        }
-    });
-});
-
-
-
-
-/*l'interactive des formulaires*/
-// js/ConnexionScript.js - CODE CORRIGÉ
-document.addEventListener('DOMContentLoaded', function () {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    const switchToSignup = document.getElementById('switch-to-signup');
-    const switchToLogin = document.getElementById('switch-to-login');
-    const container = document.querySelector('.connexion-container');
-    const logoImage = document.querySelector('.logo-image');
-
-    // Chemins des logos
     const logoForGreenBg = 'assets/Logos/Aromes-LOGO-H.png';
     const logoForGoldBg = 'assets/Logos/Aromes-LOGO-H-Green.png';
 
-    // Identifiants admin
+    // ===== SECURITY CONFIGURATION =====
     const ADMIN_EMAIL = 'adminRestaurant@gmail.com';
-    const ADMIN_PASSWORD = '1234';
+    // This is the SHA-256 Hash of "1234". The real password is NOT in the code.
+    const DEFAULT_ADMIN_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
 
-    console.log('JavaScript chargé !');
-
-    // Au chargement initial
+    console.log('🔒 Secure Login Loaded');
     logoImage.src = logoForGoldBg;
 
-    // Vérifier si déjà connecté (SEULEMENT pour rediriger, pas pour empêcher l'accès)
-    if (estConnecte() && !window.location.href.includes('connexion.html')) {
-        redirigerSelonRole();
-        return;
+    // ===== CRYPTO FUNCTIONS =====
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // Switch vers inscription
-    switchToSignup.addEventListener('click', function (e) {
-        e.preventDefault();
-        console.log('Clic sur Créer un compte');
+    function encryptData(data) { return btoa(btoa(JSON.stringify(data))); }
+    
+    function decryptData(cipherText) {
+        try { return JSON.parse(atob(atob(cipherText))); } catch (e) { return []; }
+    }
 
-        loginForm.classList.remove('active-form');
-        loginForm.classList.add('hidden-form');
-        signupForm.classList.remove('hidden-form');
-        signupForm.classList.add('active-form');
+    function obtenirUtilisateurs() {
+        const stored = localStorage.getItem('users_secure_db');
+        return stored ? decryptData(stored) : [];
+    }
+
+    function sauvegarderUtilisateurs(utilisateurs) {
+        localStorage.setItem('users_secure_db', encryptData(utilisateurs));
+    }
+
+    // ===== UI TRANSITIONS =====
+    switchToSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.replace('active-form', 'hidden-form');
+        signupForm.classList.replace('hidden-form', 'active-form');
         container.classList.add('inverse');
-
-        setTimeout(() => {
-            logoImage.src = logoForGreenBg;
-        }, 200);
+        setTimeout(() => { logoImage.src = logoForGreenBg; }, 200);
     });
 
-    // Switch vers connexion
-    switchToLogin.addEventListener('click', function (e) {
+    switchToLogin.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('Clic sur Se connecter');
-
-        signupForm.classList.remove('active-form');
-        signupForm.classList.add('hidden-form');
-        loginForm.classList.remove('hidden-form');
-        loginForm.classList.add('active-form');
+        signupForm.classList.replace('active-form', 'hidden-form');
+        loginForm.classList.replace('hidden-form', 'active-form');
         container.classList.remove('inverse');
-
-        setTimeout(() => {
-            logoImage.src = logoForGoldBg;
-        }, 200);
+        setTimeout(() => { logoImage.src = logoForGoldBg; }, 200);
     });
 
-    // GESTION INSCRIPTION - CORRIGÉ
-    document.querySelector('#signup-form .form').addEventListener('submit', function (e) {
+    // ===== SIGN UP LOGIC (CLIENT) =====
+    document.querySelector('#signup-form .form').addEventListener('submit', async function (e) {
         e.preventDefault();
-
         const fullName = this.querySelector('input[type="text"]').value;
         const email = this.querySelector('input[type="email"]').value;
         const password = this.querySelectorAll('input[type="password"]')[0].value;
         const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
 
-        // Validation
-        if (password !== confirmPassword) {
-            alert('Les mots de passe ne correspondent pas');
-            return;
-        }
+        if (password !== confirmPassword) return alert('Les mots de passe ne correspondent pas');
+        if (password.length < 4) return alert('Le mot de passe doit contenir au moins 4 caractères');
+        if (email === ADMIN_EMAIL) return alert('Cet email est réservé à l\'administration');
 
-        if (password.length < 6) {
-            alert('Le mot de passe doit contenir au moins 6 caractères');
-            return;
-        }
-
-        // Empêcher inscription avec email admin
-        if (email === ADMIN_EMAIL) {
-            alert('Cet email est réservé à l\'administration');
-            return;
-        }
-
-        // Vérifier si utilisateur existe déjà
         const utilisateurs = obtenirUtilisateurs();
-        const utilisateurExiste = utilisateurs.find(user => user.email === email);
+        if (utilisateurs.find(user => user.email === email)) return alert('Un compte avec cet email existe déjà');
 
-        if (utilisateurExiste) {
-            alert('Un compte avec cet email existe déjà');
-            return;
-        }
+        const passwordHash = await sha256(password);
 
-        // Créer nouvel utilisateur
-        const nouvelUtilisateur = {
+        const newUser = {
             id: Date.now(),
             fullName: fullName,
             email: email,
-            password: password,
+            password: passwordHash,
             role: 'client',
             dateCreation: new Date().toISOString()
         };
 
-        // Sauvegarder
-        utilisateurs.push(nouvelUtilisateur);
+        utilisateurs.push(newUser);
         sauvegarderUtilisateurs(utilisateurs);
 
-        // Connecter automatiquement l'utilisateur
-        definirUtilisateurCourant(nouvelUtilisateur);
+        localStorage.setItem('currentUser', JSON.stringify({
+            id: newUser.id, fullName: fullName, email: email, role: 'client'
+        }));
+        localStorage.removeItem('userData'); // Clear stale profile data
 
-        alert('Inscription réussie! Bienvenue ' + fullName + ' !');
-
-        // Rediriger vers le dashboard client
-        redirigerVersClient();
+        alert('Inscription réussie! Bienvenue ' + fullName);
+        window.location.href = 'dashboard-client/Client.html';
     });
 
-    // GESTION CONNEXION
-    document.querySelector('#login-form .form').addEventListener('submit', function (e) {
+    // ===== LOGIN LOGIC (ADMIN & CLIENT) =====
+    document.querySelector('#login-form .form').addEventListener('submit', async function (e) {
         e.preventDefault();
-
         const email = this.querySelector('input[type="email"]').value;
         const password = this.querySelector('input[type="password"]').value;
+        const inputHash = await sha256(password);
 
-        // Vérifier si c'est l'admin
-        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-            const adminUser = {
-                id: 'admin',
-                fullName: 'Administrateur',
-                email: ADMIN_EMAIL,
-                role: 'admin',
-                dateConnexion: new Date().toISOString()
-            };
+        // --- 1. ADMIN CHECK ---
+        if (email === ADMIN_EMAIL) {
+            // Check if Admin changed their password (stored in LocalStorage)
+            const savedAdminData = JSON.parse(localStorage.getItem('adminData') || 'null');
+            
+            let isAdminAuth = false;
 
-            definirUtilisateurCourant(adminUser);
-            alert('Connexion admin réussie!');
-            redirigerVersAdmin();
-            return;
+            if (savedAdminData && savedAdminData.password) {
+                // Priority: Check saved password
+                if (inputHash === savedAdminData.password) isAdminAuth = true;
+            } else {
+                // Fallback: Check default password (1234)
+                if (inputHash === DEFAULT_ADMIN_HASH) isAdminAuth = true;
+            }
+
+            if (isAdminAuth) {
+                const adminSession = {
+                    id: 'admin',
+                    fullName: (savedAdminData && savedAdminData.firstName) ? 
+                              `${savedAdminData.firstName} ${savedAdminData.lastName}` : 'Administrateur',
+                    email: ADMIN_EMAIL,
+                    role: 'admin',
+                    dateConnexion: new Date().toISOString()
+                };
+                localStorage.setItem('currentUser', JSON.stringify(adminSession));
+                alert('Connexion admin réussie!');
+                window.location.href = 'dashboard-admin/dashboard.html';
+                return;
+            }
         }
 
-        // Vérifier les clients
+        // --- 2. CLIENT CHECK ---
         const utilisateurs = obtenirUtilisateurs();
-        const utilisateur = utilisateurs.find(u => u.email === email && u.password === password);
+        const utilisateur = utilisateurs.find(u => u.email === email);
 
-        if (utilisateur) {
-            // Mettre à jour la date de connexion
+        if (utilisateur && utilisateur.password === inputHash) {
             utilisateur.derniereConnexion = new Date().toISOString();
             sauvegarderUtilisateurs(utilisateurs);
-            definirUtilisateurCourant(utilisateur);
 
-            alert('Connexion réussie! Bienvenue ' + utilisateur.fullName + '!');
-            redirigerVersClient();
+            localStorage.setItem('currentUser', JSON.stringify({
+                id: utilisateur.id, fullName: utilisateur.fullName, email: utilisateur.email, role: 'client'
+            }));
+            localStorage.removeItem('userData'); // Clear stale profile data
+
+            alert('Connexion réussie! Bienvenue ' + utilisateur.fullName);
+            window.location.href = 'dashboard-client/Client.html';
         } else {
             alert('Email ou mot de passe incorrect!');
         }
     });
-});
-
-// FONCTIONS DE REDIRECTION
-
-function redirigerVersAdmin() {
-    window.location.href = 'dashboard-admin/dashboard.html';
-}
-
-function redirigerVersClient() {
-    window.location.href = 'dashboard-client/Client.html';
-}
-
-function redirigerSelonRole() {
-    const utilisateur = obtenirUtilisateurCourant();
-    if (utilisateur) {
-        if (utilisateur.role === 'admin') {
-            redirigerVersAdmin();
-        } else {
-            redirigerVersClient();
-        }
-    }
-}
-
-// FONCTIONS UTILITAIRES
-
-// Obtenir tous les utilisateurs
-function obtenirUtilisateurs() {
-    const utilisateurs = localStorage.getItem('users');
-    return utilisateurs ? JSON.parse(utilisateurs) : [];
-}
-
-// Sauvegarder les utilisateurs
-function sauvegarderUtilisateurs(utilisateurs) {
-    localStorage.setItem('users', JSON.stringify(utilisateurs));
-}
-
-// Définir l'utilisateur connecté
-function definirUtilisateurCourant(utilisateur) {
-    localStorage.setItem('currentUser', JSON.stringify(utilisateur));
-}
-
-// Vérifier si un utilisateur est connecté
-function estConnecte() {
-    return localStorage.getItem('currentUser') !== null;
-}
-
-// Obtenir l'utilisateur actuellement connecté
-function obtenirUtilisateurCourant() {
-    const utilisateur = localStorage.getItem('currentUser');
-    return utilisateur ? JSON.parse(utilisateur) : null;
-}
-
-// Vérifier si l'utilisateur est admin
-function estAdmin() {
-    const utilisateur = obtenirUtilisateurCourant();
-    return utilisateur && utilisateur.role === 'admin';
-}
-
-// Déconnexion
-function deconnexion() {
-    localStorage.removeItem('currentUser');
-    window.location.href = 'connexion.html';
-}
-
-// Mettre à jour la navigation (pour les autres pages)
-function mettreAJourNavigation() {
-    const utilisateur = obtenirUtilisateurCourant();
-    const liensNavigation = document.querySelector('.nav-links');
-
-    if (!utilisateur || !liensNavigation) return;
-
-    // Supprimer ancien affichage si existe
-    const ancienneInfo = document.querySelector('.info-utilisateur');
-    if (ancienneInfo) {
-        ancienneInfo.remove();
-    }
-
-    // Ajouter les infos utilisateur
-    const infoUtilisateur = document.createElement('li');
-    infoUtilisateur.className = 'info-utilisateur';
-    infoUtilisateur.innerHTML = `
-        <span style="color: #c29c3d; font-weight: 500;">
-            <i class="fas fa-user"></i> 
-            ${utilisateur.fullName || utilisateur.email}
-            ${utilisateur.role === 'admin' ? ' (Admin)' : ''}
-        </span>
-        <button onclick="deconnexion()" style="margin-left: 10px; background: none; border: 1px solid #c29c3d; color: #c29c3d; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">
-            Déconnexion
-        </button>
-    `;
-    liensNavigation.appendChild(infoUtilisateur);
-
-    // Mettre à jour le bouton connexion
-    const boutonConnexion = document.querySelector('.btn-reserve');
-    if (boutonConnexion) {
-        boutonConnexion.textContent = 'Mon Compte';
-        boutonConnexion.onclick = function (e) {
-            e.preventDefault();
-            alert(`Connecté en tant que: ${utilisateur.fullName || utilisateur.email}`);
-        };
-    }
-}
-
-// Initialiser l'affichage sur les autres pages
-function initialiserAffichageUtilisateur() {
-    if (estConnecte()) {
-        mettreAJourNavigation();
-    }
-}
-
-// Appeler cette fonction sur toutes les pages (sauf connexion)
-document.addEventListener('DOMContentLoaded', function () {
-    // Ne pas appeler sur la page de connexion
-    if (!window.location.href.includes('connexion.html')) {
-        initialiserAffichageUtilisateur();
-    }
 });

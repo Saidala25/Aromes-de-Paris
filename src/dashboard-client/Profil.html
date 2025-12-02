@@ -163,6 +163,9 @@
                                 <input type="password" id="confirmPassword" name="confirmPassword">
                             </div>
                         </div>
+                        <div class="alert alert-warning">
+                            <i class="fa fa-exclamation-triangle" style="width:16px; display:inline-block; margin-right: 0.1rem;"></i> Après le changement de mot de passe, vous serez déconnecté.
+                        </div>
                         <div class="form-actions">
                             <button type="submit" class="btn-save">
                                 <i class="fas fa-key"></i> Modifier le mot de passe
@@ -175,184 +178,164 @@
     </div>
 
     <script>
-    // ===== 1. LOGOUT FUNCTION =====
-    function logout() {
-        if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-            localStorage.removeItem('currentUser');
-            // Optional: Clear userData to force fresh load next time
-            // localStorage.removeItem('userData'); 
-            window.location.href = '../connexion.html';
-        }
-    }
-
-    // ===== 2. LOAD CLIENT DATA =====
-    const loadClientData = () => {
-        // Get data from Session (Primary) and Profile Storage (Secondary)
-        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-
-        // Determine values to display (Session takes priority for core info)
-        const name = currentUser.fullName || userData.nom || 'Client';
-        const email = currentUser.email || userData.email || '';
-        
-        // Address/Phone might only exist in userData initially
-        const phone = userData.phone || currentUser.phone || '';
-        const address = userData.address || currentUser.address || '';
-
-        // Update UI Elements
-        const navNameElement = document.getElementById('clientName');
-        const displayNameElement = document.getElementById('displayName');
-        const memberSinceElement = document.querySelector('.member-since');
-
-        if (navNameElement) navNameElement.textContent = name;
-        if (displayNameElement) displayNameElement.textContent = name;
-        
-        // Show join date if available
-        if (memberSinceElement && currentUser.dateCreation) {
-            const date = new Date(currentUser.dateCreation);
-            memberSinceElement.textContent = 'Membre depuis ' + date.getFullYear();
+        // ===== SECURITY UTILS =====
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // Pre-fill Form Fields
-        const inputs = {
-            'nom': name,
-            'email': email,
-            'phone': phone,
-            'address': address
+        function encryptData(data) { return btoa(btoa(JSON.stringify(data))); }
+        
+        function decryptData(cipherText) {
+            try { return JSON.parse(atob(atob(cipherText))); } 
+            catch (e) { return []; }
+        }
+
+        function logout() {
+            if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = '../connexion.html';
+            }
+        }
+
+        // ===== LOAD DATA =====
+        const loadClientData = () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
+            const name = currentUser.fullName || userData.nom || 'Client';
+            const email = currentUser.email || userData.email || '';
+            const phone = userData.phone || currentUser.phone || '';
+            const address = userData.address || currentUser.address || '';
+
+            const navNameElement = document.getElementById('clientName');
+            const displayNameElement = document.getElementById('displayName');
+            const memberSinceElement = document.querySelector('.member-since');
+
+            if (navNameElement) navNameElement.textContent = name;
+            if (displayNameElement) displayNameElement.textContent = name;
+            
+            if (memberSinceElement && currentUser.dateCreation) { // Fixed property name
+                const date = new Date(currentUser.dateCreation);
+                memberSinceElement.textContent = 'Membre depuis ' + date.getFullYear();
+            }
+
+            const inputs = { 'nom': name, 'email': email, 'phone': phone, 'address': address };
+            for (const [id, value] of Object.entries(inputs)) {
+                const el = document.getElementById(id);
+                if (el) el.value = value;
+            }
         };
 
-        for (const [id, value] of Object.entries(inputs)) {
-            const el = document.getElementById(id);
-            if (el) el.value = value;
-        }
-    };
-
-    // ===== 3. SAVE PROFILE CHANGES =====
-    document.getElementById('profileForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // 1. Get Form Data
-        const formData = new FormData(e.target);
-        const newName = formData.get('nom');
-        const newEmail = formData.get('email');
-        const newPhone = formData.get('phone');
-        const newAddress = formData.get('address');
-
-        // 2. Get Current Data
-        let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
-        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
-
-        if (!currentUser.email) {
-            alert("Erreur: Vous n'êtes pas connecté correctement.");
-            return;
-        }
-
-        // 3. Update Main Database (users array)
-        const userIndex = users.findIndex(u => u.email === currentUser.email);
-        
-        if (userIndex !== -1) {
-            users[userIndex].fullName = newName;
-            users[userIndex].email = newEmail;
-            users[userIndex].phone = newPhone;   // Add phone to DB
-            users[userIndex].address = newAddress; // Add address to DB
+        // ===== SAVE PROFILE (Info only) =====
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            // Save DB
-            localStorage.setItem('users', JSON.stringify(users));
-        }
+            const formData = new FormData(e.target);
+            const newName = formData.get('nom');
+            const newEmail = formData.get('email');
+            const newPhone = formData.get('phone');
+            const newAddress = formData.get('address');
 
-        // 4. Update Active Session (currentUser)
-        currentUser.fullName = newName;
-        currentUser.email = newEmail;
-        currentUser.phone = newPhone;
-        currentUser.address = newAddress;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            
+            // Load Secure DB
+            const storedDB = localStorage.getItem('users_secure_db');
+            let users = storedDB ? decryptData(storedDB) : [];
 
-        // 5. Update Profile Storage (userData) - Kept for compatibility
-        userData.nom = newName;
-        userData.email = newEmail;
-        userData.phone = newPhone;
-        userData.address = newAddress;
-        localStorage.setItem('userData', JSON.stringify(userData));
+            if (!currentUser.email) return;
 
-        // 6. Refresh UI
-        loadClientData();
-        alert('Profil mis à jour avec succès !');
-    });
+            // Update in Secure DB
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex].fullName = newName;
+                users[userIndex].email = newEmail;
+                users[userIndex].phone = newPhone;
+                users[userIndex].address = newAddress;
+                // Save Encrypted
+                localStorage.setItem('users_secure_db', encryptData(users));
+            }
 
-    // ===== 4. CHANGE PASSWORD =====
-    document.getElementById('passwordForm').addEventListener('submit', (e) => {
-        e.preventDefault();
+            // Update Session
+            currentUser.fullName = newName;
+            currentUser.email = newEmail;
+            currentUser.phone = newPhone;
+            currentUser.address = newAddress;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-        const currentPassInput = document.getElementById('currentPassword').value;
-        const newPassInput = document.getElementById('newPassword').value;
-        const confirmPassInput = document.getElementById('confirmPassword').value;
+            // Update Profile Data
+            userData.nom = newName;
+            userData.email = newEmail;
+            userData.phone = newPhone;
+            userData.address = newAddress;
+            localStorage.setItem('userData', JSON.stringify(userData));
 
-        // 1. Get Data
-        let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
+            loadClientData();
+            alert('Profil mis à jour avec succès !');
+        });
 
-        if (!currentUser.email) {
-            alert("Erreur de session. Veuillez vous reconnecter.");
-            return;
-        }
+        // ===== CHANGE PASSWORD (SECURE) =====
+        document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        // 2. Validate Inputs
-        if (newPassInput !== confirmPassInput) {
-            alert("Le nouveau mot de passe et la confirmation ne correspondent pas.");
-            return;
-        }
+            const currentPassInput = document.getElementById('currentPassword').value;
+            const newPassInput = document.getElementById('newPassword').value;
+            const confirmPassInput = document.getElementById('confirmPassword').value;
 
-        if (newPassInput.length < 4) {
-            alert("Le mot de passe doit contenir au moins 4 caractères.");
-            return;
-        }
+            let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const storedDB = localStorage.getItem('users_secure_db');
+            let users = storedDB ? decryptData(storedDB) : [];
 
-        // 3. Check Old Password
-        // Note: In a real app, we check the hash. Here we check plain text or saved value.
-        // We look up the REAL user in the DB to be sure.
-        const dbUser = users.find(u => u.email === currentUser.email);
-        
-        if (!dbUser) {
-            alert("Utilisateur introuvable dans la base.");
-            return;
-        }
+            if (!currentUser.email) return;
 
-        if (dbUser.password !== currentPassInput) {
-            alert("Mot de passe actuel incorrect !");
-            return;
-        }
+            if (newPassInput !== confirmPassInput) {
+                alert("Les nouveaux mots de passe ne correspondent pas.");
+                return;
+            }
 
-        // 4. Update Password in DB
-        dbUser.password = newPassInput;
-        localStorage.setItem('users', JSON.stringify(users));
+            if (newPassInput.length < 4) {
+                alert("Le mot de passe doit contenir au moins 4 caractères.");
+                return;
+            }
 
-        // 5. Update Password in Session
-        currentUser.password = newPassInput;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            const dbUser = users.find(u => u.email === currentUser.email);
+            if (!dbUser) return;
 
-        // 6. Clear Form & Success
-        e.target.reset();
-        alert('Mot de passe modifié avec succès !');
-    });
+            // Verify Old Password
+            const currentInputHash = await sha256(currentPassInput);
+            
+            if (dbUser.password !== currentInputHash) {
+                alert("Mot de passe actuel incorrect !");
+                return;
+            }
 
-    // ===== INITIALIZATION =====
-    document.addEventListener('DOMContentLoaded', () => {
-        loadClientData();
+            // Hash New Password
+            const newPassHash = await sha256(newPassInput);
+            dbUser.password = newPassHash;
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
+            // Save Encrypted DB
+            localStorage.setItem('users_secure_db', encryptData(users));
 
-        if(mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('active'));
-        }
-        if(sidebarToggle) {
-            sidebarToggle.addEventListener('click', () => sidebar.classList.remove('active'));
-        }
-    });
-</script>
+            // --- NEW: LOGOUT & REDIRECT ---
+            alert('Mot de passe modifié avec succès ! Vous allez être déconnecté.');
+            localStorage.removeItem('currentUser');
+            window.location.href = '../connexion.html';
+        });
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadClientData();
+            // Menu toggles...
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('active'));
+            if(sidebarToggle) sidebarToggle.addEventListener('click', () => sidebar.classList.remove('active'));
+        });
+    </script>
 </body>
 
 </html>

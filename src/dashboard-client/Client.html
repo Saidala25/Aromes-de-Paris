@@ -75,8 +75,13 @@
             <div class="topbar-left">
                 <h1>Tableau de bord</h1>
             </div>
-
+            
             <div class="topbar-right">
+                <div class="theme-toggle" id="themeToggleBtn">
+                    <i class="fas fa-sun"></i>
+                    <div class="toggle-switch"></div>
+                    <i class="fas fa-moon"></i>
+                </div>
                 <div class="user-info">
                     <a href="Profil.html"  style="text-decoration: none; color: #0a0a0a;">
                         <div class="user-avatar">
@@ -105,7 +110,7 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>0</h3>
+                        <h3 id="activeReservationsCount">0</h3>
                         <p>Réservations actives</p>
                     </div>
                 </div>
@@ -253,17 +258,16 @@
         function logout() {
             if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                 localStorage.removeItem('currentUser');
-                // localStorage.removeItem('userData'); // Optional
                 window.location.href = '../connexion.html';
             }
         }
 
-        // ===== 2. LOAD CLIENT NAME =====
+        // ===== 2. LOAD CLIENT INFO =====
         const loadClientName = () => {
             const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             const userData = JSON.parse(localStorage.getItem('userData') || '{}');
 
-            // Check Login first, then Profile data, then default
+            // Priority: Login Session -> Profile Data -> Default
             const name = currentUser.fullName || userData.nom || 'Client';
 
             const nameEl = document.getElementById('clientName');
@@ -273,9 +277,69 @@
             if(welcomeEl) welcomeEl.textContent = name;
         };
 
-        // ===== 3. INITIALIZATION & MENU =====
+        // ===== 3. UPDATE STATS =====
+        const updateDashboardStats = () => {
+            try {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                
+                const targetEmail = (currentUser.email || userData.email || '').toLowerCase();
+                const targetName = (currentUser.fullName || userData.nom || '').toLowerCase();
+
+                const allReservations = JSON.parse(localStorage.getItem('reservations_restaurant') || '[]');
+
+                const activeCount = allReservations.filter(r => {
+                    const resEmail = (r.email || '').toLowerCase();
+                    const resName = (r.nomComplet || '').toLowerCase();
+                    
+                    const isUser = (targetEmail && resEmail === targetEmail) || 
+                                (targetName && resName.includes(targetName));
+
+                    const isActive = r.statut === 'en_attente' || r.statut === 'confirmee';
+
+                    return isUser && isActive;
+                }).length;
+
+                const countEl = document.getElementById('activeReservationsCount');
+                if (countEl) {
+                    countEl.textContent = activeCount;
+                    if(activeCount > 0) countEl.style.color = '#b6923f';
+                }
+
+            } catch (e) {
+                console.error("Error calculating stats:", e);
+            }
+        };
+
+        // ===== 4. INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
+            // --- 🔒 SECURITY CHECK (NEW) ---
+            const authUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!authUser) {
+                // User is NOT logged in
+                alert('Accès non autorisé. Veuillez vous connecter d\'abord.');
+                window.location.href = '../connexion.html';
+                return; // Stop execution
+            }
+            // -------------------------------
+
             loadClientName();
+            updateDashboardStats();
+
+            // --- THEME TOGGLE LOGIC ---
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const body = document.body;
+            const savedTheme = localStorage.getItem('clientTheme');
+            
+            if (savedTheme === 'light') body.classList.add('light-mode');
+
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    body.classList.toggle('light-mode');
+                    const isLight = body.classList.contains('light-mode');
+                    localStorage.setItem('clientTheme', isLight ? 'light' : 'dark');
+                });
+            }
 
             // --- MENU TOGGLE LOGIC ---
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -284,7 +348,7 @@
 
             if (mobileMenuBtn && sidebar) {
                 mobileMenuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents immediate closing if clicking body
+                    e.stopPropagation();
                     sidebar.classList.add('active');
                 });
             }
@@ -295,7 +359,6 @@
                 });
             }
 
-            // Optional: Close menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (window.innerWidth <= 768 && 
                     sidebar.classList.contains('active') && 
@@ -330,7 +393,7 @@
                 });
             }
         });
-    </script>
+</script>
 </body>
 
 </html>

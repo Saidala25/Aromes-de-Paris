@@ -80,7 +80,6 @@ body {
   width: 250px;
   background: var(--bg-sidebar);
   min-height: 100vh;
-  padding: 20px 0;
   position: fixed;
   left: 0;
   top: 0;
@@ -97,7 +96,7 @@ body {
 }
 
 .logo img {
-  max-width: 100px;
+  max-width: 150px;
 }
 
 .menu {
@@ -149,7 +148,7 @@ body {
 }
 
 .btn-logout {
-  margin: 15px;
+  margin: 35px 15px;
   padding: 12px 20px;
   background: var(--danger);
   color: #fff;
@@ -832,6 +831,7 @@ td {
   background: var(--green-dark);
   border-radius: 13px;
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .toggle-switch::after {

@@ -147,48 +147,32 @@
     </div>
 
     <script>
-        // Fonction de déconnexion
+        // ===== 1. LOGOUT FUNCTION =====
         function logout() {
             if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                 localStorage.removeItem('currentUser');
                 window.location.href = '../connexion.html';
             }
         }
-        // Charger le nom du client
+
+        // Updated Name Loader
         const loadClientName = () => {
-            // 1. Get the currently logged-in user (The Session)
             const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
 
-            // 2. Get the saved profile data (The Details)
-            let userData = JSON.parse(localStorage.getItem('userData') || '{}');
-
-            // 3. SECURITY CHECK: If the profile data belongs to a different email, ignore it!
-            if (currentUser && userData.email && currentUser.email !== userData.email) {
-                console.log("Cleaning up stale user data...");
-                localStorage.removeItem('userData');
-                userData = {}; // Reset local variable
-            }
-
-            // 4. Determine the name to display
-            // Priority: currentUser (Login Name) -> userData (Profile Name) -> Default
-            let nameToDisplay = 'Client';
-
+            let name = 'Client';
+            
             if (currentUser && currentUser.fullName) {
-                nameToDisplay = currentUser.fullName;
+                name = currentUser.fullName;
             } else if (userData.nom) {
-                nameToDisplay = userData.nom;
+                name = userData.nom;
             }
 
-            // 5. Update the HTML
-            const nameElement = document.getElementById('clientName');
-            const welcomeElement = document.getElementById('clientNameWelcome');
-
-            if (nameElement) nameElement.textContent = nameToDisplay;
-            if (welcomeElement) welcomeElement.textContent = nameToDisplay;
+            document.getElementById('clientName').textContent = name;
+            return name;
         };
 
-
-        // Formater la date en français
+        // Formater la date
         function formaterDate(date) {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(date).toLocaleDateString('fr-FR', options);
@@ -200,44 +184,28 @@
                 const data = localStorage.getItem('reservations_restaurant');
                 return data ? JSON.parse(data) : [];
             } catch (error) {
-                console.error('Erreur:', error);
                 return [];
             }
         }
 
         // Obtenir les réservations du client connecté
         function obtenirReservationsClient() {
-            // Get the current user's info to compare
             const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-            const clientName = loadClientName(); // Gets the name displayed on dash
-            
-            // Get ALL reservations
+            const clientName = loadClientName(); 
             const reservations = obtenirReservations();
-
-            console.log('👤 Client connecté:', clientName);
-            if(currentUser) console.log('Email client:', currentUser.email);
 
             // --- FILTERING LOGIC ---
             const reservationsFiltrees = reservations.filter(r => {
-                // Condition 1: Match by Email (Best & Most Accurate)
                 if (currentUser && currentUser.email && r.email && r.email !== 'Non renseigné') {
-                    if (r.email.toLowerCase() === currentUser.email.toLowerCase()) {
-                        return true;
-                    }
+                    if (r.email.toLowerCase() === currentUser.email.toLowerCase()) return true;
                 }
-
-                // Condition 2: Match by Name (Fallback)
-                // We check if the reservation name contains the client name OR vice versa
                 if (clientName && r.nomComplet) {
                     const resName = r.nomComplet.toLowerCase();
                     const currentName = clientName.toLowerCase();
                     return resName.includes(currentName) || currentName.includes(resName);
                 }
-
                 return false;
             });
-
-            console.log(`Réservations trouvées: ${reservationsFiltrees.length} (sur ${reservations.length} total)`);
             
             return reservationsFiltrees;
         }
@@ -256,76 +224,33 @@
 
         // Créer une carte de réservation
         function creerCarteReservation(reservation) {
-            const statusText = {
-                'en_attente': 'En attente',
-                'confirmee': 'Confirmée',
-                'annulee': 'Annulée'
-            };
-
-            const preferenceTexte = {
-                'inside': 'À l\'intérieur',
-                'terrace': 'En terrasse',
-                'window': 'Près de la fenêtre',
-                '': 'Aucune préférence'
-            };
+            const statusText = { 'en_attente': 'En attente', 'confirmee': 'Confirmée', 'annulee': 'Annulée' };
+            const preferenceTexte = { 'inside': 'À l\'intérieur', 'terrace': 'En terrasse', 'window': 'Près de la fenêtre', '': 'Aucune préférence' };
 
             return `
                 <div class="reservation-card" data-statut="${reservation.statut}">
                     <div class="reservation-header-card">
                         <div class="reservation-id">#${reservation.id.slice(-8)}</div>
-                        <span class="reservation-status status-${reservation.statut}">
-                            ${statusText[reservation.statut]}
-                        </span>
+                        <span class="reservation-status status-${reservation.statut}">${statusText[reservation.statut]}</span>
                     </div>
-                    
                     <div class="reservation-details">
-                        <div class="detail-row">
-                            <i class="fas fa-user"></i>
-                            <span class="detail-value">${reservation.nomComplet}</span>
-                        </div>
-                        <div class="detail-row">
-                            <i class="fas fa-calendar"></i>
-                            <span class="detail-value">${formaterDate(reservation.date)}</span>
-                        </div>
-                        <div class="detail-row">
-                            <i class="fas fa-clock"></i>
-                            <span class="detail-value">${reservation.heure}</span>
-                        </div>
-                        <div class="detail-row">
-                            <i class="fas fa-users"></i>
-                            <span class="detail-value">${reservation.nombrePersonnes} personne(s)</span>
-                        </div>
-                        <div class="detail-row">
-                            <i class="fas fa-chair"></i>
-                            <span class="detail-value">${preferenceTexte[reservation.preferenceTable]}</span>
-                        </div>
-                        <div class="detail-row">
-                            <i class="fas fa-phone"></i>
-                            <span class="detail-value">${reservation.telephone}</span>
-                        </div>
+                        <div class="detail-row"><i class="fas fa-user"></i><span class="detail-value">${reservation.nomComplet}</span></div>
+                        <div class="detail-row"><i class="fas fa-calendar"></i><span class="detail-value">${formaterDate(reservation.date)}</span></div>
+                        <div class="detail-row"><i class="fas fa-clock"></i><span class="detail-value">${reservation.heure}</span></div>
+                        <div class="detail-row"><i class="fas fa-users"></i><span class="detail-value">${reservation.nombrePersonnes} personne(s)</span></div>
+                        <div class="detail-row"><i class="fas fa-chair"></i><span class="detail-value">${preferenceTexte[reservation.preferenceTable]}</span></div>
                     </div>
-                    
                     <div class="reservation-actions">
-                        <button class="btn-action btn-details" onclick="voirDetails('${reservation.id}')">
-                            <i class="fas fa-eye"></i> Détails
-                        </button>
-                        ${reservation.statut !== 'annulee' ? `
-                            <button class="btn-action btn-cancel" onclick="annulerReservation('${reservation.id}')">
-                                <i class="fas fa-ban"></i> Annuler
-                            </button>
-                        ` : `
-                            <button class="btn-action btn-delete" onclick="supprimerReservation('${reservation.id}')">
-                                <i class="fas fa-trash"></i> Supprimer
-                            </button>
-                        `}
+                        <button class="btn-action btn-details" onclick="voirDetails('${reservation.id}')"><i class="fas fa-eye"></i> Détails</button>
+                        ${reservation.statut !== 'annulee' ? 
+                            `<button class="btn-action btn-cancel" onclick="annulerReservation('${reservation.id}')"><i class="fas fa-ban"></i> Annuler</button>` : 
+                            `<button class="btn-action btn-delete" onclick="supprimerReservation('${reservation.id}')"><i class="fas fa-trash"></i> Supprimer</button>`}
                     </div>
-                </div>
-            `;
+                </div>`;
         }
 
         // Afficher les réservations
         function afficherReservations(filtre = 'toutes') {
-            console.log('Affichage des réservations avec filtre:', filtre);
             const reservations = obtenirReservationsClient();
             const grid = document.getElementById('reservationsGrid');
 
@@ -334,152 +259,87 @@
                 reservationsFiltrees = reservations.filter(r => r.statut === filtre);
             }
 
-            // Trier par date décroissante
             reservationsFiltrees.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            console.log('Réservations à afficher:', reservationsFiltrees.length);
 
             if (reservationsFiltrees.length === 0) {
                 grid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div class="empty-state" style="grid-column: 1 / -1;">
                         <i class="fas fa-calendar-times"></i>
                         <h3>Aucune réservation trouvée</h3>
                         <p>Vous n'avez pas encore de réservation${filtre !== 'toutes' ? ' avec ce statut' : ''}.</p>
-                        <a href="../reservation.html" class="btn-primary" style="display: grid; align-items: center; width: fit-content;">
-                            <i class="fas fa-plus"></i> Nouvelle Réservation
-                        </a>
-                    </div>
-                `;
+                        <a href="../reservation.html" class="btn-primary"><i class="fas fa-plus"></i> Nouvelle Réservation</a>
+                    </div>`;
             } else {
                 grid.innerHTML = reservationsFiltrees.map(r => creerCarteReservation(r)).join('');
-                console.log('Réservations affichées avec succès');
             }
-
             afficherStatistiques(reservations);
         }
 
-        // Voir les détails d'une réservation
+        // Voir les détails d'une réservation (Popup)
         function voirDetails(id) {
             const reservations = obtenirReservations();
             const reservation = reservations.find(r => r.id === id);
-
             if (!reservation) return;
 
-            const preferenceTexte = {
-                'inside': 'À l\'intérieur',
-                'terrace': 'En terrasse',
-                'window': 'Près de la fenêtre',
-                '': 'Aucune préférence'
-            };
+            const preferenceTexte = { 'inside': 'À l\'intérieur', 'terrace': 'En terrasse', 'window': 'Près de la fenêtre', '': 'Aucune préférence' };
 
             Swal.fire({
                 title: 'Détails de la réservation',
                 html: `
                     <div style="text-align: left; padding: 20px;">
                         <table style="width: 100%; font-size: 14px;">
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Numéro :</td>
-                                <td style="padding: 10px;">${reservation.id}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Nom :</td>
-                                <td style="padding: 10px;">${reservation.nomComplet}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Date :</td>
-                                <td style="padding: 10px;">${formaterDate(reservation.date)}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Heure :</td>
-                                <td style="padding: 10px;">${reservation.heure}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Personnes :</td>
-                                <td style="padding: 10px;">${reservation.nombrePersonnes}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Table :</td>
-                                <td style="padding: 10px;">${preferenceTexte[reservation.preferenceTable]}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Téléphone :</td>
-                                <td style="padding: 10px;">${reservation.telephone}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Email :</td>
-                                <td style="padding: 10px;">${reservation.email}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px; color: #666; font-weight: 600;">Statut :</td>
-                                <td style="padding: 10px;"><strong>${reservation.statut.replace('_', ' ').toUpperCase()}</strong></td>
-                            </tr>
+                            <tr><td style="padding:10px;font-weight:600;">🆔 Numéro:</td><td>${reservation.id}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">👤 Nom:</td><td>${reservation.nomComplet}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">📅 Date:</td><td>${formaterDate(reservation.date)}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">🕐 Heure:</td><td>${reservation.heure}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">👥 Personnes:</td><td>${reservation.nombrePersonnes}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">🪑 Table:</td><td>${preferenceTexte[reservation.preferenceTable]}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">📱 Téléphone:</td><td>${reservation.telephone}</td></tr>
+                            <tr><td style="padding:10px;font-weight:600;">📊 Statut:</td><td><strong>${reservation.statut.toUpperCase()}</strong></td></tr>
                         </table>
-                    </div>
-                `,
+                    </div>`,
                 confirmButtonColor: '#d4af37',
                 confirmButtonText: 'Fermer',
                 width: '600px'
             });
         }
 
-        // Annuler une réservation
         function annulerReservation(id) {
             Swal.fire({
                 title: 'Annuler la réservation ?',
-                text: 'Êtes-vous sûr de vouloir annuler cette réservation ?',
+                text: 'Êtes-vous sûr ?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Oui, annuler',
-                cancelButtonText: 'Non, garder'
+                confirmButtonText: 'Oui, annuler'
             }).then((result) => {
                 if (result.isConfirmed) {
                     let reservations = obtenirReservations();
                     const index = reservations.findIndex(r => r.id === id);
-
                     if (index !== -1) {
                         reservations[index].statut = 'annulee';
-                        reservations[index].dateModification = new Date().toISOString();
                         localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Réservation annulée',
-                            text: 'Votre réservation a été annulée avec succès.',
-                            confirmButtonColor: '#d4af37'
-                        });
-
+                        Swal.fire('Annulée!', 'La réservation a été annulée.', 'success');
                         afficherReservations(filtreActuel);
                     }
                 }
             });
         }
 
-        // Supprimer une réservation
         function supprimerReservation(id) {
             Swal.fire({
-                title: 'Supprimer la réservation ?',
-                text: 'Cette action est irréversible !',
+                title: 'Supprimer ?',
+                text: 'Irréversible !',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Oui, supprimer',
-                cancelButtonText: 'Annuler'
+                confirmButtonText: 'Oui, supprimer'
             }).then((result) => {
                 if (result.isConfirmed) {
                     let reservations = obtenirReservations();
                     reservations = reservations.filter(r => r.id !== id);
                     localStorage.setItem('reservations_restaurant', JSON.stringify(reservations));
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Supprimée',
-                        text: 'La réservation a été supprimée.',
-                        confirmButtonColor: '#d4af37'
-                    });
-
+                    Swal.fire('Supprimée!', 'Réservation supprimée.', 'success');
                     afficherReservations(filtreActuel);
                 }
             });
@@ -496,25 +356,27 @@
             });
         });
 
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
-
-        // Initialisation
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('Initialisation de la page Mes Réservations');
+            // --- 🔒 SECURITY CHECK (NEW) ---
+            const authUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!authUser) {
+                alert('Accès non autorisé. Veuillez vous connecter d\'abord.');
+                window.location.href = '../connexion.html';
+                return;
+            }
+            // -------------------------------
+
             loadClientName();
             afficherReservations();
-            console.log('Page chargée avec succès');
+
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+
+            if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('active'));
+            if(sidebarToggle) sidebarToggle.addEventListener('click', () => sidebar.classList.remove('active'));
         });
     </script>
 </body>

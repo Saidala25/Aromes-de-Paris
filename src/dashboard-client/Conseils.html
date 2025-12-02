@@ -195,6 +195,15 @@
 
         // ===== 3. INITIALIZATION & MENU =====
         document.addEventListener('DOMContentLoaded', () => {
+            // --- 🔒 SECURITY CHECK (NEW) ---
+            const authUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!authUser) {
+                alert('Accès non autorisé. Veuillez vous connecter d\'abord.');
+                window.location.href = '../connexion.html';
+                return;
+            }
+            // -------------------------------
+
             loadClientName();
 
             // --- MENU TOGGLE LOGIC ---

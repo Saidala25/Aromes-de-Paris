@@ -155,122 +155,124 @@
 
   <script src="main.js"></script>
   <script>
-    // --- 1. CONFIGURATION & LOAD ---
-    document.addEventListener('DOMContentLoaded', () => {
-      loadAdminData();
-      if(window.lucide) lucide.createIcons();
-    });
-
-    function getAdminData() {
-      // Priority: 1. Current Session, 2. Persistent Admin Data, 3. Default
-      const session = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      const savedAdmin = JSON.parse(localStorage.getItem('adminData') || '{}');
-      
-      // Defaults if it's the first time
-      return {
-        firstName: savedAdmin.firstName || session.firstName || 'Rachid',
-        lastName: savedAdmin.lastName || session.lastName || 'El Amrani',
-        email: savedAdmin.email || session.email || 'adminRestaurant@gmail.com',
-        phone: savedAdmin.phone || '+212 600 000 000',
-        address: savedAdmin.address || 'Agadir, Maroc',
-        password: savedAdmin.password || '1234' // Default from ConnexionScript
-      };
-    }
-
-    function loadAdminData() {
-      const data = getAdminData();
-
-      // Update Form Inputs
-      document.getElementById('admin-firstname').value = data.firstName;
-      document.getElementById('admin-lastname').value = data.lastName;
-      document.getElementById('admin-email').value = data.email;
-      document.getElementById('admin-phone').value = data.phone;
-      document.getElementById('admin-address').value = data.address;
-
-      // Update UI Header Elements
-      const fullName = `${data.firstName} ${data.lastName}`;
-      const initials = (data.firstName[0] + data.lastName[0]).toUpperCase();
-
-      document.getElementById('topName').textContent = fullName;
-      document.getElementById('profileNameDisplay').textContent = fullName;
-      
-      document.getElementById('topAvatar').textContent = initials;
-      document.getElementById('profileAvatar').textContent = initials;
-    }
-
-    // --- 2. UPDATE PERSONAL INFO ---
-    function updatePersonalInfo(e) {
-      e.preventDefault();
-
-      // Get values from form
-      const updatedData = getAdminData(); // Start with existing
-      updatedData.firstName = document.getElementById('admin-firstname').value;
-      updatedData.lastName = document.getElementById('admin-lastname').value;
-      updatedData.email = document.getElementById('admin-email').value;
-      updatedData.phone = document.getElementById('admin-phone').value;
-      updatedData.address = document.getElementById('admin-address').value;
-
-      // Save to Persistent Storage (so it remembers next time)
-      localStorage.setItem('adminData', JSON.stringify(updatedData));
-
-      // Update Current Session (so it reflects immediately)
-      const currentSession = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      currentSession.fullName = `${updatedData.firstName} ${updatedData.lastName}`;
-      currentSession.firstName = updatedData.firstName;
-      currentSession.lastName = updatedData.lastName;
-      currentSession.email = updatedData.email;
-      localStorage.setItem('currentUser', JSON.stringify(currentSession));
-
-      // Refresh UI
-      loadAdminData();
-      alert("Informations mises à jour avec succès !");
-    }
-
-    // --- 3. UPDATE SECURITY ---
-    function updateSecurity(e) {
-      e.preventDefault();
-
-      const currentInput = document.getElementById('pwd-current').value;
-      const newPass = document.getElementById('pwd-new').value;
-      const confirmPass = document.getElementById('pwd-confirm').value;
-
-      const adminData = getAdminData();
-
-      // Validation
-      if (currentInput !== adminData.password) {
-        alert("Erreur: Le mot de passe actuel est incorrect.");
-        return;
+      // ===== SECURITY UTILS =====
+      async function sha256(message) {
+          const msgBuffer = new TextEncoder().encode(message);
+          const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       }
 
-      if (newPass !== confirmPass) {
-        alert("Erreur: Les nouveaux mots de passe ne correspondent pas.");
-        return;
+      // --- 1. CONFIGURATION & LOAD ---
+      document.addEventListener('DOMContentLoaded', () => {
+        loadAdminData();
+        if(window.lucide) lucide.createIcons();
+      });
+
+      async function getAdminData() {
+        const session = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        const savedAdmin = JSON.parse(localStorage.getItem('adminData') || '{}');
+        
+        // Calculate default hash for '1234'
+        const defaultHash = await sha256('1234');
+
+        return {
+          firstName: savedAdmin.firstName || session.firstName || 'Jean',
+          lastName: savedAdmin.lastName || session.lastName || 'Dupont',
+          email: savedAdmin.email || session.email || 'adminRestaurant@gmail.com',
+          phone: savedAdmin.phone || '+212 6 00 00 00 00',
+          address: savedAdmin.address || 'Agadir, Maroc',
+          password: savedAdmin.password || defaultHash // Store hash by default
+        };
       }
 
-      if (newPass.length < 4) {
-        alert("Erreur: Le mot de passe doit contenir au moins 4 caractères.");
-        return;
+      async function loadAdminData() {
+        const data = await getAdminData();
+
+        document.getElementById('admin-firstname').value = data.firstName;
+        document.getElementById('admin-lastname').value = data.lastName;
+        document.getElementById('admin-email').value = data.email;
+        document.getElementById('admin-phone').value = data.phone;
+        document.getElementById('admin-address').value = data.address;
+
+        const fullName = `${data.firstName} ${data.lastName}`;
+        const initials = (data.firstName[0] + data.lastName[0]).toUpperCase();
+
+        document.getElementById('topName').textContent = fullName;
+        document.getElementById('profileNameDisplay').textContent = fullName;
+        document.getElementById('topAvatar').textContent = initials;
+        document.getElementById('profileAvatar').textContent = initials;
       }
 
-      // Save New Password
-      adminData.password = newPass;
-      localStorage.setItem('adminData', JSON.stringify(adminData));
+      // --- 2. UPDATE PERSONAL INFO ---
+      async function updatePersonalInfo(e) {
+        e.preventDefault();
 
-      alert("Mot de passe modifié avec succès. Veuillez vous reconnecter.");
-      
-      // Logout logic
-      localStorage.removeItem('currentUser');
-      window.location.href = '../connexion.html';
-    }
+        const updatedData = await getAdminData();
+        updatedData.firstName = document.getElementById('admin-firstname').value;
+        updatedData.lastName = document.getElementById('admin-lastname').value;
+        updatedData.email = document.getElementById('admin-email').value;
+        updatedData.phone = document.getElementById('admin-phone').value;
+        updatedData.address = document.getElementById('admin-address').value;
 
-    // --- 4. TABS LOGIC ---
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      document.getElementById('tab-' + tabName).classList.add('active');
-      event.target.classList.add('active');
-      if(window.lucide) lucide.createIcons(); 
-    }
+        localStorage.setItem('adminData', JSON.stringify(updatedData));
+
+        const currentSession = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        currentSession.fullName = `${updatedData.firstName} ${updatedData.lastName}`;
+        currentSession.firstName = updatedData.firstName;
+        currentSession.lastName = updatedData.lastName;
+        currentSession.email = updatedData.email;
+        localStorage.setItem('currentUser', JSON.stringify(currentSession));
+
+        loadAdminData();
+        alert("Informations mises à jour avec succès !");
+      }
+
+      // --- 3. UPDATE SECURITY (HASHED) ---
+      async function updateSecurity(e) {
+        e.preventDefault();
+
+        const currentInput = document.getElementById('pwd-current').value;
+        const newPass = document.getElementById('pwd-new').value;
+        const confirmPass = document.getElementById('pwd-confirm').value;
+
+        const adminData = await getAdminData();
+
+        // 1. Hash the input to compare with stored hash
+        const currentInputHash = await sha256(currentInput);
+
+        if (currentInputHash !== adminData.password) {
+          alert("Erreur: Le mot de passe actuel est incorrect.");
+          return;
+        }
+
+        if (newPass !== confirmPass) {
+          alert("Erreur: Les nouveaux mots de passe ne correspondent pas.");
+          return;
+        }
+
+        if (newPass.length < 4) {
+          alert("Erreur: Le mot de passe doit contenir au moins 4 caractères.");
+          return;
+        }
+
+        // 2. Hash the NEW password before saving
+        adminData.password = await sha256(newPass);
+        localStorage.setItem('adminData', JSON.stringify(adminData));
+
+        alert("Mot de passe modifié avec succès. Veuillez vous reconnecter.");
+        
+        localStorage.removeItem('currentUser');
+        window.location.href = '../connexion.html';
+      }
+
+      function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        event.target.classList.add('active');
+        if(window.lucide) lucide.createIcons(); 
+      }
   </script>
 </body>
 </html>
