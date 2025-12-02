@@ -387,7 +387,7 @@ const menuData = {
             { category: "mocktails", name: "Vergin Colada", desc: "", price: "48 DH", image: "https://i.pinimg.com/1200x/af/a3/c3/afa3c3af6cc6bf19b9b059fa5847810d.jpg" },
             { category: "sodas", name: "Sodas", desc: "Coca, Sprite, etc.", price: "20 DH", image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop" },
             { category: "sodas", name: "Red Bull", desc: "", price: "35 DH", image: "https://i.pinimg.com/1200x/c9/d8/25/c9d825f9d26f0fd7a6c03d75441b1e29.jpg" },
-            { category: "sodas", name: "Eaux Minérales", desc: "Sidi Ali, Oulmes, San Pellegrino", price: "15-25 DH", image: "https://admin-store.leseauxmineralesdoulmes-store.ma/api/image/2339" }
+            { category: "sodas", name: "Eaux Minérales", desc: "Sidi Ali, Oulmes, San Pellegrino", price: "15-25 DH", image: "https://i.pinimg.com/1200x/02/51/19/0251195ee2afd9f7ccdb9079bf8abf25.jpg" }
         ],
     },
     dessert: {
