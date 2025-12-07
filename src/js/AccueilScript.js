@@ -169,6 +169,20 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCarousel(); 
         startTimer();     
         window.addEventListener('resize', updateCarousel);
+
+        // --- Mobile Interaction: Pause on Touch ---
+        track.addEventListener('touchstart', () => {
+            clearInterval(autoSlideInterval); // Stop the timer when finger touches screen
+        });
+
+        track.addEventListener('touchend', () => {
+            startTimer(); // Restart the timer when finger leaves screen
+        });
+        
+        // Restart if the touch is interrupted (e.g. by a system alert)
+        track.addEventListener('touchcancel', () => {
+            startTimer(); 
+        });
     }
 
     /* ### Javascript PopUp🙄 ### */

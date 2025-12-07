@@ -1,7 +1,7 @@
 /* ===== VARIABLES ===== */
 :root {
   --gold: #b6923f;
-  --gold-light: #ddc670;
+  --gold-light: # ;
   --green-dark: #194238;
   --bg-sidebar: #1a1a1a;
   --bg-main: #f5f5f5;
@@ -989,6 +989,7 @@ td {
     padding-bottom: 5px;
     -webkit-overflow-scrolling: touch;
   }
+  
 }
 
 @media (max-width: 480px) {

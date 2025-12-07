@@ -11,10 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ===== SECURITY CONFIGURATION =====
     const ADMIN_EMAIL = 'adminRestaurant@gmail.com';
-    // This is the SHA-256 Hash of "1234". The real password is NOT in the code.
     const DEFAULT_ADMIN_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
 
-    console.log('🔒 Secure Login Loaded');
+    console.log('Secure Login Loaded');
     logoImage.src = logoForGoldBg;
 
     // ===== CRYPTO FUNCTIONS =====

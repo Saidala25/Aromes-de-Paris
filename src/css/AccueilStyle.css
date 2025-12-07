@@ -344,8 +344,51 @@
 @media (max-width: 768px) {
     .testimonial-card {
         flex: 0 0 85%;
-        /* Show mostly one card on mobile */
         margin: 0 7.5%;
+    }
+    .testimonial-card blockquote {
+        font-size: 0.9rem;
+    }
+    .testimonial-card .client-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    .testimonial-card .client-name {
+        font-size: 1rem;
+    }
+
+    .gallery-grid {
+        display: flex;             /* Aligns items in a row */
+        overflow-x: auto;          /* Enables horizontal scrolling */
+        scroll-snap-type: x mandatory; /* Forces scrolling to 'snap' to images */
+        gap: 15px;                 /* Space between slides */
+        padding: 0 15px 30px 15px; /* Side padding + Bottom space */
+        
+        /* Hide the Scrollbar for a clean look */
+        scrollbar-width: none;     /* Firefox */
+        -ms-overflow-style: none;  /* IE/Edge */
+    }
+
+    .gallery-grid::-webkit-scrollbar {
+        display: none;             /* Chrome/Safari */
+    }
+
+    /* 2. Style the Slide Wrappers */
+    .gallery-grid > div {
+        flex: 0 0 85%;             /* Card takes 85% of screen width (peeks at next img) */
+        width: 85%;
+        scroll-snap-align: center; /* centers the image when you stop scrolling */
+        height: 400px;             /* Taller height for mobile impact */
+        margin: 0;
+    }
+
+    /* 3. Style the Images inside */
+    .gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;       /* Adds rounded corners */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Adds depth */
     }
 }
 
