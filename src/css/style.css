@@ -692,3 +692,7 @@ footer ul {
         display: block;
     }
 }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
