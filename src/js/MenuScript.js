@@ -487,6 +487,15 @@ function showSection(sectionId) {
         // Render content for this section
         renderMenu(type)
 
+        // Par défaut, on active le bouton "Tout"
+        setTimeout(() => {
+            const allBtn = filtersContainer.querySelector('.filter-btn[data-category="all"]')
+            if (allBtn) {
+                filtersContainer.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"))
+                allBtn.classList.add("active")
+            }
+        }, 100)
+
         // Small delay to trigger animation
         setTimeout(() => activeSection.classList.add("active"), 10)
 
@@ -520,6 +529,15 @@ function renderMenu(type, filter = "all") {
                 btn.classList.add("active")
                 // Relancer le rendu avec le bon filtre
                 renderMenu(type, cat.id)
+
+                // NOUVEAU : Scroll fluide vers les filtres
+                setTimeout(() => {
+                    const filtersTop = filtersContainer.getBoundingClientRect().top + window.pageYOffset - 1
+                    window.scrollTo({
+                        top: filtersTop,
+                        behavior: 'smooth'
+                    })
+                }, 100)
             })
 
             filtersContainer.appendChild(btn)
