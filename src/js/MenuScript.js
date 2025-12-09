@@ -532,7 +532,7 @@ function renderMenu(type, filter = "all") {
 
                 // NOUVEAU : Scroll fluide vers les filtres
                 setTimeout(() => {
-                    const filtersTop = filtersContainer.getBoundingClientRect().top + window.pageYOffset - 1
+                    const filtersTop = filtersContainer.getBoundingClientRect().top + window.pageYOffset - 60
                     window.scrollTo({
                         top: filtersTop,
                         behavior: 'smooth'
