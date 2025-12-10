@@ -239,12 +239,12 @@
     background: transparent;
     border: none;
     color: #888;
-    padding: 10px 5px;
+    padding: 2px 5px;
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     cursor: pointer;
     position: relative;
     box-shadow: none;
@@ -675,8 +675,20 @@
     }
 
     .font-cursive {
-        font-size: 2.5rem;
+        font-size: 1rem;
     }
+
+    .filter-btn {
+    padding: 0px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    }
+    .section-title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    }   
 }
 
 @media screen and (max-width: 768px) {
@@ -714,6 +726,18 @@
         width: 200px;
         height: 200px;
     }
+
+    .filter-btn {
+    padding: 0px 0px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    }
+    .section-title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    }   
 }
 
 /* Presentation Section */
