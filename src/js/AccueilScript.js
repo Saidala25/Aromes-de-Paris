@@ -101,12 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="client-info">
                     <img src="${review.img}" class="client-avatar" alt="${review.author}">
                     <div style="margin-bottom: 1rem;">
-                        <strong class="text-gold" style="font-size: 1.1rem; display:block;">${review.author}</strong>
-                        <span style="font-size: 0.85rem; color: #888;">${review.role}</span>
+                        <strong class="text-gold" style="font-size: 1rem; display:block;">${review.author}</strong>
+                        <span style="font-size: 0.6rem; color: #888;">${review.role}</span>
                     </div>
                 </div>
                 <blockquote>"${review.text}"</blockquote>
-                <div class="review-source"><i data-lucide="map-pin" style="width:12px; display:inline;"></i> ${review.location}</div>
+                <div class="review-source"><i data-lucide="map-pin" style="width:12px;"></i> ${review.location}</div>
             `;
             track.appendChild(card);
 
